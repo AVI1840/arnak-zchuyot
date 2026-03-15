@@ -1544,7 +1544,7 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     return { eligible: false, matchScore: 0 };
   }
 
-  let matchScore = 50; // Base score for having the benefit
+  let matchScore = 80; // Base score — if benefit matches, default to high eligibility
 
   // כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך — requires ≥70% medical disability
   if (right.id === 'water_disability') {
