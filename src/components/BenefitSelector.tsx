@@ -48,23 +48,27 @@ const BENEFIT_LUCIDE_ICONS: Record<BenefitType, React.ReactNode> = {
   terror_victim: <Shield />,
   income_support: <Wallet />,
   alimony: <Users />,
+  prisoners_of_zion: <Shield />,
+  righteous_nations: <Heart />,
 };
 
-// All benefits in a unified grid (no category groupings as per requirements)
+// Benefits ordered logically per requirements
 const ALL_BENEFITS: BenefitType[] = [
-  'general_disability',
   'old_age',
-  'nursing',
-  'mobility',
-  'special_services',
-  'child_disability',
   'old_age_income_support',
+  'nursing',
+  'general_disability',
+  'special_services',
+  'mobility',
+  'child_disability',
+  'work_injury',
   'survivors',
   'survivors_income_support',
-  'work_injury',
   'terror_victim',
   'income_support',
   'alimony',
+  'prisoners_of_zion',
+  'righteous_nations',
 ];
 
 export function BenefitSelector({ selectedBenefits, onToggleBenefit, onContinue }: BenefitSelectorProps) {
@@ -165,11 +169,11 @@ export function BenefitSelector({ selectedBenefits, onToggleBenefit, onContinue 
                   <TooltipTrigger asChild>
                     <Button
                       onClick={onContinue}
-                      size="default"
-                      className="bg-amber-500 hover:bg-amber-600 text-amber-950 font-bold shadow-lg px-5 gap-2"
+                      size="lg"
+                      className="bg-[#0368b0] hover:bg-[#025a8f] text-white font-bold shadow-lg px-8 gap-2 text-base min-h-[48px]"
                     >
                       המשך לפרטים
-                      <ArrowLeft className="w-4 h-4" />
+                      <ArrowLeft className="w-5 h-5" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="top" className="max-w-xs">

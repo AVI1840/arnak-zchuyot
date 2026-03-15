@@ -7,7 +7,7 @@ import { RightsCarousel } from '@/components/RightsCarousel';
 import { RightDetailModal } from '@/components/RightDetailModal';
 import { QuickFilter } from '@/components/QuickFilter';
 import { RefinementWizard, benefitNeedsRefinement, getQuestionCount } from '@/components/RefinementWizard';
-import { BenefitType, Domain, RightWithScore, DOMAIN_LABELS, getEligibleRights, sortRights, SortOption } from '@/data/rightsDatabase';
+import { BenefitType, Domain, RightWithScore, DOMAIN_LABELS, BENEFIT_LABELS, getEligibleRights, sortRights, SortOption } from '@/data/rightsDatabase';
 import { UserMetrics, DEFAULT_METRICS } from '@/types/userProfile';
 import { Button } from '@/components/ui/button';
 import { 
@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { RotateCcw, Info, Shield, ChevronDown, ChevronUp, Filter, Sparkles, Wand2, ArrowUpDown, AlertCircle } from 'lucide-react';
+import { RotateCcw, Info, Shield, ChevronDown, ChevronUp, Filter, Sparkles, ArrowUpDown, AlertCircle } from 'lucide-react';
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'score', label: 'רלוונטיות' },
@@ -242,33 +242,23 @@ const Index = () => {
                     />
                   </div>
 
-                  {/* Refinement Wizard Trigger */}
+                  {/* Refinement Wizard Trigger — show questions immediately */}
                   {selectedBenefits.length > 0 && needsRefinement && questionCount > 0 && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mt-5 p-4 bg-gradient-to-l from-secondary/10 to-primary/10 rounded-xl border border-secondary/30"
+                      className="mt-5"
                     >
-                      <div className="flex items-center justify-between flex-wrap gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center">
-                            <Wand2 className="w-5 h-5 text-secondary" />
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-foreground">שפר את הדיוק</h4>
-                            <p className="text-sm text-muted-foreground">
-                              ענה על {questionCount} שאלות קצרות לחישוב מדויק יותר
-                            </p>
-                          </div>
-                        </div>
-                        <Button
-                          onClick={() => setShowWizard(true)}
-                          className="bg-secondary hover:bg-secondary/90 text-secondary-foreground gap-2"
-                        >
-                          <Sparkles className="w-4 h-4" />
-                          התאמה אישית
-                        </Button>
-                      </div>
+                      <RefinementWizard
+                        selectedBenefits={selectedBenefits}
+                        userMetrics={userMetrics}
+                        onComplete={handleWizardComplete}
+                        onClose={() => {
+                          setIsSelectorExpanded(false);
+                          resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        inline
+                      />
                     </motion.div>
                   )}
 
@@ -350,30 +340,50 @@ const Index = () => {
               availableDomains={availableDomains}
             />
 
-            {/* Profile Incomplete Warning */}
-            {!isRefined && needsRefinement && (
-              <motion.div
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-3 p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg"
-              >
-                <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                <p className="text-sm text-amber-700 dark:text-amber-300">
-                  דרוש פרופיל מלא כדי להציג המלצות מותאמות יותר.{' '}
-                  <button
-                    onClick={() => setShowWizard(true)}
-                    className="font-medium underline hover:text-amber-800 dark:hover:text-amber-200"
-                  >
-                    השלם עכשיו
-                  </button>
-                </p>
-              </motion.div>
-            )}
+            {/* Profile warning removed — questions now inline */}
           </motion.section>
         )}
 
         {/* Results Section - Horizontal Carousels */}
         <div ref={resultsRef} className="space-y-10 pt-4">
+          {/* Results Summary — show user selections before results */}
+          {hasResults && isRefined && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-[#e8f3ff] rounded-xl p-4 border border-[#0368b0]/20"
+            >
+              <h4 className="font-bold text-[#0c3058] mb-2 flex items-center gap-2">
+                <Info className="w-4 h-4" />
+                סיכום הבחירות שלך
+              </h4>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {selectedBenefits.map((b) => (
+                  <span key={b} className="inline-flex items-center px-3 py-1 rounded-full bg-white text-[#0c3058] text-sm font-medium border border-[#0368b0]/20">
+                    {BENEFIT_LABELS[b]}
+                  </span>
+                ))}
+              </div>
+              {userMetrics.medical_disability_pct > 0 && (
+                <p className="text-sm text-[#266794]">נכות רפואית: {userMetrics.medical_disability_pct}%</p>
+              )}
+              {userMetrics.incapacity_pct > 0 && (
+                <p className="text-sm text-[#266794]">אי-כושר: {userMetrics.incapacity_pct}%</p>
+              )}
+              {userMetrics.nursing_level > 0 && (
+                <p className="text-sm text-[#266794]">רמת סיעוד: {userMetrics.nursing_level}</p>
+              )}
+              {userMetrics.is_income_support && (
+                <p className="text-sm text-[#266794]">מקבל השלמת הכנסה</p>
+              )}
+              {userMetrics.age > 0 && (
+                <p className="text-sm text-[#266794]">גיל: {userMetrics.age}+</p>
+              )}
+              <p className="text-sm font-medium text-[#0368b0] mt-2">
+                נמצאו {eligibleRights.length} זכויות עבורך
+              </p>
+            </motion.div>
+          )}
           {/* Empty State */}
           {!hasResults && (
             <motion.div
@@ -416,22 +426,11 @@ const Index = () => {
           )}
 
           {/* Top Sorted Results Row (only show when viewing all) */}
-          {activeFilter === 'all' && topRecommendations.length > 0 && (
-            <RightsCarousel
-              title="📊 ממוינים עבורך"
-              rights={topRecommendations}
-              onRightClick={handleRightClick}
-            />
-          )}
+          {/* Removed "ממוינים עבורך" per requirements */}
 
           {/* Domain-based Carousels */}
           {Object.entries(rightsByDomain).map(([domain, rights]) => {
             if (rights.length === 0) return null;
-            // When filtering by domain, show the single carousel
-            // When viewing all, skip domains already fully shown in top recommendations
-            if (activeFilter === 'all' && rights.length <= 2 && topRecommendations.some(r => r.domain === domain)) {
-              return null;
-            }
             return (
               <RightsCarousel
                 key={domain}
@@ -441,6 +440,25 @@ const Index = () => {
               />
             );
           })}
+
+          {/* Prominent Reset Button at bottom of results */}
+          {hasResults && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex justify-center py-8"
+            >
+              <Button
+                onClick={handleReset}
+                variant="outline"
+                size="lg"
+                className="gap-2 text-[#0368b0] border-[#0368b0]/30 hover:bg-[#e8f3ff] px-8"
+              >
+                <RotateCcw className="w-5 h-5" />
+                איפוס וחיפוש מחדש
+              </Button>
+            </motion.div>
+          )}
         </div>
       </main>
 
@@ -451,17 +469,7 @@ const Index = () => {
         onClose={() => setIsModalOpen(false)}
       />
 
-      {/* Refinement Wizard Modal */}
-      <AnimatePresence>
-        {showWizard && (
-          <RefinementWizard
-            selectedBenefits={selectedBenefits}
-            userMetrics={userMetrics}
-            onComplete={handleWizardComplete}
-            onClose={() => setShowWizard(false)}
-          />
-        )}
-      </AnimatePresence>
+      {/* Refinement Wizard — now inline, modal removed */}
 
       {/* Footer with Reset Button */}
       <footer className="border-t border-border bg-card mt-16">

@@ -14,7 +14,8 @@ import {
   Heart,
   Percent,
   Accessibility,
-  Coins
+  Coins,
+  Calendar
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -120,7 +121,8 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
       { value: 100, label: '100%' },
       { value: 112, label: '112%' },
       { value: 150, label: '150%' },
-      { value: 188, label: '188%' },
+      { value: 188, label: '188% ומעלה' },
+      { value: 235, label: '235%' },
     ],
     icon: <Heart className="w-6 h-6" />,
   },
@@ -134,6 +136,22 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
     metricKey: 'is_income_support',
     icon: <Coins className="w-6 h-6" />,
   },
+  // Age Question — for transport benefits
+  {
+    id: 'age_question',
+    benefit: 'old_age',
+    question: 'מה הגיל שלך?',
+    explanation: 'מגיל 67 יש פטור מלא מתשלום בתחבורה ציבורית.',
+    type: 'select',
+    metricKey: 'age',
+    options: [
+      { value: 60, label: 'עד 67' },
+      { value: 67, label: '67-74' },
+      { value: 75, label: '75-79' },
+      { value: 80, label: '80+' },
+    ],
+    icon: <Calendar className="w-6 h-6" />,
+  },
 ];
 
 interface RefinementWizardProps {
@@ -141,6 +159,7 @@ interface RefinementWizardProps {
   userMetrics: UserProfile['metrics'];
   onComplete: (metrics: UserProfile['metrics']) => void;
   onClose: () => void;
+  inline?: boolean;
 }
 
 // Helper to check if a benefit needs refinement questions
@@ -158,10 +177,17 @@ export function RefinementWizard({
   userMetrics,
   onComplete,
   onClose,
+  inline = false,
 }: RefinementWizardProps) {
-  // Get relevant questions based on selected benefits
+  // Filter out redundant questions (e.g., don't ask income_support if already selected)
   const relevantQuestions = useMemo(() => {
-    return WIZARD_QUESTIONS.filter((q) => selectedBenefits.includes(q.benefit));
+    return WIZARD_QUESTIONS.filter((q) => {
+      if (!selectedBenefits.includes(q.benefit)) return false;
+      // Don't ask "do you get income support?" if they already selected income_support or old_age_income_support
+      if (q.id === 'old_age_income_support' && selectedBenefits.includes('old_age_income_support')) return false;
+      if (q.id === 'survivors_income_support' && selectedBenefits.includes('survivors_income_support')) return false;
+      return true;
+    });
   }, [selectedBenefits]);
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -202,6 +228,64 @@ export function RefinementWizard({
   // If no questions needed, auto-complete
   if (relevantQuestions.length === 0) {
     return null;
+  }
+
+  // INLINE MODE — questions shown directly in the page
+  if (inline) {
+    return (
+      <div className="space-y-4 p-4 rounded-xl border border-border bg-card">
+        <div className="flex items-center gap-2 mb-2">
+          <Sparkles className="w-5 h-5 text-[#0368b0]" />
+          <h4 className="font-bold text-foreground">שאלות לדיוק התוצאות</h4>
+          <span className="text-xs text-muted-foreground">({totalSteps} שאלות)</span>
+        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentQuestion.id}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.2 }}
+            className="space-y-4"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e8f3ff] text-[#0368b0] text-xs font-medium">
+              {currentQuestion.icon}
+              <span>{BENEFIT_LABELS[currentQuestion.benefit]}</span>
+            </div>
+            <h3 className="text-lg font-bold text-foreground">{currentQuestion.question}</h3>
+
+            <div className="py-2">
+              {currentQuestion.type === 'slider' && (
+                <SliderInput value={metrics[currentQuestion.metricKey] as number}
+                  onChange={(val) => handleMetricChange(currentQuestion.metricKey, val)}
+                  min={currentQuestion.min || 0} max={currentQuestion.max || 100}
+                  step={currentQuestion.step || 1} unit={currentQuestion.unit || ''} />
+              )}
+              {currentQuestion.type === 'toggle' && (
+                <ToggleInput value={metrics[currentQuestion.metricKey] as boolean}
+                  onChange={(val) => handleMetricChange(currentQuestion.metricKey, val)} />
+              )}
+              {currentQuestion.type === 'select' && currentQuestion.options && (
+                <SelectInput value={metrics[currentQuestion.metricKey] as number}
+                  options={currentQuestion.options}
+                  onChange={(val) => handleMetricChange(currentQuestion.metricKey, val)} />
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="flex items-center justify-between pt-2 border-t border-border">
+          <Button variant="ghost" onClick={handlePrevious} disabled={currentStep === 0} className="gap-1">
+            <ChevronRight className="w-4 h-4" /> הקודם
+          </Button>
+          <span className="text-xs text-muted-foreground">{currentStep + 1} / {totalSteps}</span>
+          <Button onClick={handleNext} className="bg-[#0368b0] hover:bg-[#025a8f] text-white gap-1">
+            {currentStep === totalSteps - 1 ? <><Check className="w-4 h-4" /> סיום והצגת תוצאות</> : <>הבא <ChevronLeft className="w-4 h-4" /></>}
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -277,11 +361,6 @@ export function RefinementWizard({
               <h3 className="text-2xl font-bold text-foreground leading-tight">
                 {currentQuestion.question}
               </h3>
-
-              {/* Explanation */}
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {currentQuestion.explanation}
-              </p>
 
               {/* Input Area */}
               <div className="py-6">

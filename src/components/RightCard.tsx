@@ -29,7 +29,14 @@ export function RightCard({ right, index }: RightCardProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(`${right.title} - ${right.provider}`);
+    const fullText = [
+      right.title,
+      right.provider,
+      right.eligibility_details,
+      right.how_to_apply,
+      right.notes,
+    ].filter(Boolean).join('\n');
+    await navigator.clipboard.writeText(fullText);
     setCopied(true);
     toast.success('הועתק ללוח!');
     setTimeout(() => setCopied(false), 2000);

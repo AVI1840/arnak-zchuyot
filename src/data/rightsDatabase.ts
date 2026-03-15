@@ -1,4 +1,4 @@
-// Rights Database — AUTO-GENERATED from rights_database_spec.json
+﻿// Rights Database — AUTO-GENERATED from rights_database_spec.json
 // Source of truth: data/rights_database_spec.json (98 benefits from NII official data)
 // Generated: 2026-03-12
 // DO NOT EDIT MANUALLY — run: node scripts/generate-rights-db.js
@@ -26,7 +26,9 @@ export type BenefitType =
   | 'work_injury' 
   | 'terror_victim' 
   | 'income_support'
-  | 'alimony';
+  | 'alimony'
+  | 'prisoners_of_zion'
+  | 'righteous_nations';
 
 export type EligibilityLevel = 'high' | 'medium' | 'low';
 
@@ -98,6 +100,8 @@ export const BENEFIT_LABELS: Record<BenefitType, string> = {
   terror_victim: 'נפגעי איבה',
   income_support: 'הבטחת הכנסה',
   alimony: 'מזונות',
+  prisoners_of_zion: 'אסירי ציון',
+  righteous_nations: 'חסידי אומות עולם',
 };
 
 export const BENEFIT_ICONS: Record<BenefitType, string> = {
@@ -114,6 +118,8 @@ export const BENEFIT_ICONS: Record<BenefitType, string> = {
   terror_victim: '🎗️',
   income_support: '💵',
   alimony: '👨‍👩‍👧',
+  prisoners_of_zion: '✡️',
+  righteous_nations: '🕊️',
 };
 
 export const RIGHTS_DATABASE: Right[] = [
@@ -201,7 +207,7 @@ export const RIGHTS_DATABASE: Right[] = [
     domain: 'transport' as Domain,
     value_display: '50% הנחה בתעריפי נסיעה בתחבורה ציבורית',
     eligibility_details: 'מקבלי קצבת נכות כללית או נכות מעבודה או נכי פעולות איבה - ובעלי תעודת נכה מביטוח לאומי.\nשימו לב: מי שקיבל קצבת נכות כללית והזכאות הופסקה עקב הכנסותיו מעבודה – הוא ימשיך לקבל את ההטבות הנלוות להן היה ז',
-    how_to_apply: 'לקבלת ההנחה יש לעדכן את פרופיל ההנחה בכרטיס הרב-קו או ביישומון (אפילקציה) לתשלום בתחבורה ציבורית טלפון החכם.',
+    how_to_apply: 'לקבלת ההנחה יש לעדכן את פרופיל ההנחה בכרטיס רב-קו או ביישומון לתשלום בתחבורה ציבורית (כגון Moovit, פנגו). שימו לב: מגיל 67 יש פטור מלא מתשלום בתחבורה ציבורית.',
     applicable_benefits: ['general_disability', 'terror_victim', 'work_injury', 'old_age', 'nursing', 'survivors', 'old_age_income_support', 'survivors_income_support'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 2,
@@ -884,7 +890,7 @@ export const RIGHTS_DATABASE: Right[] = [
     domain: 'transport' as Domain,
     value_display: '50% הנחה בתעריפי נסיעהבתחבורה הציבורית',
     eligibility_details: 'מקבלי גמלת הבטחת הכנסה',
-    how_to_apply: 'ההנחה ניתנת למימוש באמצעות "רב-קו" או ישומונים בסמארטפון לתשלום בתחבורה ציבורית שטעון בו הפרופיל המזכה בהנחה. \nיש להטעין "רב-קו" עם הזכאות להנחה לאחר שעודכן בפרופיל המתאים באחד ממרכזי השירות להנפקת "ר',
+    how_to_apply: 'ההנחה ניתנת למימוש באמצעות כרטיס רב-קו או יישומון לתשלום בתחבורה ציבורית (כגון Moovit, פנגו). יש לעדכן את פרופיל ההנחה בכרטיס.',
     applicable_benefits: ['income_support'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 2,
@@ -1430,7 +1436,7 @@ export const RIGHTS_DATABASE: Right[] = [
     domain: 'transport' as Domain,
     value_display: 'פטור מתשלום בתחבורה ציבורית',
     eligibility_details: 'אזרחים ותיקים מגיל 67 ומעלה (לפי חודש הלידה)',
-    how_to_apply: 'לקבלת הפטור יש לעדכן פרופיל "זהב- קו" בכרטיס הרב-קו או ביישומון (אפליקציה) לתשלום בתחבורה הציבורית בטלפון החכם.',
+    how_to_apply: 'לקבלת הפטור יש לעדכן פרופיל "זהב-קו" בכרטיס רב-קו או ביישומון לתשלום בתחבורה ציבורית (כגון Moovit, פנגו).',
     applicable_benefits: ['old_age', 'nursing', 'old_age_income_support'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 2,
@@ -1540,39 +1546,39 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
 
   let matchScore = 50; // Base score for having the benefit
 
-  // כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך
+  // כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך — requires ≥70% medical disability
   if (right.id === 'water_disability') {
     if (metrics.medical_disability_pct >= 70) {
       matchScore = 90;
-    } else if (metrics.medical_disability_pct >= 49) {
-      matchScore = 60;
+    } else {
+      return { eligible: false, matchScore: 0 };
     }
   }
 
-  // הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.
+  // הנחה במסי ארנונה — requires ≥75% incapacity OR ≥90% medical disability
   if (right.id === 'arnona_disability') {
     if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) {
       matchScore = 90;
     } else {
-      matchScore = 40;
+      return { eligible: false, matchScore: 0 };
     }
   }
 
-  // פטור מתשלום מס הכנסה
+  // פטור מתשלום מס הכנסה — requires ≥90% medical disability
   if (right.id === 'tax_exemption_disability') {
     if (metrics.medical_disability_pct >= 90) {
       matchScore = 90;
     } else {
-      matchScore = 40;
+      return { eligible: false, matchScore: 0 };
     }
   }
 
-  // הנחה במס רכישה על דירת מגורים או על קרקע לבניית דירת מגורים, לפי תקנות מס שבח מק
+  // הנחה במס רכישה — requires ≥75% incapacity OR ≥90% medical disability
   if (right.id === 'tax_purchase_disability') {
     if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) {
       matchScore = 90;
     } else {
-      matchScore = 40;
+      return { eligible: false, matchScore: 0 };
     }
   }
 
@@ -1691,12 +1697,12 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     matchScore = 90;
   }
 
-  // 50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי
+  // 50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי — requires nursing level ≥4
   if (right.id === 'electricity_nursing') {
-    if (metrics.nursing_level >= 5 || metrics.nursing_level >= 4) {
+    if (metrics.nursing_level >= 4) {
       matchScore = 90;
     } else {
-      matchScore = 40;
+      return { eligible: false, matchScore: 0 };
     }
   }
 
@@ -1733,12 +1739,12 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     matchScore = 90;
   }
 
-  // פטור מתשלום דמי ביטוח לאומי​
+  // פטור מתשלום דמי ביטוח לאומי — requires ≥75% incapacity
   if (right.id === 'nii_exempt_disability') {
     if (metrics.incapacity_pct >= 75) {
       matchScore = 90;
     } else {
-      matchScore = 40;
+      return { eligible: false, matchScore: 0 };
     }
   }
 
@@ -1805,6 +1811,7 @@ export function getEligibleRights(
       is_income_support: false,
       owns_apartment: false,
       uses_wheelchair: false,
+      age: 0,
     },
   };
 

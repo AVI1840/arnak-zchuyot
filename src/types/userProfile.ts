@@ -9,6 +9,7 @@ export interface UserMetrics {
   is_income_support: boolean;
   owns_apartment: boolean;
   uses_wheelchair: boolean;
+  age: number;
 }
 
 export interface UserProfile {
@@ -26,6 +27,7 @@ export const DEFAULT_METRICS: UserMetrics = {
   is_income_support: false,
   owns_apartment: false,
   uses_wheelchair: false,
+  age: 0,
 };
 
 export const DEFAULT_USER_PROFILE: UserProfile = {
