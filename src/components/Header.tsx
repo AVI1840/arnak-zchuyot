@@ -17,7 +17,7 @@ export function Header() {
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        style={{ background: 'linear-gradient(135deg, #1B3A5C, #2A5A8C)' }}
+        style={{ background: '#0c3058' }}
         className="text-white sticky top-0 z-50 shadow-md"
       >
         <div className="container mx-auto px-4 py-4">
