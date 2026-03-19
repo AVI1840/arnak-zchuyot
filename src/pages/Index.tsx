@@ -353,13 +353,13 @@ const Index = () => {
               animate={{ opacity: 1, y: 0 }}
               className="bg-[#e8f3ff] rounded-xl p-4 border border-[#0368b0]/20"
             >
-              <h4 className="font-bold text-[#0c3058] mb-2 flex items-center gap-2">
+              <h4 className="font-bold text-[#1B3A5C] mb-2 flex items-center gap-2">
                 <Info className="w-4 h-4" />
                 סיכום הבחירות שלך
               </h4>
               <div className="flex flex-wrap gap-2 mb-2">
                 {selectedBenefits.map((b) => (
-                  <span key={b} className="inline-flex items-center px-3 py-1 rounded-full bg-white text-[#0c3058] text-sm font-medium border border-[#0368b0]/20">
+                  <span key={b} className="inline-flex items-center px-3 py-1 rounded-full bg-white text-[#1B3A5C] text-sm font-medium border border-[#0368b0]/20">
                     {BENEFIT_LABELS[b]}
                   </span>
                 ))}
