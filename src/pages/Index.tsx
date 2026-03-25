@@ -497,6 +497,7 @@ const Index = () => {
             <p className="text-sm text-muted-foreground text-center">
               אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | v1.0 | מרץ 2026
             </p>
+            <p className="text-xs text-muted-foreground text-center mt-1 opacity-60">עדכון אחרון: 24.03.2026</p>
           </div>
         </div>
       </footer>

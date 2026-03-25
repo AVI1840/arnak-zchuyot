@@ -93,7 +93,7 @@ export function FeedbackModal({ open, onClose }: FeedbackModalProps) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto" dir="rtl">
-        <DialogHeader><DialogTitle className="text-right text-lg">💬 משוב פיילוט</DialogTitle></DialogHeader>
+        <DialogHeader><DialogTitle className="text-right text-lg">💬 משוב לשיפור</DialogTitle></DialogHeader>
         <div className="space-y-4 py-1">
           <div>
             <p className="text-sm font-medium mb-2 text-right">שם</p>

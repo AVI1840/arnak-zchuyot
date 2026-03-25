@@ -40,7 +40,7 @@ export function Header() {
                 className="gap-1 border-white/40 text-white bg-white/10 hover:bg-white/20 hover:text-white hover:border-white/60"
               >
                 <MessageCircle className="h-4 w-4" />
-                <span className="hidden sm:inline">משוב פיילוט</span>
+                <span className="hidden sm:inline">משוב לשיפור</span>
               </Button>
               <Tooltip>
                 <TooltipTrigger asChild>

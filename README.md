@@ -64,3 +64,13 @@ src/
 ---
 
 אביעד יצחקי, מוביל פיתוח, שותפויות ו-AI, מינהלי גמלאות, ביטוח לאומי
+
+
+---
+
+## 📄 ONE PAGER
+
+- [ONE PAGER (HTML)](https://avi1840.github.io/btl-projects-2026/html/arnak-zchuyot.html)
+- [ONE PAGER (Word)](../one-pagers/word/01-arnak-zchuyot.docx)
+- [פורטל כל הפרויקטים](https://avi1840.github.io/btl-projects-2026/)
+
