@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { RotateCcw, Info, Shield, ChevronDown, ChevronUp, Filter, Sparkles, ArrowUpDown, AlertCircle } from 'lucide-react';
+import { RecommendationReport } from '@/components/RecommendationReport';
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'score', label: 'רלוונטיות' },
@@ -446,17 +447,25 @@ const Index = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex justify-center py-8"
+              className="space-y-4 py-8"
             >
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                size="lg"
-                className="gap-2 text-[#0368b0] border-[#0368b0]/30 hover:bg-[#e8f3ff] px-8"
-              >
-                <RotateCcw className="w-5 h-5" />
-                איפוס וחיפוש מחדש
-              </Button>
+              <RecommendationReport
+                rights={eligibleRights}
+                selectedBenefits={selectedBenefits}
+                userMetrics={userMetrics}
+                isRefined={isRefined}
+              />
+              <div className="flex justify-center">
+                <Button
+                  onClick={handleReset}
+                  variant="outline"
+                  size="lg"
+                  className="gap-2 text-[#0368b0] border-[#0368b0]/30 hover:bg-[#e8f3ff] px-8"
+                >
+                  <RotateCcw className="w-5 h-5" />
+                  איפוס וחיפוש מחדש
+                </Button>
+              </div>
             </motion.div>
           )}
         </div>

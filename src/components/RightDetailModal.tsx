@@ -93,7 +93,7 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const isOldAgeArnona = right.id === 'arnona_old_age';
+  const showLocalAuthorityWarning = right.requires_local_authority_check;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -176,7 +176,7 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
           </div>
 
           {/* Local Authority Warning for Old Age Arnona */}
-          {isOldAgeArnona && (
+          {showLocalAuthorityWarning && (
             <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
               <div>

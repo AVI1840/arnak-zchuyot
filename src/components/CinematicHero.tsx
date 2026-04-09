@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Play, Plus, Sparkles, TrendingUp } from 'lucide-react';
+import { Play, Sparkles, TrendingUp } from 'lucide-react';
 
 interface CinematicHeroProps {
   totalSavings: string;
@@ -134,14 +134,6 @@ export function CinematicHero({
               >
                 <Play className="w-5 h-5 ml-2 fill-current" />
                 התחל לבדיקה
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-transparent border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 rounded-full px-8 py-6 text-lg font-medium"
-              >
-                <Plus className="w-5 h-5 ml-2" />
-                הוסף לרשימה
               </Button>
             </motion.div>
           </div>

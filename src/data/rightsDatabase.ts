@@ -1,4 +1,4 @@
-﻿// Rights Database — AUTO-GENERATED from rights_database_spec.json
+// Rights Database — AUTO-GENERATED from rights_database_spec.json
 // Source of truth: data/rights_database_spec.json (98 benefits from NII official data)
 // Generated: 2026-03-12
 // DO NOT EDIT MANUALLY — run: node scripts/generate-rights-db.js
@@ -117,7 +117,7 @@ export const BENEFIT_ICONS: Record<BenefitType, string> = {
   work_injury: '⚠️',
   terror_victim: '🎗️',
   income_support: '💵',
-  alimony: '👨‍👩‍👧',
+  alimony: '👨👩👧',
   prisoners_of_zion: '✡️',
   righteous_nations: '🕊️',
 };
@@ -168,6 +168,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 15000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/tax-exemption-for-disabled',
   },
   {
     id: 'tax_purchase_disability',
@@ -191,7 +192,8 @@ export const RIGHTS_DATABASE: Right[] = [
     domain: 'transport' as Domain,
     value_display: 'תג חניה לנכה ופטור מאגרת רישוי רכב',
     eligibility_details: 'מי שזקוק לרכב כאמצעי תנועה עקב מגבלות רפואיות ותנועתו ללא רכב בדרכים עלולה לערער את מצב בריאותו',
-    how_to_apply: 'ניתן להגיש בקשה לתג חניה לנכה ללא עלות באתר משרד התחבורה. יש לצרף מסמכים רפואיים עדכניים מ-3 החודשים האחרונים המעידים על המצב הבריאות או על המוגבלות בניידות.\nלחילופין ניתן להגיש בקשה בדואר לכתובת: היח',
+    how_to_apply: 'ניתן להגיש בקשה לתג חניה לנכה ללא עלות באתר משרד התחבורה. יש לצרף מסמכים רפואיים עדכניים מ-3 החודשים האחרונים המעידים על המצב הבריאות או על המוגבלות בניידות.',
+    action_link: 'https://www.gov.il/he/service/request-for-disabled-parking-card',
     applicable_benefits: ['general_disability', 'work_injury', 'special_services', 'terror_victim', 'mobility'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 2,
@@ -214,6 +216,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/public-transport-discount',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -285,7 +288,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'מקבלי קצבת שירותים מיוחדים בשיעור של 112%, הנמצאים בארץ פחות משנתיים.\n\nלעיתים קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\n\n\n\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף. \n\n לידיעתכם, לאחר הגשת בקשה לאחת החבר',
     applicable_benefits: ['special_services'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 1,
     estimated_value: 12000,
     popularity_score: 90,
@@ -345,7 +348,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'הורים לילדים המקבלים קצבה לילד נכה.  קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון.\n\nלידיעתכם, לאחר הגשת בקשה, משרד השיכון פונה לביטוח הלאומי לקבלת מידע על זכאותכם לקצבאות.',
     applicable_benefits: ['child_disability'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 3,
     estimated_value: 40000,
     popularity_score: 60,
@@ -395,6 +398,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/request-for-disabled-parking-card',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -457,6 +461,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 1000,
     popularity_score: 60,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/senior-citizen-card',
   },
   {
     id: 'health_services_old_age_is',
@@ -512,7 +517,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'מקבלי קצבת אזרח ותיק בתוספת השלמת הכנסה\nמקבלי קצבת אזרח ותיק לנכה (השלמה לקצבת נכות)\n\nלידיעתכם, קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש',
     applicable_benefits: ['old_age_income_support'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 1,
     estimated_value: 12000,
     popularity_score: 90,
@@ -558,7 +563,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'מקבלי קצבת שאירים עם תוספת השלמת הכנסה.\n\n קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש',
     applicable_benefits: ['survivors_income_support'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 1,
     estimated_value: 12000,
     popularity_score: 90,
@@ -670,6 +675,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 15000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/tax-exemption-for-disabled',
   },
   {
     id: 'tax_purchase_work_injury',
@@ -677,7 +683,7 @@ export const RIGHTS_DATABASE: Right[] = [
     provider: 'רשות המיסים - מיסוי מקרקעין',
     domain: 'financial' as Domain,
     value_display: 'הנחה במס רכישה',
-    eligibility_details: 'מי שנקבעה לו דרגת נכות רפואית לצמיתות בשיעור של ‎ 100%או נכות של ‎90%  על-פי חישוב משוקלל, בשל צבירת נכויות באיברים שונים\nמי שהוא קטוע יד או רגל, או משותק, ובשל הפגיעה נקבעה לו דרגת נכות לצמיתות של ‎5',
+    eligibility_details: 'מי שנקבעה לו דרגת נכות רפואית לצמיתות בשיעור של  100%או נכות של 90%  על-פי חישוב משוקלל, בשל צבירת נכויות באיברים שונים\nמי שהוא קטוע יד או רגל, או משותק, ובשל הפגיעה נקבעה לו דרגת נכות לצמיתות של 5',
     how_to_apply: 'יש להגיש בקשה לפטור חלקי ממס רכישה ללשכת מיסוי מקרקעין ולצרף אליה מסמכים רלוונטיים. מידע נוסף ניתן למצוא באתר רשות המיסים.',
     applicable_benefits: ['work_injury'] as BenefitType[],
     is_automatic: false,
@@ -787,7 +793,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'חסרי דירה המקבלים קצבת הבטחת הכנסה. קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש',
     applicable_benefits: ['income_support'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 1,
     estimated_value: 12000,
     popularity_score: 90,
@@ -877,7 +883,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'מקבלות דמי מזונות מהביטוח הלאומי. קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש',
     applicable_benefits: ['alimony'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 1,
     estimated_value: 12000,
     popularity_score: 90,
@@ -897,6 +903,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/public-transport-discount',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -1033,6 +1040,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 1000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/negative-income-tax',
   },
   {
     id: 'water_old_age_is',
@@ -1152,7 +1160,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'מוגבלים בניידות הזקוקים/רתוקים לכיסא גלגלים. קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש',
     applicable_benefits: ['mobility'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 1,
     estimated_value: 12000,
     popularity_score: 90,
@@ -1235,11 +1243,11 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'driving_income_support',
-    title: 'מימון ליווי של מורה מוסמך בתקופה שלאחר קבלת הרישיון.​',
+    title: 'מימון ליווי של מורה מוסמך בתקופה שלאחר קבלת הרישיון.',
     provider: 'משרד התחבורה והבטיחות בדרכים',
     domain: 'transport' as Domain,
-    value_display: 'מימון ליווי של מורה מוסמך בתקופה שלאחר קבלת הרישיון.​',
-    eligibility_details: 'נהג חדש צעיר, הזכאי לקצבה מיוחדת בהבטחת הכנסה,  שאין לו מי שילווה אותו​.',
+    value_display: 'מימון ליווי של מורה מוסמך בתקופה שלאחר קבלת הרישיון.',
+    eligibility_details: 'נהג חדש צעיר, הזכאי לקצבה מיוחדת בהבטחת הכנסה,  שאין לו מי שילווה אותו.',
     how_to_apply: 'יש לפנות למשרד התחבורה. פרטים באתר משרד התחבורהwww.mot.gov.il /נהג חדש ומלווה',
     applicable_benefits: ['income_support'] as BenefitType[],
     is_automatic: false,
@@ -1251,12 +1259,12 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'water_survivors_is',
-    title: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך​',
+    title: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך',
     provider: 'רשות המים',
     domain: 'utilities' as Domain,
-    value_display: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך​',
-    eligibility_details: 'מקבלי קצבת שאירים מעל גיל פרישה המקבלים תוספת השלמת הכנסה​',
-    how_to_apply: 'הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.\n​',
+    value_display: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך',
+    eligibility_details: 'מקבלי קצבת שאירים מעל גיל פרישה המקבלים תוספת השלמת הכנסה',
+    how_to_apply: 'הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.\n',
     applicable_benefits: ['survivors_income_support'] as BenefitType[],
     is_automatic: true,
     primary_display_priority: 1,
@@ -1266,12 +1274,12 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'water_terror',
-    title: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך​',
+    title: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך',
     provider: 'רשות המים',
     domain: 'utilities' as Domain,
-    value_display: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך​',
+    value_display: 'כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך',
     eligibility_details: 'נכים מפעולת איבה בעלי דרגת נכות בשיעור של 50% ומעלה או המקבלים מהביטוח הלאומי תשלומי מחייה קבועים (תשלומי מחייה קבועים הינם לשלוש שנים לפחות).',
-    how_to_apply: 'הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.\n​',
+    how_to_apply: 'הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.\n',
     applicable_benefits: ['terror_victim'] as BenefitType[],
     is_automatic: true,
     primary_display_priority: 1,
@@ -1280,26 +1288,11 @@ export const RIGHTS_DATABASE: Right[] = [
     source_verified: true,
   },
   {
-    id: 'welfare_services_child_78',
-    title: 'מגוון תוכניות שירותים ומענים לילדים כגון: שילוב במעונות יום שיקומיים, נופשונים ו',
-    provider: 'משרד הרווחה',
-    domain: 'welfare' as Domain,
-    value_display: 'מגוון תוכניות שירותים ומענים לילדים כגון: שילוב במעונות יום שיקומיים, נופשונים ו',
-    eligibility_details: 'ילדים עם מוגבלות והוריהם, בהתאם לצרכים ומאפיינים שייבדקו, כמו גיל וסוג המוגבלות.​',
-    how_to_apply: 'פרטים ומידע לגבי אופן קבלת ההטבות – באתר האינטרנט "קליק לרווחה".\n לבירורים יש לפנות למשרד הרווחה - המחלקה לשירותים חברתיים.​',
-    applicable_benefits: ['child_disability'] as BenefitType[],
-    is_automatic: false,
-    primary_display_priority: 3,
-    estimated_value: 1000,
-    popularity_score: 60,
-    source_verified: true,
-  },
-  {
     id: 'electricity_terror',
-    title: '50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל​ החודשי',
+    title: '50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי',
     provider: 'חברת החשמל',
     domain: 'utilities' as Domain,
-    value_display: '50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל​ החודשי',
+    value_display: '50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי',
     eligibility_details: 'נכים מפעולת איבה בעלי דרגת נכות בשיעור של 50% ומעלה או המקבלים מהביטוח הלאומי תשלומי מחיה קבועים (תשלומי מחיה קבועים הינם לשלוש שנים לפחות).',
     how_to_apply: 'הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות בתעריף ביתי בלבד ועל שם ההורה המקבל את הקצבה. אם להורה יש יותר',
     applicable_benefits: ['terror_victim'] as BenefitType[],
@@ -1315,8 +1308,8 @@ export const RIGHTS_DATABASE: Right[] = [
     provider: 'כללי',
     domain: 'welfare' as Domain,
     value_display: 'הורה רשאי להיעדר מעבודתו עד 18 ימים בשנה על חשבון ימי מחלה לצורך סיוע אישי לילד ',
-    eligibility_details: 'מי שעובד לפחות שנה אצל אותו מעסיק והוא הורה או אפוטרופוס או הורה אומנה לילד או לבוגר עם מוגבלות קבועה שנמצא בחזקתו, והזכות להיעדרות מהעבודה באותו יום לא נוצלה על ידי ההורה השני.​',
-    how_to_apply: 'על העובד לפנות ישירות למעסיק לצורך מימוש הזכאות.\nהמעסיק רשאי לבקש מהעובד הצהרות ואישורים רלוונטיים.\n​',
+    eligibility_details: 'מי שעובד לפחות שנה אצל אותו מעסיק והוא הורה או אפוטרופוס או הורה אומנה לילד או לבוגר עם מוגבלות קבועה שנמצא בחזקתו, והזכות להיעדרות מהעבודה באותו יום לא נוצלה על ידי ההורה השני.',
+    how_to_apply: 'על העובד לפנות ישירות למעסיק לצורך מימוש הזכאות.\nהמעסיק רשאי לבקש מהעובד הצהרות ואישורים רלוונטיים.\n',
     applicable_benefits: ['child_disability', 'mobility', 'general_disability', 'work_injury', 'terror_victim'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 1,
@@ -1330,7 +1323,7 @@ export const RIGHTS_DATABASE: Right[] = [
     provider: 'משרד הבריאות',
     domain: 'health' as Domain,
     value_display: 'סל שיקום\n(סל שירותים מקיף, הכולל  שירותי ייעוץ, ליווי ותמיכה בתחומי חיים שונים: ',
-    eligibility_details: 'מקבלי קצבת נכות כללית שנקבע להם ליקוי רפואי נפשי בשיעור 40% ומעלה.​',
+    eligibility_details: 'מקבלי קצבת נכות כללית שנקבע להם ליקוי רפואי נפשי בשיעור 40% ומעלה.',
     how_to_apply: 'לצורך קבלת סיוע ניתן להיעזר, בין היתר, באחד מהגורמים הבאים:\nמרפאת בריאות הנפש\nמחלקה לשירותים חברתיים\nגורם מטפל (רופא, פסיכיאטר, עובד סוציאלי, פסיכולוג)',
     applicable_benefits: ['general_disability'] as BenefitType[],
     is_automatic: false,
@@ -1341,14 +1334,14 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'housing_renovation_work_injury',
-    title: 'סיוע במימון שיפוצים ושינויים בדירה, החיוניים לניידות בדירה ולדרכי הגישה אליה​',
+    title: 'סיוע במימון שיפוצים ושינויים בדירה, החיוניים לניידות בדירה ולדרכי הגישה אליה',
     provider: 'משרד הבינוי והשיכון',
     domain: 'housing' as Domain,
-    value_display: 'סיוע במימון שיפוצים ושינויים בדירה, החיוניים לניידות בדירה ולדרכי הגישה אליה​',
-    eligibility_details: 'מקבלי קצבת נכות מעבודה המוגבלים בתנועה​ ולא מקבלים מימון להתאמת הדירה מביטוח לאומי או ממשרד הבטחון. קבלת ההטבה מותנית בתנאים נוספים.',
+    value_display: 'סיוע במימון שיפוצים ושינויים בדירה, החיוניים לניידות בדירה ולדרכי הגישה אליה',
+    eligibility_details: 'מקבלי קצבת נכות מעבודה המוגבלים בתנועה ולא מקבלים מימון להתאמת הדירה מביטוח לאומי או ממשרד הבטחון. קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\n\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון.',
     applicable_benefits: ['work_injury'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 3,
     estimated_value: 1000,
     popularity_score: 60,
@@ -1356,10 +1349,10 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'nii_exempt_disability',
-    title: 'פטור מתשלום דמי ביטוח לאומי​',
+    title: 'פטור מתשלום דמי ביטוח לאומי',
     provider: 'ביטוח לאומי',
     domain: 'financial' as Domain,
-    value_display: 'פטור מתשלום דמי ביטוח לאומי​',
+    value_display: 'פטור מתשלום דמי ביטוח לאומי',
     eligibility_details: 'מקבל קצבת נכות כללית שאין לו הכנסה\nמקבל קצבת נכות כללית בשיעור של 75% ומעלה לצמיתות או לתקופה רצופה של שנה לפחות שיש לו הכנסות - פטור מתשלום דמי ביטוח לאומי בתקופת קבלת  הקצבה. שימו לב:\nעובד שכיר - המ',
     how_to_apply: 'עובד שכיר צריך להציג למעסיק אישור מהביטוח הלאומי על פטור מתשלום דמי ביטוח. לכל השאר הפטור ניתן באופן אוטומטי.',
     applicable_benefits: ['general_disability'] as BenefitType[],
@@ -1371,12 +1364,12 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'nii_exempt_work_injury',
-    title: 'פטור מתשלום דמי ביטוח לאומי​',
+    title: 'פטור מתשלום דמי ביטוח לאומי',
     provider: 'ביטוח לאומי',
     domain: 'financial' as Domain,
-    value_display: 'פטור מתשלום דמי ביטוח לאומי​',
+    value_display: 'פטור מתשלום דמי ביטוח לאומי',
     eligibility_details: 'מקבל קצבת נכות מעבודה בשיעור של 100% לצמיתות פטור מתשלום דמי ביטוח לאומי בתקופה שבה הוא מקבל את הקצבה, גם אם יש לו הכנסה שלא מעבודה.\nאולם אם הוא עובד שכיר - המעסיק חייב לשלם עבורו דמי ביטוח לאומי לענפ',
-    how_to_apply: 'עובד שכיר צריך להציג למעסיק אישור מהביטוח הלאומי על פטור מתשלום דמי ביטוח. לכל השאר הפטור ניתן באופן אוטומטי.​',
+    how_to_apply: 'עובד שכיר צריך להציג למעסיק אישור מהביטוח הלאומי על פטור מתשלום דמי ביטוח. לכל השאר הפטור ניתן באופן אוטומטי.',
     applicable_benefits: ['work_injury'] as BenefitType[],
     is_automatic: true,
     primary_display_priority: 3,
@@ -1386,12 +1379,12 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'tax_credit_disability',
-    title: '​קבלת שתי נקודות זיכוי במס הכנסה',
+    title: 'קבלת שתי נקודות זיכוי במס הכנסה',
     provider: 'רשות המיסים',
     domain: 'financial' as Domain,
-    value_display: '​קבלת שתי נקודות זיכוי במס הכנסה',
-    eligibility_details: '​הורים לילדים בגירים שנקבעה להם דרגת אי כושר של 74% ומעלה לצמיתות, והילדים תלויים בהורים.',
-    how_to_apply: '​לקבלת ההטבה יש לפנות למשרד מס הכנסה בבקשה לתיאום מס לשנה הנוכחית או בקשה להחזר מס עבור שנים קודמות.',
+    value_display: 'קבלת שתי נקודות זיכוי במס הכנסה',
+    eligibility_details: 'הורים לילדים בגירים שנקבעה להם דרגת אי כושר של 74% ומעלה לצמיתות, והילדים תלויים בהורים.',
+    how_to_apply: 'לקבלת ההטבה יש לפנות למשרד מס הכנסה בבקשה לתיאום מס לשנה הנוכחית או בקשה להחזר מס עבור שנים קודמות.',
     applicable_benefits: ['general_disability'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 2,
@@ -1401,12 +1394,12 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'benefit_nursing',
-    title: 'הגדלת גמלת סיעוד בשווי 9 שעות סיעוד​',
+    title: 'הגדלת גמלת סיעוד בשווי 9 שעות סיעוד',
     provider: 'קרן לרווחת ניצולי השואה',
     domain: 'welfare' as Domain,
-    value_display: 'הגדלת גמלת סיעוד בשווי 9 שעות סיעוד​',
-    eligibility_details: 'ניצולי שואה שזכאים לגמלת סיעוד ברמה 4 ומעלה וכן ניצולי שואה נקבעו להם 6 נקודות בהערכת התלות.​',
-    how_to_apply: 'יש לפנות ישירות לקרן לרווחת ניצולי שואה עם אישור מהביטוח הלאומי על הזכאות לגמלת סיעוד​',
+    value_display: 'הגדלת גמלת סיעוד בשווי 9 שעות סיעוד',
+    eligibility_details: 'ניצולי שואה שזכאים לגמלת סיעוד ברמה 4 ומעלה וכן ניצולי שואה נקבעו להם 6 נקודות בהערכת התלות.',
+    how_to_apply: 'יש לפנות ישירות לקרן לרווחת ניצולי שואה עם אישור מהביטוח הלאומי על הזכאות לגמלת סיעוד',
     applicable_benefits: ['nursing'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 3,
@@ -1420,7 +1413,7 @@ export const RIGHTS_DATABASE: Right[] = [
     provider: 'בנקים',
     domain: 'financial' as Domain,
     value_display: 'הנחה בגביית עמלות עבור 4 פעולות בחודש שבוצעו על-ידי פקיד הבנק, ויחושבו כמו 4 פעו',
-    eligibility_details: 'מי שנקבעה לו דרגת נכות בשיעור 40% ומעלה על ידי הביטוח הלאומי או על ידי משרד הביטחון​',
+    eligibility_details: 'מי שנקבעה לו דרגת נכות בשיעור 40% ומעלה על ידי הביטוח הלאומי או על ידי משרד הביטחון',
     how_to_apply: 'לצורך קבלת ההטבה יש לפנות לבנק בו מתנהל חשבונך ולהציג אישור מביטוח לאומי או משרד הביטחון על אחוזי הנכות שנקבעו.\nלבירורים ותלונות, ניתן לפנות אל המחלקה לפניות הציבור של הבנק.\nלתשומת לב - ההטבה לא תקפה ',
     applicable_benefits: ['general_disability', 'work_injury', 'terror_victim', 'special_services'] as BenefitType[],
     is_automatic: false,
@@ -1443,6 +1436,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/public-transport-discount',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -1451,8 +1445,8 @@ export const RIGHTS_DATABASE: Right[] = [
     provider: 'קופת חולים',
     domain: 'health' as Domain,
     value_display: 'טיפולי שיניים משמרים, מונעים ומשקמים במסגרת סל הבריאות. חלק מהטיפולים ניתנים בחי',
-    eligibility_details: 'אזרחים ותיקים שמלאו להם 72 ומעלה​',
-    how_to_apply: 'השירות ניתן במרפאות השיניים של קופות החולים ובמרפאות שבהסדר עם קופות החולים.על פי הצורך מטופלים יופנו גם לטיפולים מסוימים בבתי חולים. לשם כך צריך לקבל מקופת החולים הפניה וטופס התחייבות (טופס 17).\n​',
+    eligibility_details: 'אזרחים ותיקים שמלאו להם 72 ומעלה',
+    how_to_apply: 'השירות ניתן במרפאות השיניים של קופות החולים ובמרפאות שבהסדר עם קופות החולים.על פי הצורך מטופלים יופנו גם לטיפולים מסוימים בבתי חולים. לשם כך צריך לקבל מקופת החולים הפניה וטופס התחייבות (טופס 17).\n',
     applicable_benefits: ['old_age', 'nursing', 'old_age_income_support'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 1,
@@ -1462,12 +1456,12 @@ export const RIGHTS_DATABASE: Right[] = [
   },
   {
     id: 'employment_alimony',
-    title: '​הכשרה מקצועית',
+    title: 'הכשרה מקצועית',
     provider: 'משרד העבודה',
     domain: 'employment' as Domain,
-    value_display: '​הכשרה מקצועית',
-    eligibility_details: '​מקבלות דמי מזונות מהביטוח הלאומי',
-    how_to_apply: '​לבירורים לגבי תוכניות רלוונטיות יש לפנות ללשכת שירותי התעסוקה.',
+    value_display: 'הכשרה מקצועית',
+    eligibility_details: 'מקבלות דמי מזונות מהביטוח הלאומי',
+    how_to_apply: 'לבירורים לגבי תוכניות רלוונטיות יש לפנות ללשכת שירותי התעסוקה.',
     applicable_benefits: ['alimony'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 3,
@@ -1484,7 +1478,7 @@ export const RIGHTS_DATABASE: Right[] = [
     eligibility_details: 'מקבלי קצבת נכות בעלי דרגת אי כושר בשיעור של 75% ומעלה. לידיעתכם, קבלת ההטבה מותנית בתנאים נוספים.',
     how_to_apply: 'ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש',
     applicable_benefits: ['general_disability'] as BenefitType[],
-    is_automatic: true,
+    is_automatic: false,
     primary_display_priority: 1,
     estimated_value: 12000,
     popularity_score: 90,
@@ -1496,8 +1490,8 @@ export const RIGHTS_DATABASE: Right[] = [
     provider: 'רשות מקומית',
     domain: 'utilities' as Domain,
     value_display: 'הנחה במסי ארנונה, גובה ההנחה נקבע על ידי הרשות המקומית',
-    eligibility_details: '​מקבלי קצבת שארים מעל גיל פרישה בתוספת השלמת הכנסה',
-    how_to_apply: '​הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\n\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.',
+    eligibility_details: 'מקבלי קצבת שארים מעל גיל פרישה בתוספת השלמת הכנסה',
+    how_to_apply: 'הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\n\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.',
     applicable_benefits: ['survivors'] as BenefitType[],
     is_automatic: true,
     primary_display_priority: 1,
@@ -1653,225 +1647,173 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     return { eligible: false, matchScore: 0 };
   }
 
-  let matchScore = 80; // Base score — if benefit matches, default to high eligibility
+  const hasMetrics = metrics.medical_disability_pct > 0 || metrics.incapacity_pct > 0 ||
+    metrics.mobility_pct > 0 || metrics.special_services_rate > 0 || metrics.nursing_level > 0 ||
+    metrics.is_income_support || metrics.age > 0;
 
-  // כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך — requires ≥70% medical disability
+  let matchScore = 80;
+
+  // === נכות כללית ===
   if (right.id === 'water_disability') {
-    if (metrics.medical_disability_pct >= 70) {
-      matchScore = 90;
-    } else {
-      return { eligible: false, matchScore: 0 };
-    }
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.medical_disability_pct >= 70) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
-
-  // הנחה במסי ארנונה — requires ≥75% incapacity OR ≥90% medical disability
   if (right.id === 'arnona_disability') {
-    if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) {
-      matchScore = 90;
-    } else {
-      return { eligible: false, matchScore: 0 };
-    }
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
-
-  // פטור מתשלום מס הכנסה — requires ≥90% medical disability
   if (right.id === 'tax_exemption_disability') {
-    if (metrics.medical_disability_pct >= 90) {
-      matchScore = 90;
-    } else {
-      return { eligible: false, matchScore: 0 };
-    }
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
-
-  // הנחה במס רכישה — requires ≥75% incapacity OR ≥90% medical disability
   if (right.id === 'tax_purchase_disability') {
-    if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) {
-      matchScore = 90;
-    } else {
-      return { eligible: false, matchScore: 0 };
-    }
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
-
-  // פטור או הנחה מתשלום דמי הסכמה להעברת מקרקעין שבבעלות מינהל מקרקעי ישראל המוחזקים
   if (right.id === 'land_fees_disability') {
-    if (metrics.medical_disability_pct >= 80) {
-      matchScore = 90;
-    } else if (metrics.medical_disability_pct >= 56) {
-      matchScore = 60;
-    }
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 80) { matchScore = 90; }
+    else if (metrics.medical_disability_pct >= 56) { matchScore = 60; }
   }
-
-  // הנחות ברכישת תרופות הכלולות בסל הבריאות ופטור מתשלום השתתפות עצמית בעבור שירותים — requires income support
-  if (right.id === 'health_services_old_age_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
+  if (right.id === 'housing_disability_96') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.incapacity_pct >= 75) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
-
-  // 50% הנחה בדמי שימוש קבועים בתשלום חשבון הטלפון — requires income support
-  if (right.id === 'phone_old_age_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // 50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי — requires income support
-  if (right.id === 'electricity_old_age_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו — requires income support
-  if (right.id === 'housing_old_age_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית. — requires income support
-  if (right.id === 'arnona_old_age') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // 50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי — requires income support
-  if (right.id === 'electricity_survivors_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו — requires income support
-  if (right.id === 'housing_survivors_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // הנחה ברכישת תרופות ופטור מאגרות בעד שירותים רפואיים — requires income support
-  if (right.id === 'health_services_survivors_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית. — requires income support
-  if (right.id === 'arnona_survivors_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // 50% הנחה עבור דמי שימוש קבועים בתשלום חשבון הטלפון — requires income support
-  if (right.id === 'phone_survivors_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // הנחה או פטור מתשלום מס הכנסה
-  if (right.id === 'tax_exemption_work_injury') {
-    if (metrics.medical_disability_pct >= 90) {
-      matchScore = 90;
-    } else if (metrics.medical_disability_pct >= 62) {
-      matchScore = 60;
-    }
-  }
-
-  // הנחה במס רכישה
-  if (right.id === 'tax_purchase_work_injury') {
-    if (metrics.medical_disability_pct >= 100) {
-      matchScore = 90;
-    } else if (metrics.medical_disability_pct >= 70) {
-      matchScore = 60;
-    }
-  }
-
-  // 50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי — requires income support
-  if (right.id === 'electricity_income_support') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // 50% הנחה עבור 400 קוט"ש ראשונים בתשלום חשבון החשמל החודשי — requires nursing level ≥4
-  if (right.id === 'electricity_nursing') {
-    if (metrics.nursing_level >= 4) {
-      matchScore = 90;
-    } else {
-      return { eligible: false, matchScore: 0 };
-    }
-  }
-
-  // הנחה במס רכישה על דירת מגורים או על קרקע לבניית דירת מגורים, לפי תקנות מס שבח מק
-  if (right.id === 'tax_purchase_terror') {
-  }
-
-  // פטור או הנחה בתשלום דמי הסכמה להעברת מקרקעין שבבעלות מינהל מקרקעי ישראל המוחזקים
-  if (right.id === 'land_fees_terror') {
-  }
-
-  // כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך — requires income support
-  if (right.id === 'water_old_age_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // הנחה במס רכישה על קניית דירה.
-  if (right.id === 'tax_purchase_child') {
-    if (metrics.medical_disability_pct >= 100) {
-      matchScore = 90;
-    } else if (metrics.medical_disability_pct >= 70) {
-      matchScore = 60;
-    }
-  }
-
-  // כמות מים נוספת של עד 3.5 מ"ק לחודש בתעריף הנמוך​ — requires income support
-  if (right.id === 'water_survivors_is') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
-  }
-
-  // פטור מתשלום דמי ביטוח לאומי — requires ≥75% incapacity
   if (right.id === 'nii_exempt_disability') {
-    if (metrics.incapacity_pct >= 75) {
-      matchScore = 90;
-    } else {
-      return { eligible: false, matchScore: 0 };
-    }
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.incapacity_pct >= 75) { matchScore = 95; }
+    else { matchScore = 50; }
+  }
+  if (right.id === 'tax_credit_disability') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.incapacity_pct >= 74) { matchScore = 90; }
+    else { matchScore = 50; }
+  }
+  if (right.id === 'housing_disability') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 40) { matchScore = 80; }
+    else { matchScore = 50; }
   }
 
-  // הנחה במסי ארנונה, גובה ההנחה נקבע על ידי הרשות המקומית — requires income support
-  if (right.id === 'arnona_survivors') {
-    if (!metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = 90;
+  // === שירותים מיוחדים ===
+  if (right.id === 'water_special') {
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.special_services_rate >= 112) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
 
-  // Old age benefits that require income support
-  if ((right.id === 'electricity_old_age' || right.id === 'water_old_age') && 
-      right.applicable_benefits.includes('old_age_income_support')) {
-    if (!benefits.includes('old_age_income_support') && !metrics.is_income_support) {
-      return { eligible: false, matchScore: 0 };
-    }
-    matchScore = metrics.is_income_support ? 90 : 50;
+  // === ניידות ===
+  if (right.id === 'arnona_mobility') {
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.mobility_pct >= 90) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+
+  // === אזרח ותיק ===
+  if (right.id === 'arnona_old_age') {
+    if (benefits.includes('old_age_income_support') || metrics.is_income_support) { matchScore = 95; }
+    else { matchScore = 70; }
+  }
+  if (['health_services_old_age_is', 'phone_old_age_is', 'electricity_old_age_is',
+       'housing_old_age_is', 'water_old_age_is'].includes(right.id)) {
+    if (benefits.includes('old_age_income_support')) { matchScore = 95; }
+    else if (metrics.is_income_support) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'transport_old_age') {
+    if (metrics.age >= 67) { matchScore = 95; }
+    else { matchScore = 70; }
+  }
+  if (right.id === 'water_old_age') {
+    if (metrics.age >= 72) { matchScore = 95; }
+    else if (metrics.age >= 67) { matchScore = 60; }
+    else { matchScore = 50; }
+  }
+
+  // === שארים ===
+  if (['electricity_survivors_is', 'housing_survivors_is', 'health_services_survivors_is',
+       'arnona_survivors_is', 'phone_survivors_is', 'water_survivors_is', 'arnona_survivors'].includes(right.id)) {
+    if (benefits.includes('survivors_income_support')) { matchScore = 95; }
+    else if (metrics.is_income_support) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+
+  // === נכות מעבודה ===
+  if (right.id === 'arnona_work_injury') {
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'tax_exemption_work_injury') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
+    else if (metrics.medical_disability_pct >= 62) { matchScore = 60; }
+  }
+  if (right.id === 'tax_purchase_work_injury') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 100) { matchScore = 95; }
+    else if (metrics.medical_disability_pct >= 90) { matchScore = 80; }
+    else if (metrics.medical_disability_pct >= 70) { matchScore = 60; }
+  }
+
+  // === סיעוד ===
+  if (right.id === 'electricity_nursing') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.nursing_level >= 5) { matchScore = 95; }
+    else if (metrics.nursing_level === 4 && metrics.age >= 90) { matchScore = 95; }
+    else if (metrics.nursing_level === 4) { matchScore = 50; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'water_nursing') {
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.nursing_level >= 3) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'foreign_worker_nursing') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.nursing_level >= 3) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+
+  // === נפגעי איבה ===
+  if (right.id === 'water_terror') {
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.medical_disability_pct >= 50) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'electricity_terror') {
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.medical_disability_pct >= 50) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'tax_purchase_terror') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 19) { matchScore = 90; }
+    else { matchScore = 50; }
+  }
+  if (right.id === 'land_fees_terror') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 50) { matchScore = 90; }
+    else { matchScore = 50; }
+  }
+
+  // === הבטחת הכנסה ===
+  if (right.id === 'electricity_income_support') {
+    if (benefits.includes('income_support') || metrics.is_income_support) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+
+  // === ילד נכה ===
+  if (right.id === 'tax_purchase_child') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 100) { matchScore = 95; }
+    else if (metrics.medical_disability_pct >= 90) { matchScore = 80; }
+    else if (metrics.medical_disability_pct >= 70) { matchScore = 60; }
   }
 
   return { eligible: true, matchScore };
@@ -1941,11 +1883,11 @@ export function getEligibleRights(
 
   eligibleRights.sort((a, b) => b.totalScore - a.totalScore);
 
-  // Deduplicate by title
+  // Deduplicate by id (not title — different benefits can share titles)
   const uniqueRights = new Map<string, RightWithScore>();
   for (const right of eligibleRights) {
-    if (!uniqueRights.has(right.title)) {
-      uniqueRights.set(right.title, right);
+    if (!uniqueRights.has(right.id)) {
+      uniqueRights.set(right.id, right);
     }
   }
 
