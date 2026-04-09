@@ -36,25 +36,29 @@ interface WizardQuestion {
 
 // Define all wizard questions based on NII logic
 const WIZARD_QUESTIONS: WizardQuestion[] = [
-  // General Disability Questions
+  // === נכות כללית ===
   {
     id: 'medical_pct',
     benefit: 'general_disability',
-    question: 'מהו אחוז הנכות הרפואית שלך?',
-    explanation: 'נתון זה יקבע אם מגיע לך פטור ממס הכנסה והנחה בארנונה.',
-    type: 'slider',
+    question: 'מהו אחוז הנכות הרפואית שנקבע לך?',
+    explanation: 'אחוז הנכות הרפואית קובע זכאות לפטור ממס הכנסה (90%+), הנחה במים (70%+) ועוד.',
+    type: 'select',
     metricKey: 'medical_disability_pct',
-    min: 0,
-    max: 100,
-    step: 5,
-    unit: '%',
+    options: [
+      { value: 40, label: 'עד 59%' },
+      { value: 60, label: '60%-69%' },
+      { value: 70, label: '70%-79%' },
+      { value: 80, label: '80%-89%' },
+      { value: 90, label: '90%-99%' },
+      { value: 100, label: '100%' },
+    ],
     icon: <Heart className="w-6 h-6" />,
   },
   {
     id: 'incapacity_pct',
     benefit: 'general_disability',
     question: 'מהי דרגת אי-הכושר שנקבעה לך?',
-    explanation: 'דרגת אי-כושר של 75% ומעלה מזכה בהנחות מיוחדות בארנונה ובמים.',
+    explanation: 'דרגת אי-כושר של 75% ומעלה מזכה בהנחות בארנונה, סיוע בדיור ופטור מדמי ביטוח.',
     type: 'select',
     metricKey: 'incapacity_pct',
     options: [
@@ -62,29 +66,42 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
       { value: 65, label: '65%' },
       { value: 74, label: '74%' },
       { value: 75, label: '75%' },
-      { value: 80, label: '80%' },
-      { value: 85, label: '85%' },
-      { value: 90, label: '90%' },
       { value: 100, label: '100%' },
     ],
     icon: <Percent className="w-6 h-6" />,
   },
-  // Old Age Questions
+  // === אזרח ותיק ===
   {
     id: 'old_age_income_support',
     benefit: 'old_age',
     question: 'האם אתה מקבל השלמת הכנסה?',
-    explanation: 'השלמת הכנסה מזכה בהנחה בחשמל ובהטבות נוספות. שים לב: הנחה בארנונה לאזרחים ותיקים תלויה ברשות המקומית ואינה מחושבת כאן - יש לפנות לרשות המקומית שלך.',
+    explanation: 'השלמת הכנסה מזכה בהנחה בחשמל, מים, טלפון ובהטבות נוספות.',
     type: 'toggle',
     metricKey: 'is_income_support',
     icon: <Coins className="w-6 h-6" />,
   },
-  // Nursing Questions
+  {
+    id: 'age_question',
+    benefit: 'old_age',
+    question: 'מה הגיל שלך?',
+    explanation: 'מגיל 67 יש פטור מלא מתשלום בתחבורה ציבורית. מגיל 72 זכאות לטיפולי שיניים.',
+    type: 'select',
+    metricKey: 'age',
+    options: [
+      { value: 60, label: 'עד 67' },
+      { value: 67, label: '67-71' },
+      { value: 72, label: '72-79' },
+      { value: 80, label: '80-89' },
+      { value: 90, label: '90+' },
+    ],
+    icon: <Calendar className="w-6 h-6" />,
+  },
+  // === סיעוד ===
   {
     id: 'nursing_level',
     benefit: 'nursing',
-    question: 'איזו רמת זכאות סיעוד נקבעה לך?',
-    explanation: 'רמת סיעוד 3 ומעלה מזכה בהנחה במים. רמה 4-6 מזכה בהנחה בחשמל.',
+    question: 'מהי רמת גמלת הסיעוד שנקבעה לך?',
+    explanation: 'רמה 3+ מזכה בהנחה במים והעסקת עובד זר. רמה 5-6 מזכה בהנחה בחשמל. רמה 4 מזכה בחשמל רק מגיל 90.',
     type: 'select',
     metricKey: 'nursing_level',
     options: [
@@ -97,26 +114,29 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
     ],
     icon: <Heart className="w-6 h-6" />,
   },
-  // Mobility Questions
+  // === ניידות ===
   {
     id: 'mobility_pct',
     benefit: 'mobility',
-    question: 'מהו אחוז המוגבלות בניידות שנקבע לך?',
-    explanation: 'ניידות 90% ומעלה מזכה בהנחה בארנונה.',
-    type: 'slider',
+    question: 'מהי דרגת המוגבלות בניידות שנקבעה לך?',
+    explanation: 'מוגבלות בניידות של 90% ומעלה מזכה בהנחה בארנונה.',
+    type: 'select',
     metricKey: 'mobility_pct',
-    min: 0,
-    max: 100,
-    step: 10,
-    unit: '%',
+    options: [
+      { value: 40, label: 'עד 59%' },
+      { value: 60, label: '60%-79%' },
+      { value: 80, label: '80%-89%' },
+      { value: 90, label: '90%-99%' },
+      { value: 100, label: '100%' },
+    ],
     icon: <Accessibility className="w-6 h-6" />,
   },
-  // Special Services Questions
+  // === שירותים מיוחדים ===
   {
     id: 'special_services_rate',
     benefit: 'special_services',
     question: 'מהו שיעור גמלת השירותים המיוחדים שלך?',
-    explanation: 'שיעור 112% ומעלה מזכה בהנחה בתעריף מים.',
+    explanation: 'שיעור 112% ומעלה מזכה בהנחה בתעריף מים וסיוע בדיור.',
     type: 'select',
     metricKey: 'special_services_rate',
     options: [
@@ -124,78 +144,67 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
       { value: 100, label: '100%' },
       { value: 112, label: '112%' },
       { value: 150, label: '150%' },
-      { value: 188, label: '188% ומעלה' },
+      { value: 188, label: '188%' },
       { value: 235, label: '235%' },
     ],
     icon: <Heart className="w-6 h-6" />,
   },
-  // Survivors Questions
+  // === שארים ===
   {
     id: 'survivors_income_support',
     benefit: 'survivors',
     question: 'האם אתה מקבל השלמת הכנסה?',
-    explanation: 'השלמת הכנסה לשארים מזכה בהנחות נוספות בחשמל ובארנונה.',
+    explanation: 'השלמת הכנסה לשארים מזכה בהנחות בחשמל, מים, טלפון וארנונה.',
     type: 'toggle',
     metricKey: 'is_income_support',
     icon: <Coins className="w-6 h-6" />,
   },
-  // Age Question — for transport benefits
-  {
-    id: 'age_question',
-    benefit: 'old_age',
-    question: 'מה הגיל שלך?',
-    explanation: 'מגיל 67 יש פטור מלא מתשלום בתחבורה ציבורית. מגיל 72 זכאות לטיפולי שיניים.',
-    type: 'select',
-    metricKey: 'age',
-    options: [
-      { value: 60, label: 'עד 67' },
-      { value: 67, label: '67-74' },
-      { value: 75, label: '75-79' },
-      { value: 80, label: '80-89' },
-      { value: 90, label: '90+' },
-    ],
-    icon: <Calendar className="w-6 h-6" />,
-  },
-  // Work Injury Questions
+  // === נכות מעבודה ===
   {
     id: 'work_injury_medical_pct',
     benefit: 'work_injury',
     question: 'מהו אחוז הנכות הרפואית שנקבע לך מעבודה?',
-    explanation: 'נכות רפואית של 90% ומעלה מזכה בפטור ממס הכנסה ובהנחה בארנונה.',
-    type: 'slider',
+    explanation: 'נכות 90%+ מזכה בפטור ממס הכנסה ובהנחה בארנונה. נכות 100% מזכה בהנחה במס רכישה.',
+    type: 'select',
     metricKey: 'medical_disability_pct',
-    min: 0,
-    max: 100,
-    step: 5,
-    unit: '%',
+    options: [
+      { value: 20, label: '20%-59%' },
+      { value: 62, label: '62%-89%' },
+      { value: 90, label: '90%-99%' },
+      { value: 100, label: '100%' },
+    ],
     icon: <Heart className="w-6 h-6" />,
   },
-  // Terror Victim Questions
+  // === נפגעי איבה ===
   {
     id: 'terror_medical_pct',
     benefit: 'terror_victim',
     question: 'מהו אחוז הנכות שנקבע לך כנפגע איבה?',
-    explanation: 'נכות של 50% ומעלה מזכה בהנחה בחשמל ובמים. נכות של 19% ומעלה מזכה בהנחה במס רכישה.',
-    type: 'slider',
+    explanation: 'נכות 50%+ מזכה בהנחה בחשמל ובמים. נכות 19%+ מזכה בהנחה במס רכישה ובארנונה.',
+    type: 'select',
     metricKey: 'medical_disability_pct',
-    min: 0,
-    max: 100,
-    step: 5,
-    unit: '%',
+    options: [
+      { value: 10, label: '10%-18%' },
+      { value: 19, label: '19%-49%' },
+      { value: 50, label: '50%-99%' },
+      { value: 100, label: '100%' },
+    ],
     icon: <Heart className="w-6 h-6" />,
   },
-  // Child Disability Questions
+  // === ילד נכה ===
   {
     id: 'child_disability_medical_pct',
     benefit: 'child_disability',
     question: 'מהו אחוז הנכות הרפואית שנקבע לילד?',
-    explanation: 'נכות רפואית של 100% (או 90% משוקללת) מזכה בהנחה במס רכישה.',
-    type: 'slider',
+    explanation: 'נכות 75%+ לצמיתות מזכה בפטור ממס על קופות גמל. נכות 90%+ משוקללת או 100% מזכה בהנחה במס רכישה.',
+    type: 'select',
     metricKey: 'medical_disability_pct',
-    min: 0,
-    max: 100,
-    step: 5,
-    unit: '%',
+    options: [
+      { value: 40, label: 'עד 74%' },
+      { value: 75, label: '75%-89%' },
+      { value: 90, label: '90%-99% (משוקללת)' },
+      { value: 100, label: '100%' },
+    ],
     icon: <Heart className="w-6 h-6" />,
   },
 ];
