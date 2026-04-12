@@ -1227,7 +1227,7 @@ export const RIGHTS_DATABASE: Right[] = [
     source_verified: true,
   },
   {
-    id: 'water_income_support',
+    id: 'lone_soldier_income_support',
     title: 'הכרה כחייל בודד בעת הגיוס לצה"ל, המזכה בתשלומים מוגדלים וזכויות אחרות.',
     provider: 'צה"ל',
     domain: 'employment' as Domain,
@@ -1876,6 +1876,27 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 75) { matchScore = 90; }
     else { matchScore = 50; }
+  }
+
+  // === מזונות — חשמל דורשת 3+ ילדים ===
+  if (right.id === 'electricity_alimony') {
+    matchScore = 50; // דורשת הורה יחיד+3 ילדים או 4+ ילדים — אין לנו נתון, מציגים כ-medium
+  }
+
+  // === הבטחת הכנסה — ארנונה תנאי מיוחד ===
+  if (right.id === 'arnona_income_support') {
+    matchScore = 50; // תנאי רציפות מדצמבר 2002 — לא ניתן לבדוק, מציגים כ-medium
+  }
+
+  // === ניידות — דיור דורש כיסא גלגלים ===
+  if (right.id === 'housing_mobility') {
+    if (metrics.uses_wheelchair) { matchScore = 90; }
+    else { matchScore = 50; } // דורש כיסא גלגלים — מציגים כ-medium אם לא ידוע
+  }
+
+  // === סיעוד — הטבות ניצולי שואה בלבד ===
+  if (right.id === 'hospitalization_nursing' || right.id === 'benefit_nursing') {
+    matchScore = 50; // מיועד לניצולי שואה בלבד — מציגים כ-medium עם הערה
   }
 
   return { eligible: true, matchScore };

@@ -165,6 +165,15 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
     ],
     icon: <Accessibility className="w-6 h-6" />,
   },
+  {
+    id: 'wheelchair_question',
+    benefit: 'mobility',
+    question: 'האם אתה משתמש בכיסא גלגלים?',
+    explanation: 'שימוש בכיסא גלגלים מזכה בסיוע בדיור מותאם.',
+    type: 'toggle',
+    metricKey: 'uses_wheelchair',
+    icon: <Accessibility className="w-6 h-6" />,
+  },
   // === שירותים מיוחדים ===
   {
     id: 'special_services_rate',
