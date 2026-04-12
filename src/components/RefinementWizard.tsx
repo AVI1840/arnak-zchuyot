@@ -88,7 +88,23 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
     id: 'age_question',
     benefit: 'old_age',
     question: 'מה הגיל שלך?',
-    explanation: 'מגיל 67 יש פטור מלא מתשלום בתחבורה ציבורית. מגיל 72 זכאות לטיפולי שיניים.',
+    explanation: 'מגיל 67 פטור מלא מתחבורה ציבורית. מגיל 72 זכאות לטיפולי שיניים.',
+    type: 'select',
+    metricKey: 'age',
+    options: [
+      { value: 60, label: 'עד 67' },
+      { value: 67, label: '67-71' },
+      { value: 72, label: '72-79' },
+      { value: 80, label: '80-89' },
+      { value: 90, label: '90+' },
+    ],
+    icon: <Calendar className="w-6 h-6" />,
+  },
+  {
+    id: 'old_age_is_income_support',
+    benefit: 'old_age_income_support',
+    question: 'מה הגיל שלך?',
+    explanation: 'מגיל 67 פטור מלא מתחבורה ציבורית. מגיל 72 זכאות לטיפולי שיניים.',
     type: 'select',
     metricKey: 'age',
     options: [
@@ -117,6 +133,21 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
       { value: 6, label: 'רמה 6' },
     ],
     icon: <Heart className="w-6 h-6" />,
+  },
+  {
+    id: 'nursing_age',
+    benefit: 'nursing',
+    question: 'מה הגיל שלך?',
+    explanation: 'רמת סיעוד 4 מזכה בהנחה בחשמל רק מגיל 90. מגיל 67 פטור מתחבורה ציבורית.',
+    type: 'select',
+    metricKey: 'age',
+    options: [
+      { value: 60, label: 'עד 67' },
+      { value: 67, label: '67-71' },
+      { value: 72, label: '72-89' },
+      { value: 90, label: '90+' },
+    ],
+    icon: <Calendar className="w-6 h-6" />,
   },
   // === ניידות ===
   {
@@ -167,13 +198,16 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
     id: 'work_injury_medical_pct',
     benefit: 'work_injury',
     question: 'מהו אחוז הנכות הרפואית שנקבע לך מעבודה?',
-    explanation: 'נכות 90%+ מזכה בפטור ממס הכנסה ובהנחה בארנונה. נכות 100% מזכה בהנחה במס רכישה.',
+    explanation: 'נכות 90%+ מזכה בפטור ממס הכנסה ובהנחה בארנונה. נכות 20%+ מזכה בחברות בארגון הנכים.',
     type: 'select',
     metricKey: 'medical_disability_pct',
     options: [
-      { value: 20, label: '20%-59%' },
-      { value: 62, label: '62%-89%' },
-      { value: 90, label: '90%-99%' },
+      { value: 20, label: '20%' },
+      { value: 40, label: '40%' },
+      { value: 50, label: '50%' },
+      { value: 62, label: '62%' },
+      { value: 75, label: '75%' },
+      { value: 90, label: '90%' },
       { value: 100, label: '100%' },
     ],
     icon: <Heart className="w-6 h-6" />,
@@ -187,9 +221,11 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
     type: 'select',
     metricKey: 'medical_disability_pct',
     options: [
-      { value: 10, label: '10%-18%' },
-      { value: 19, label: '19%-49%' },
-      { value: 50, label: '50%-99%' },
+      { value: 10, label: '10%' },
+      { value: 19, label: '19%' },
+      { value: 20, label: '20%' },
+      { value: 50, label: '50%' },
+      { value: 75, label: '75%' },
       { value: 100, label: '100%' },
     ],
     icon: <Heart className="w-6 h-6" />,
@@ -237,13 +273,19 @@ export function RefinementWizard({
   onClose,
   inline = false,
 }: RefinementWizardProps) {
-  // Filter out redundant questions (e.g., don't ask income_support if already selected)
+  // Filter out redundant questions
   const relevantQuestions = useMemo(() => {
+    let askedAge = false;
     return WIZARD_QUESTIONS.filter((q) => {
       if (!selectedBenefits.includes(q.benefit)) return false;
-      // Don't ask "do you get income support?" if they already selected income_support or old_age_income_support
+      // Don't ask "do you get income support?" if they already selected the income_support variant
       if (q.id === 'old_age_income_support' && selectedBenefits.includes('old_age_income_support')) return false;
       if (q.id === 'survivors_income_support' && selectedBenefits.includes('survivors_income_support')) return false;
+      // Only ask age once even if multiple benefits need it
+      if (q.metricKey === 'age') {
+        if (askedAge) return false;
+        askedAge = true;
+      }
       return true;
     });
   }, [selectedBenefits]);

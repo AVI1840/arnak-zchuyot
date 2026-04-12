@@ -1677,7 +1677,7 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
   if (right.id === 'land_fees_disability') {
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 80) { matchScore = 90; }
-    else if (metrics.medical_disability_pct >= 56) { matchScore = 60; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'housing_disability_96') {
     if (!hasMetrics) { matchScore = 60; }
@@ -1692,12 +1692,18 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
   if (right.id === 'tax_credit_disability') {
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.incapacity_pct >= 74) { matchScore = 90; }
-    else { matchScore = 50; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'housing_disability') {
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 40) { matchScore = 80; }
-    else { matchScore = 50; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  // עמלות בנק — requires 40%+ disability
+  if (right.id === 'bank_fees_disability') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 40) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
 
   // === שירותים מיוחדים ===
@@ -1706,12 +1712,44 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     else if (metrics.special_services_rate >= 112) { matchScore = 95; }
     else { return { eligible: false, matchScore: 0 }; }
   }
+  if (right.id === 'housing_special') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.special_services_rate >= 112) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
 
   // === ניידות ===
   if (right.id === 'arnona_mobility') {
     if (!hasMetrics) { matchScore = 70; }
     else if (metrics.mobility_pct >= 90) { matchScore = 95; }
     else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'tax_purchase_mobility') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.mobility_pct >= 50) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+
+  // === תחבורה — logic based on age ===
+  // 50% הנחה — for disability/work_injury/terror holders. NOT for age 67+ (they get free)
+  if (right.id === 'transport_disability') {
+    if (metrics.age >= 67) { return { eligible: false, matchScore: 0 }; }
+    matchScore = 90;
+  }
+  // פטור מלא — only age 67+
+  if (right.id === 'transport_old_age') {
+    if (metrics.age >= 67) { matchScore = 95; }
+    else if (!hasMetrics) { matchScore = 70; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  // הנחה תחבורה הבטחת הכנסה
+  if (right.id === 'transport_income_support') {
+    matchScore = 90;
+  }
+
+  // === תג חניה — needs medical justification, not auto-eligible ===
+  if (right.id === 'parking_tag_disability' || right.id === 'parking_tag_child') {
+    matchScore = 60; // Always medium — requires individual medical assessment
   }
 
   // === אזרח ותיק ===
@@ -1725,14 +1763,11 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     else if (metrics.is_income_support) { matchScore = 90; }
     else { return { eligible: false, matchScore: 0 }; }
   }
-  if (right.id === 'transport_old_age') {
-    if (metrics.age >= 67) { matchScore = 95; }
-    else { matchScore = 70; }
-  }
+  // טיפולי שיניים — age 72+
   if (right.id === 'water_old_age') {
     if (metrics.age >= 72) { matchScore = 95; }
-    else if (metrics.age >= 67) { matchScore = 60; }
-    else { matchScore = 50; }
+    else if (!hasMetrics) { matchScore = 60; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
 
   // === שארים ===
@@ -1745,20 +1780,31 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
 
   // === נכות מעבודה ===
   if (right.id === 'arnona_work_injury') {
-    if (!hasMetrics) { matchScore = 70; }
+    if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
     else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_exemption_work_injury') {
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
-    else if (metrics.medical_disability_pct >= 62) { matchScore = 60; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_purchase_work_injury') {
     if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 90) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  // ייעוץ משפטי + ביטוח חיים — requires 20%+ permanent
+  if (right.id === 'legal_aid_work_injury' || right.id === 'life_insurance_work_injury') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 20) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  // פטור דמי ביטוח לאומי מעבודה — requires 100%
+  if (right.id === 'nii_exempt_work_injury') {
+    if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 100) { matchScore = 95; }
-    else if (metrics.medical_disability_pct >= 90) { matchScore = 80; }
-    else if (metrics.medical_disability_pct >= 70) { matchScore = 60; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
 
   // === סיעוד ===
@@ -1782,24 +1828,35 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
 
   // === נפגעי איבה ===
   if (right.id === 'water_terror') {
-    if (!hasMetrics) { matchScore = 70; }
+    if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 50) { matchScore = 95; }
     else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'electricity_terror') {
-    if (!hasMetrics) { matchScore = 70; }
+    if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 50) { matchScore = 95; }
     else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_purchase_terror') {
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 19) { matchScore = 90; }
-    else { matchScore = 50; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'land_fees_terror') {
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 50) { matchScore = 90; }
-    else { matchScore = 50; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'arnona_terror') {
+    if (!hasMetrics) { matchScore = 70; }
+    else if (metrics.medical_disability_pct >= 10) { matchScore = 95; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  // פטור רישום משכנתא — 20%+ permanent
+  if (right.id === 'mortgage_terror') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 20) { matchScore = 90; }
+    else { return { eligible: false, matchScore: 0 }; }
   }
 
   // === הבטחת הכנסה ===
@@ -1813,7 +1870,12 @@ function checkRightEligibility(right: Right, context: EligibilityContext): { eli
     if (!hasMetrics) { matchScore = 60; }
     else if (metrics.medical_disability_pct >= 100) { matchScore = 95; }
     else if (metrics.medical_disability_pct >= 90) { matchScore = 80; }
-    else if (metrics.medical_disability_pct >= 70) { matchScore = 60; }
+    else { return { eligible: false, matchScore: 0 }; }
+  }
+  if (right.id === 'pension_tax_child') {
+    if (!hasMetrics) { matchScore = 60; }
+    else if (metrics.medical_disability_pct >= 75) { matchScore = 90; }
+    else { matchScore = 50; }
   }
 
   return { eligible: true, matchScore };
@@ -1883,15 +1945,23 @@ export function getEligibleRights(
 
   eligibleRights.sort((a, b) => b.totalScore - a.totalScore);
 
-  // Deduplicate by id (not title — different benefits can share titles)
-  const uniqueRights = new Map<string, RightWithScore>();
+  // Deduplicate: first by id, then by title (keep highest score when same benefit appears from multiple sources)
+  const byId = new Map<string, RightWithScore>();
   for (const right of eligibleRights) {
-    if (!uniqueRights.has(right.id)) {
-      uniqueRights.set(right.id, right);
+    if (!byId.has(right.id)) {
+      byId.set(right.id, right);
+    }
+  }
+  // Second pass: merge by title — when user selects multiple benefits that yield the same right
+  const byTitle = new Map<string, RightWithScore>();
+  for (const right of byId.values()) {
+    const existing = byTitle.get(right.title);
+    if (!existing || right.totalScore > existing.totalScore) {
+      byTitle.set(right.title, right);
     }
   }
 
-  return Array.from(uniqueRights.values());
+  return Array.from(byTitle.values());
 }
 
 export type SortOption = 'score' | 'value' | 'popularity' | 'automatic';
