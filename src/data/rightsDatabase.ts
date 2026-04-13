@@ -1641,264 +1641,142 @@ export function getEligibilityLevel(matchScore: number): EligibilityLevel {
 
 function checkRightEligibility(right: Right, context: EligibilityContext): { eligible: boolean; matchScore: number } {
   const { benefits, metrics } = context;
-  
   const hasBenefit = right.applicable_benefits.some(benefit => benefits.includes(benefit));
-  if (!hasBenefit) {
-    return { eligible: false, matchScore: 0 };
-  }
-
+  if (!hasBenefit) { return { eligible: false, matchScore: 0 }; }
   const hasMetrics = metrics.medical_disability_pct > 0 || metrics.incapacity_pct > 0 ||
     metrics.mobility_pct > 0 || metrics.special_services_rate > 0 || metrics.nursing_level > 0 ||
     metrics.is_income_support || metrics.age > 0;
-
   let matchScore = 80;
-
   // === נכות כללית ===
   if (right.id === 'water_disability') {
-    if (!hasMetrics) { matchScore = 70; }
-    else if (metrics.medical_disability_pct >= 70) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 70; } else if (metrics.medical_disability_pct >= 70) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'arnona_disability') {
-    if (!hasMetrics) { matchScore = 70; }
-    else if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 70; } else if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_exemption_disability') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 90) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_purchase_disability') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.incapacity_pct >= 75 || metrics.medical_disability_pct >= 90) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'land_fees_disability') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 80) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 80) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'housing_disability_96') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.incapacity_pct >= 75) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.incapacity_pct >= 75) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'nii_exempt_disability') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.incapacity_pct >= 75) { matchScore = 95; }
-    else { matchScore = 50; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.incapacity_pct >= 75) { matchScore = 95; } else { matchScore = 50; }
   }
   if (right.id === 'tax_credit_disability') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.incapacity_pct >= 74) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.incapacity_pct >= 74) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'housing_disability') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 40) { matchScore = 80; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 50; } else if (metrics.medical_disability_pct >= 40) { matchScore = 60; } else { return { eligible: false, matchScore: 0 }; }
   }
-  // עמלות בנק — requires 40%+ disability
   if (right.id === 'bank_fees_disability') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 40) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 40) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-
   // === שירותים מיוחדים ===
   if (right.id === 'water_special') {
-    if (!hasMetrics) { matchScore = 70; }
-    else if (metrics.special_services_rate >= 112) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 70; } else if (metrics.special_services_rate >= 112) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'housing_special') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.special_services_rate >= 112) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 50; } else if (metrics.special_services_rate >= 112) { matchScore = 60; } else { return { eligible: false, matchScore: 0 }; }
   }
-
   // === ניידות ===
   if (right.id === 'arnona_mobility') {
-    if (!hasMetrics) { matchScore = 70; }
-    else if (metrics.mobility_pct >= 90) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 70; } else if (metrics.mobility_pct >= 90) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_purchase_mobility') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.mobility_pct >= 50) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.mobility_pct >= 50) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-
-  // === תחבורה — logic based on age ===
-  // 50% הנחה — for disability/work_injury/terror holders. NOT for age 67+ (they get free)
+  if (right.id === 'housing_mobility') {
+    if (metrics.uses_wheelchair) { matchScore = 90; } else { matchScore = 50; }
+  }
+  // === תחבורה ===
   if (right.id === 'transport_disability') {
-    if (metrics.age >= 67) { return { eligible: false, matchScore: 0 }; }
-    matchScore = 90;
+    if (metrics.age >= 67) { return { eligible: false, matchScore: 0 }; } matchScore = 90;
   }
-  // פטור מלא — only age 67+
   if (right.id === 'transport_old_age') {
-    if (metrics.age >= 67) { matchScore = 95; }
-    else if (!hasMetrics) { matchScore = 70; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (metrics.age >= 67) { matchScore = 95; } else if (!hasMetrics) { matchScore = 70; } else { return { eligible: false, matchScore: 0 }; }
   }
-  // הנחה תחבורה הבטחת הכנסה
-  if (right.id === 'transport_income_support') {
-    matchScore = 90;
-  }
-
-  // === תג חניה — needs medical justification, not auto-eligible ===
-  if (right.id === 'parking_tag_disability' || right.id === 'parking_tag_child') {
-    matchScore = 60; // Always medium — requires individual medical assessment
-  }
-
+  if (right.id === 'transport_income_support') { matchScore = 90; }
+  if (right.id === 'parking_tag_disability' || right.id === 'parking_tag_child') { matchScore = 60; }
   // === אזרח ותיק ===
   if (right.id === 'arnona_old_age') {
-    if (benefits.includes('old_age_income_support') || metrics.is_income_support) { matchScore = 95; }
-    else { matchScore = 70; }
+    if (benefits.includes('old_age_income_support') || metrics.is_income_support) { matchScore = 95; } else { matchScore = 80; }
   }
-  if (['health_services_old_age_is', 'phone_old_age_is', 'electricity_old_age_is',
-       'housing_old_age_is', 'water_old_age_is'].includes(right.id)) {
-    if (benefits.includes('old_age_income_support')) { matchScore = 95; }
-    else if (metrics.is_income_support) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+  if (['health_services_old_age_is', 'phone_old_age_is', 'electricity_old_age_is', 'housing_old_age_is', 'water_old_age_is'].includes(right.id)) {
+    if (benefits.includes('old_age_income_support')) { matchScore = 95; } else if (metrics.is_income_support) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-  // טיפולי שיניים — age 72+
   if (right.id === 'water_old_age') {
-    if (metrics.age >= 72) { matchScore = 95; }
-    else if (!hasMetrics) { matchScore = 60; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (metrics.age >= 72) { matchScore = 95; } else if (!hasMetrics) { matchScore = 60; } else { return { eligible: false, matchScore: 0 }; }
   }
-
   // === שארים ===
-  if (['electricity_survivors_is', 'housing_survivors_is', 'health_services_survivors_is',
-       'arnona_survivors_is', 'phone_survivors_is', 'water_survivors_is', 'arnona_survivors'].includes(right.id)) {
-    if (benefits.includes('survivors_income_support')) { matchScore = 95; }
-    else if (metrics.is_income_support) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+  if (['electricity_survivors_is', 'housing_survivors_is', 'health_services_survivors_is', 'arnona_survivors_is', 'phone_survivors_is', 'water_survivors_is', 'arnona_survivors'].includes(right.id)) {
+    if (benefits.includes('survivors_income_support')) { matchScore = 95; } else if (metrics.is_income_support) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-
   // === נכות מעבודה ===
   if (right.id === 'arnona_work_injury') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 90) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_exemption_work_injury') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 90) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 90) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_purchase_work_injury') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 90) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 90) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-  // ייעוץ משפטי + ביטוח חיים — requires 20%+ permanent
   if (right.id === 'legal_aid_work_injury' || right.id === 'life_insurance_work_injury') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 20) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 20) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-  // פטור דמי ביטוח לאומי מעבודה — requires 100%
   if (right.id === 'nii_exempt_work_injury') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 100) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 100) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
-
   // === סיעוד ===
   if (right.id === 'electricity_nursing') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.nursing_level >= 5) { matchScore = 95; }
-    else if (metrics.nursing_level === 4 && metrics.age >= 90) { matchScore = 95; }
-    else if (metrics.nursing_level === 4) { matchScore = 50; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.nursing_level >= 5) { matchScore = 95; } else if (metrics.nursing_level === 4 && metrics.age >= 90) { matchScore = 95; } else if (metrics.nursing_level === 4) { matchScore = 50; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'water_nursing') {
-    if (!hasMetrics) { matchScore = 70; }
-    else if (metrics.nursing_level >= 3) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 70; } else if (metrics.nursing_level >= 3) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'foreign_worker_nursing') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.nursing_level >= 3) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.nursing_level >= 3) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-
+  if (right.id === 'hospitalization_nursing' || right.id === 'benefit_nursing') { matchScore = 50; }
   // === נפגעי איבה ===
   if (right.id === 'water_terror') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 50) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 50) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'electricity_terror') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 50) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 50) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'tax_purchase_terror') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 19) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 19) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'land_fees_terror') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 50) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 50) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'arnona_terror') {
-    if (!hasMetrics) { matchScore = 70; }
-    else if (metrics.medical_disability_pct >= 10) { matchScore = 95; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 70; } else if (metrics.medical_disability_pct >= 10) { matchScore = 95; } else { return { eligible: false, matchScore: 0 }; }
   }
-  // פטור רישום משכנתא — 20%+ permanent
   if (right.id === 'mortgage_terror') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 20) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 20) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-
   // === הבטחת הכנסה ===
   if (right.id === 'electricity_income_support') {
-    if (benefits.includes('income_support') || metrics.is_income_support) { matchScore = 90; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (benefits.includes('income_support') || metrics.is_income_support) { matchScore = 90; } else { return { eligible: false, matchScore: 0 }; }
   }
-
+  if (right.id === 'arnona_income_support') { matchScore = 50; }
+  if (right.id === 'electricity_alimony') { matchScore = 50; }
   // === ילד נכה ===
   if (right.id === 'tax_purchase_child') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 100) { matchScore = 95; }
-    else if (metrics.medical_disability_pct >= 90) { matchScore = 80; }
-    else { return { eligible: false, matchScore: 0 }; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 100) { matchScore = 95; } else if (metrics.medical_disability_pct >= 90) { matchScore = 80; } else { return { eligible: false, matchScore: 0 }; }
   }
   if (right.id === 'pension_tax_child') {
-    if (!hasMetrics) { matchScore = 60; }
-    else if (metrics.medical_disability_pct >= 75) { matchScore = 90; }
-    else { matchScore = 50; }
+    if (!hasMetrics) { matchScore = 60; } else if (metrics.medical_disability_pct >= 75) { matchScore = 90; } else { matchScore = 50; }
   }
-
-  // === מזונות — חשמל דורשת 3+ ילדים ===
-  if (right.id === 'electricity_alimony') {
-    matchScore = 50; // דורשת הורה יחיד+3 ילדים או 4+ ילדים — אין לנו נתון, מציגים כ-medium
-  }
-
-  // === הבטחת הכנסה — ארנונה תנאי מיוחד ===
-  if (right.id === 'arnona_income_support') {
-    matchScore = 50; // תנאי רציפות מדצמבר 2002 — לא ניתן לבדוק, מציגים כ-medium
-  }
-
-  // === ניידות — דיור דורש כיסא גלגלים ===
-  if (right.id === 'housing_mobility') {
-    if (metrics.uses_wheelchair) { matchScore = 90; }
-    else { matchScore = 50; } // דורש כיסא גלגלים — מציגים כ-medium אם לא ידוע
-  }
-
-  // === סיעוד — הטבות ניצולי שואה בלבד ===
-  if (right.id === 'hospitalization_nursing' || right.id === 'benefit_nursing') {
-    matchScore = 50; // מיועד לניצולי שואה בלבד — מציגים כ-medium עם הערה
-  }
-
   return { eligible: true, matchScore };
 }
 

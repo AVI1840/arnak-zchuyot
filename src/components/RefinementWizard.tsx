@@ -184,9 +184,7 @@ const WIZARD_QUESTIONS: WizardQuestion[] = [
     metricKey: 'special_services_rate',
     options: [
       { value: 50, label: '50%' },
-      { value: 100, label: '100%' },
       { value: 112, label: '112%' },
-      { value: 150, label: '150%' },
       { value: 188, label: '188%' },
       { value: 235, label: '235%' },
     ],
