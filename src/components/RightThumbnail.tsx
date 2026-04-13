@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { RightWithScore, Domain, DOMAIN_LABELS, ELIGIBILITY_LEVEL_LABELS, EligibilityLevel } from '@/data/rightsDatabase';
+import { RightWithScore, Domain, DOMAIN_LABELS } from '@/data/rightsDatabase';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import {
@@ -34,12 +34,6 @@ const DOMAIN_COLORS: Record<Domain, string> = {
   legal: 'bg-[hsl(var(--domain-legal))]',
 };
 
-const ELIGIBILITY_COLORS: Record<EligibilityLevel, string> = {
-  high: 'bg-[#0368b0] text-white',
-  medium: 'bg-amber-500 text-white',
-  low: 'bg-muted text-muted-foreground',
-};
-
 export function RightThumbnail({ right, onClick }: RightThumbnailProps) {
   return (
     <motion.div
@@ -56,12 +50,9 @@ export function RightThumbnail({ right, onClick }: RightThumbnailProps) {
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1 flex-wrap mb-1">
-              <Badge className={cn('text-[10px] px-1.5 py-0 rounded-full font-medium', ELIGIBILITY_COLORS[right.eligibilityLevel])}>
-                {ELIGIBILITY_LEVEL_LABELS[right.eligibilityLevel]}
-              </Badge>
               <Badge variant="outline" className={cn('text-[10px] px-1.5 py-0 rounded-full gap-0.5',
-                right.is_automatic ? 'bg-[#e8f3ff] text-[#0368b0] border-[#0368b0]/30' : 'text-muted-foreground')}>
-                {right.is_automatic ? <><Sparkles className="w-2.5 h-2.5" />אוטומטית</> : <><FileText className="w-2.5 h-2.5" />הגשה</>}
+                right.is_automatic ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : 'bg-amber-50 text-amber-700 border-amber-300')}>
+                {right.is_automatic ? <><Sparkles className="w-2.5 h-2.5" />אוטומטית</> : <><FileText className="w-2.5 h-2.5" />נדרשת הגשה</>}
               </Badge>
             </div>
             <p className="text-[10px] text-muted-foreground">{DOMAIN_LABELS[right.domain]} • {right.provider}</p>

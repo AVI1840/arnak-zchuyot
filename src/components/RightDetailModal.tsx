@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { RightWithScore, Domain, DOMAIN_LABELS, ELIGIBILITY_LEVEL_LABELS, EligibilityLevel } from '@/data/rightsDatabase';
+import { RightWithScore, Domain, DOMAIN_LABELS } from '@/data/rightsDatabase';
 import { 
   ExternalLink, 
   Copy, 
@@ -53,12 +53,6 @@ const DOMAIN_COLORS: Record<Domain, string> = {
   legal: 'bg-[hsl(var(--domain-legal))]',
 };
 
-const ELIGIBILITY_COLORS: Record<EligibilityLevel, string> = {
-  high: 'bg-emerald-500 text-white',
-  medium: 'bg-amber-500 text-white',
-  low: 'bg-muted text-muted-foreground',
-};
-
 export function RightDetailModal({ right, isOpen, onClose }: RightDetailModalProps) {
   const [copied, setCopied] = useState(false);
 
@@ -72,8 +66,7 @@ export function RightDetailModal({ right, isOpen, onClose }: RightDetailModalPro
 🏢 ספק: ${right.provider}
 💰 שווי: ${right.value_display}
 📂 קטגוריה: ${DOMAIN_LABELS[right.domain]}
-📊 סבירות: ${ELIGIBILITY_LEVEL_LABELS[right.eligibilityLevel]}
-⚙️ סוג: ${right.is_automatic ? 'הטבה אוטומטית' : 'נדרשת הגשה'}
+⚙️ סוג: ${right.is_automatic ? 'הטבה אוטומטית — אמורה להגיע אליך' : 'נדרשת הגשה'}
 
 📝 תנאי זכאות:
 ${right.eligibility_details}
@@ -136,28 +129,20 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
         <div className="p-6 -mt-6 bg-card rounded-t-2xl relative">
           {/* Badges Row */}
           <div className="flex flex-wrap items-center gap-2 mb-6">
-            {/* Eligibility Level (not 100% זכאי) */}
-            <Badge className={cn(
-              'text-sm px-3 py-1',
-              ELIGIBILITY_COLORS[right.eligibilityLevel]
-            )}>
-              {ELIGIBILITY_LEVEL_LABELS[right.eligibilityLevel]}
-            </Badge>
-            
             {/* Automatic/Manual Badge */}
             <Badge 
               variant={right.is_automatic ? 'default' : 'outline'}
               className={cn(
-                'text-sm gap-1',
+                'text-sm gap-1 px-3 py-1',
                 right.is_automatic 
                   ? 'bg-emerald-500/90 text-white border-none' 
-                  : 'bg-card text-foreground border-border'
+                  : 'bg-amber-50 text-amber-700 border-amber-300'
               )}
             >
               {right.is_automatic ? (
                 <>
                   <Sparkles className="w-3 h-3" />
-                  אוטומטית
+                  הטבה אוטומטית — אמורה להגיע אליך
                 </>
               ) : (
                 <>

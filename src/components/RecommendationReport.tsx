@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
-  RightWithScore, Domain, DOMAIN_LABELS, ELIGIBILITY_LEVEL_LABELS,
+  RightWithScore, Domain, DOMAIN_LABELS,
   BenefitType, BENEFIT_LABELS,
 } from '@/data/rightsDatabase';
 import { UserMetrics } from '@/types/userProfile';
@@ -80,11 +80,10 @@ function buildReportText(
     lines.push(`📂 ${DOMAIN_LABELS[domain as Domain]} (${domainRights.length})`);
     lines.push('');
     domainRights.forEach((r, i) => {
-      const autoTag = r.is_automatic ? '🟢 אוטומטית' : '🟡 נדרשת הגשה';
-      const level = ELIGIBILITY_LEVEL_LABELS[r.eligibilityLevel];
+      const autoTag = r.is_automatic ? '🟢 אוטומטית — אמורה להגיע אליך' : '🟡 נדרשת הגשה';
       lines.push(`  ${i + 1}. ${r.title}`);
       lines.push(`     ספק: ${r.provider}`);
-      lines.push(`     סבירות: ${level} | ${autoTag}`);
+      lines.push(`     ${autoTag}`);
       lines.push(`     תנאי זכאות: ${r.eligibility_details.replace(/\n/g, ' ')}`);
       lines.push(`     אופן מימוש: ${r.how_to_apply.replace(/\n/g, ' ')}`);
       if (r.requires_local_authority_check) {
