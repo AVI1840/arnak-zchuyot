@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ':*)",
+      "Bash(npm run:*)",
+      "Bash(node scripts/generate-department-excels.cjs)",
+      "Bash(gh run:*)",
+      "WebFetch(domain:aviad1840.github.io)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
