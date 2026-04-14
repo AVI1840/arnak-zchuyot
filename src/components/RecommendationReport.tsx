@@ -34,10 +34,10 @@ function buildReportText(
   lines.push('');
   lines.push('⚠️ הבהרה חשובה:');
   lines.push('כלי זה נועד לסייע באיתור זכויות פוטנציאליות בלבד, ואינו מהווה');
-  lines.push('אישור זכאות, התחייבות או חוות דעת מקצועית. המערכת נמצאת בשלבי');
-  lines.push('פיילוט וייתכנו אי-דיוקים. מימוש הזכויות בפועל כפוף לתנאי');
-  lines.push('הזכאות של כל גורם מוסמך (ביטוח לאומי, רשות מקומית, קופ"ח ועוד)');
-  lines.push('ובאחריותם. יש לאמת כל הטבה ישירות מול הגורם הרלוונטי.');
+  lines.push('אישור זכאות, התחייבות או חוות דעת מקצועית.');
+  lines.push('מימוש הזכויות בפועל כפוף לתנאי הזכאות של כל גורם מוסמך');
+  lines.push('(ביטוח לאומי, רשות מקומית, קופ"ח ועוד) ובאחריותם.');
+  lines.push('יש לאמת כל הטבה ישירות מול הגורם הרלוונטי.');
   lines.push('');
 
   lines.push('📋 הקצבאות שנבחרו:');
@@ -65,55 +65,60 @@ function buildReportText(
     lines.push('');
   }
 
+  const autoRights = rights.filter(r => r.is_automatic);
+  const manualRights = rights.filter(r => !r.is_automatic);
+
   lines.push(`📌 נמצאו ${rights.length} זכויות והטבות:`);
   lines.push('──────────────────────────────────────');
   lines.push('');
 
-  // Group by domain
-  const byDomain: Record<string, RightWithScore[]> = {};
-  rights.forEach(r => {
-    if (!byDomain[r.domain]) byDomain[r.domain] = [];
-    byDomain[r.domain].push(r);
-  });
-
-  Object.entries(byDomain).forEach(([domain, domainRights]) => {
-    lines.push(`📂 ${DOMAIN_LABELS[domain as Domain]} (${domainRights.length})`);
+  if (autoRights.length > 0) {
+    lines.push(`✅ הטבות אוטומטיות (${autoRights.length}) — ניתנות ללא פנייה:`);
     lines.push('');
-    domainRights.forEach((r, i) => {
-      const autoTag = r.is_automatic ? '🟢 אוטומטית — אמורה להגיע אליך' : '🟡 נדרשת הגשה';
+    autoRights.forEach((r, i) => {
       lines.push(`  ${i + 1}. ${r.title}`);
       lines.push(`     ספק: ${r.provider}`);
-      lines.push(`     ${autoTag}`);
       lines.push(`     תנאי זכאות: ${r.eligibility_details.replace(/\n/g, ' ')}`);
-      lines.push(`     אופן מימוש: ${r.how_to_apply.replace(/\n/g, ' ')}`);
       if (r.requires_local_authority_check) {
         lines.push('     ⚠️ תלוי רשות מקומית — יש לבדוק ברשות שלך');
       }
       lines.push('');
     });
-  });
+  }
+
+  if (manualRights.length > 0) {
+    lines.push(`📝 הטבות שמצריכות הגשה (${manualRights.length}):`);
+    lines.push('');
+    manualRights.forEach((r, i) => {
+      lines.push(`  ${i + 1}. ${r.title}`);
+      lines.push(`     ספק: ${r.provider}`);
+      lines.push(`     תנאי זכאות: ${r.eligibility_details.replace(/\n/g, ' ')}`);
+      lines.push(`     מה נדרש: ${r.how_to_apply.replace(/\n/g, ' ')}`);
+      if (r.requires_local_authority_check) {
+        lines.push('     ⚠️ תלוי רשות מקומית — יש לבדוק ברשות שלך');
+      }
+      lines.push('');
+    });
+  }
 
   lines.push('──────────────────────────────────────');
   lines.push('');
   lines.push('💡 המלצות:');
-  const autoRights = rights.filter(r => r.is_automatic);
-  const manualRights = rights.filter(r => !r.is_automatic);
   if (autoRights.length > 0) {
-    lines.push(`  ✅ ${autoRights.length} הטבות אוטומטיות — ודא שהן מגיעות אליך`);
+    lines.push(`  ✅ ${autoRights.length} הטבות אוטומטיות — ודאו שהן מגיעות אליכם`);
   }
   if (manualRights.length > 0) {
     lines.push(`  📝 ${manualRights.length} הטבות שדורשות הגשה — מומלץ לפנות בהקדם`);
   }
   const localAuth = rights.filter(r => r.requires_local_authority_check);
   if (localAuth.length > 0) {
-    lines.push(`  🏛️ ${localAuth.length} הטבות תלויות רשות מקומית — פנה לרשות שלך`);
+    lines.push(`  🏛️ ${localAuth.length} הטבות תלויות רשות מקומית — פנו לרשות שלכם`);
   }
   lines.push('');
   lines.push('══════════════════════════════════════');
   lines.push('הופק על ידי ארנק זכויות — ביטוח לאומי');
   lines.push('');
   lines.push('⚠️ הבהרה: כלי זה נועד לסייע באיתור זכויות פוטנציאליות בלבד.');
-  lines.push('המערכת בשלבי פיילוט — אינה מהווה התחייבות או אישור זכאות.');
   lines.push('מימוש ההטבות בפועל כפוף לתנאים של כל גורם מוסמך ובאחריותו.');
   lines.push('══════════════════════════════════════');
 
@@ -163,6 +168,9 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
     }
   };
 
+  const autoCount = rights.filter(r => r.is_automatic).length;
+  const manualCount = rights.filter(r => !r.is_automatic).length;
+
   return (
     <>
       <div className="flex flex-wrap gap-2 justify-center">
@@ -203,7 +211,7 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
 
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800 space-y-1">
             <p className="font-medium">⚠️ הבהרה חשובה</p>
-            <p>כלי זה נועד לסייע באיתור זכויות פוטנציאליות בלבד, ואינו מהווה אישור זכאות או התחייבות. המערכת נמצאת בשלבי פיילוט וייתכנו אי-דיוקים. מימוש ההטבות בפועל כפוף לתנאים של כל גורם מוסמך (ביטוח לאומי, רשות מקומית, קופ"ח ועוד) ובאחריותו.</p>
+            <p>כלי זה נועד לסייע באיתור זכויות פוטנציאליות בלבד, ואינו מהווה אישור זכאות או התחייבות. מימוש ההטבות בפועל כפוף לתנאים של כל גורם מוסמך (ביטוח לאומי, רשות מקומית, קופ"ח ועוד) ובאחריותו.</p>
           </div>
 
           <div className="space-y-3 py-2">
@@ -220,8 +228,8 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
               <h4 className="font-bold text-sm mb-1">סיכום:</h4>
               <p className="text-sm text-muted-foreground">
                 נמצאו <span className="font-bold text-[#0368b0]">{rights.length}</span> זכויות,
-                מתוכן <span className="font-bold text-emerald-600">{rights.filter(r => r.is_automatic).length}</span> אוטומטיות
-                ו-<span className="font-bold text-amber-600">{rights.filter(r => !r.is_automatic).length}</span> שדורשות הגשה.
+                מתוכן <span className="font-bold text-emerald-600">{autoCount}</span> אוטומטיות
+                ו-<span className="font-bold text-amber-600">{manualCount}</span> שמצריכות הגשה.
               </p>
             </div>
 

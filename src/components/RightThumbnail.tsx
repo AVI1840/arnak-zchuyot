@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import {
   Home, Heart, Bus, Zap, Wallet, Users, Briefcase, Scale,
-  Sparkles, FileText, AlertTriangle
+  Sparkles, FileText, AlertTriangle, Info
 } from 'lucide-react';
 
 interface RightThumbnailProps {
@@ -51,9 +51,14 @@ export function RightThumbnail({ right, onClick }: RightThumbnailProps) {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1 flex-wrap mb-1">
               <Badge variant="outline" className={cn('text-[10px] px-1.5 py-0 rounded-full gap-0.5',
-                right.is_automatic ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : 'bg-amber-50 text-amber-700 border-amber-300')}>
-                {right.is_automatic ? <><Sparkles className="w-2.5 h-2.5" />אוטומטית</> : <><FileText className="w-2.5 h-2.5" />נדרשת הגשה</>}
+                right.is_automatic ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : 'bg-blue-50 text-[#0368b0] border-[#0368b0]/30')}>
+                {right.is_automatic ? <><Sparkles className="w-2.5 h-2.5" />אוטומטית</> : <><FileText className="w-2.5 h-2.5" />מצריכה הגשה</>}
               </Badge>
+              {right.eligibilityLevel === 'needs_info' && (
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0 rounded-full gap-0.5 bg-amber-50 text-amber-700 border-amber-300">
+                  <Info className="w-2.5 h-2.5" />בדקו זכאותכם
+                </Badge>
+              )}
             </div>
             <p className="text-[10px] text-muted-foreground">{DOMAIN_LABELS[right.domain]} • {right.provider}</p>
           </div>

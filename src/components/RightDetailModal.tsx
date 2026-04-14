@@ -2,24 +2,25 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { RightWithScore, Domain, DOMAIN_LABELS } from '@/data/rightsDatabase';
-import { 
-  ExternalLink, 
-  Copy, 
-  Check, 
+import {
+  ExternalLink,
+  Copy,
+  Check,
   Building2,
-  Home, 
-  Heart, 
-  Bus, 
-  Zap, 
-  Wallet, 
-  Users, 
-  Briefcase, 
+  Home,
+  Heart,
+  Bus,
+  Zap,
+  Wallet,
+  Users,
+  Briefcase,
   Scale,
   X,
   Sparkles,
   FileText,
   AlertTriangle,
-  MapPin
+  MapPin,
+  Info
 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -59,14 +60,13 @@ export function RightDetailModal({ right, isOpen, onClose }: RightDetailModalPro
   if (!right) return null;
 
   const handleCopy = async () => {
-    // Copy all relevant fields as per requirements
     const copyText = `
 📋 ${right.title}
 
 🏢 ספק: ${right.provider}
 💰 שווי: ${right.value_display}
 📂 קטגוריה: ${DOMAIN_LABELS[right.domain]}
-⚙️ סוג: ${right.is_automatic ? 'הטבה אוטומטית — אמורה להגיע אליך' : 'נדרשת הגשה'}
+⚙️ סוג: ${right.is_automatic ? 'הטבה אוטומטית — ניתנת ללא פנייה' : 'נדרשת הגשה'}
 
 📝 תנאי זכאות:
 ${right.eligibility_details}
@@ -130,28 +130,35 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
           {/* Badges Row */}
           <div className="flex flex-wrap items-center gap-2 mb-6">
             {/* Automatic/Manual Badge */}
-            <Badge 
+            <Badge
               variant={right.is_automatic ? 'default' : 'outline'}
               className={cn(
-                'text-sm gap-1 px-3 py-1',
-                right.is_automatic 
-                  ? 'bg-emerald-500/90 text-white border-none' 
-                  : 'bg-amber-50 text-amber-700 border-amber-300'
+                'text-sm gap-1',
+                right.is_automatic
+                  ? 'bg-emerald-500/90 text-white border-none'
+                  : 'bg-card text-foreground border-border'
               )}
             >
               {right.is_automatic ? (
                 <>
                   <Sparkles className="w-3 h-3" />
-                  הטבה אוטומטית — אמורה להגיע אליך
+                  ניתנת אוטומטית
                 </>
               ) : (
                 <>
                   <FileText className="w-3 h-3" />
-                  נדרשת הגשה
+                  מצריכה הגשה
                 </>
               )}
             </Badge>
-            
+
+            {right.eligibilityLevel === 'needs_info' && (
+              <Badge variant="outline" className="text-sm gap-1 bg-amber-50 text-amber-700 border-amber-300">
+                <Info className="w-3 h-3" />
+                בדקו זכאותכם
+              </Badge>
+            )}
+
             <Badge
               variant="outline"
               className={cn('text-xs', `domain-badge-${right.domain}`)}
@@ -160,18 +167,28 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
             </Badge>
           </div>
 
-          {/* Local Authority Warning for Old Age Arnona */}
+          {/* Auto benefit info */}
+          {right.is_automatic && (
+            <div className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg flex items-start gap-3">
+              <Sparkles className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-emerald-700 dark:text-emerald-300">
+                הטבה זו ניתנת אוטומטית, אין צורך בפנייה. ודאו שאתם מקבלים אותה.
+              </p>
+            </div>
+          )}
+
+          {/* Local Authority Warning */}
           {showLocalAuthorityWarning && (
             <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="font-medium text-amber-800 dark:text-amber-200">תלוי רשות - בדוק ברשות המקומית</p>
                 <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
-                  אחוזי ההנחה בארנונה לאזרחים ותיקים משתנים בין רשויות מקומיות. יש לפנות לרשות המקומית שלך לבירור הזכאות המדויקת.
+                  אחוזי ההנחה משתנים בין רשויות מקומיות. יש לפנות לרשות המקומית שלך לבירור הזכאות המדויקת.
                 </p>
-                <a 
-                  href="https://www.gov.il/he/departments/local_authorities" 
-                  target="_blank" 
+                <a
+                  href="https://www.gov.il/he/departments/local_authorities"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-sm text-amber-600 hover:text-amber-700 mt-2 font-medium"
                 >
@@ -196,18 +213,20 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
           {/* Details Section */}
           <div className="space-y-4">
             <div>
-              <h4 className="text-sm font-semibold text-foreground mb-2">פרטי זכאות</h4>
+              <h4 className="text-sm font-semibold text-foreground mb-2">תנאי זכאות</h4>
               <p className="text-muted-foreground">{right.eligibility_details}</p>
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold text-foreground mb-2">אופן קבלת ההטבה</h4>
+              <h4 className="text-sm font-semibold text-foreground mb-2">
+                {right.is_automatic ? 'מידע נוסף' : 'מה נדרש להגיש?'}
+              </h4>
               <p className="text-muted-foreground">{right.how_to_apply}</p>
             </div>
 
             {right.notes && (
               <div className="bg-muted/50 rounded-lg p-4">
-                <h4 className="text-sm font-semibold text-foreground mb-2">💡 הערות חשובות</h4>
+                <h4 className="text-sm font-semibold text-foreground mb-2">הערות חשובות</h4>
                 <p className="text-sm text-muted-foreground">{right.notes}</p>
               </div>
             )}
@@ -215,7 +234,7 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
             {/* Transport Providers List */}
             {right.transport_providers && right.transport_providers.length > 0 && (
               <div className="bg-muted/50 rounded-lg p-4">
-                <h4 className="text-sm font-semibold text-foreground mb-2">🚌 ספקי תחבורה נתמכים</h4>
+                <h4 className="text-sm font-semibold text-foreground mb-2">ספקי תחבורה נתמכים</h4>
                 <div className="flex flex-wrap gap-2">
                   {right.transport_providers.map((provider) => (
                     <Badge key={provider} variant="outline" className="text-xs">
