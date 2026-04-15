@@ -503,10 +503,13 @@ const Index = () => {
               </Button>
             )}
 
-            <p className="text-sm text-muted-foreground text-center">
-              אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | v1.0 | מרץ 2026
+            <p className="text-xs text-muted-foreground text-center leading-relaxed max-w-xl mx-auto px-4 border border-amber-200 bg-amber-50 rounded-lg py-2">
+              <strong>כתב ויתור:</strong> המידע המוצג הוא לצורך הכוונה ואינפורמציה כללית בלבד. אינו מהווה ייעוץ משפטי, הבטחת זכאות או התחייבות מצד הביטוח הלאומי. לבדיקת זכאות מדויקת יש לפנות לביטוח הלאומי.
             </p>
-            <p className="text-xs text-muted-foreground text-center mt-1 opacity-60">עדכון אחרון: 24.03.2026</p>
+            <p className="text-sm text-muted-foreground text-center">
+              אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | v1.1 | אפריל 2026
+            </p>
+            <p className="text-xs text-muted-foreground text-center mt-1 opacity-60">עדכון אחרון: 15.04.2026</p>
           </div>
         </div>
       </footer>
