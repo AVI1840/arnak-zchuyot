@@ -167,7 +167,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 15000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/tax-exemption-for-disabled',
+    action_link: 'https://www.gov.il/he/service/itc1516',
   },
   {
     id: 'tax_purchase_disability',
@@ -215,7 +215,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/public-transport-discount',
+    action_link: 'https://www.gov.il/he/service/public_transportation_fare_discount_for_special_populations',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -430,7 +430,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 1000,
     popularity_score: 60,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/senior-citizen-card',
+    action_link: 'https://www.gov.il/he/service/senior_citizen_idcard',
   },
   {
     id: 'health_services_old_age_is',
@@ -584,7 +584,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 15000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/tax-exemption-for-disabled',
+    action_link: 'https://www.gov.il/he/service/itc1516',
   },
   {
     id: 'tax_purchase_work_injury',
@@ -767,7 +767,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/public-transport-discount',
+    action_link: 'https://www.gov.il/he/service/public_transportation_fare_discount_for_special_populations',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -889,7 +889,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 15000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/negative-income-tax',
+    action_link: 'https://www.gov.il/he/service/submitting-an-online-claim-for-job-grant',
   },
   {
     id: 'arnona_mobility',
@@ -1209,7 +1209,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/public-transport-discount',
+    action_link: 'https://www.gov.il/he/service/public_transportation_fare_discount_for_special_populations',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {

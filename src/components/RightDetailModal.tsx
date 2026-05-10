@@ -202,7 +202,7 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
                   אחוזי ההנחה משתנים בין רשויות מקומיות. יש לפנות לרשות המקומית שלך לבירור הזכאות המדויקת.
                 </p>
                 <a
-                  href="https://www.gov.il/he/departments/local_authorities"
+                  href="https://www.gov.il/he/departments/topics/local_government_team"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-sm text-amber-600 hover:text-amber-700 mt-2 font-medium"
