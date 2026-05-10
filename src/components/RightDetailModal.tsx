@@ -20,7 +20,8 @@ import {
   FileText,
   AlertTriangle,
   MapPin,
-  Info
+  Info,
+  Bookmark
 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -30,6 +31,8 @@ interface RightDetailModalProps {
   right: RightWithScore | null;
   isOpen: boolean;
   onClose: () => void;
+  toggleBookmark?: (id: string) => void;
+  isBookmarked?: (id: string) => boolean;
 }
 
 const DOMAIN_ICONS: Record<Domain, React.ReactNode> = {
@@ -54,10 +57,12 @@ const DOMAIN_COLORS: Record<Domain, string> = {
   legal: 'bg-[hsl(var(--domain-legal))]',
 };
 
-export function RightDetailModal({ right, isOpen, onClose }: RightDetailModalProps) {
+export function RightDetailModal({ right, isOpen, onClose, toggleBookmark, isBookmarked }: RightDetailModalProps) {
   const [copied, setCopied] = useState(false);
 
   if (!right) return null;
+
+  const bookmarked = isBookmarked?.(right.id) ?? false;
 
   const handleCopy = async () => {
     const copyText = `
@@ -93,13 +98,24 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
       <DialogContent className="sm:max-w-lg glass border-border/50 p-0 overflow-hidden">
         {/* Header with gradient */}
         <div className="hero-gradient p-6 pb-12 relative">
-          <button
-            onClick={onClose}
-            className="absolute top-4 left-4 text-primary-foreground/80 hover:text-primary-foreground transition-colors focus:ring-2 focus:ring-primary-foreground/50 rounded-full p-1"
-            aria-label="סגור"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="absolute top-4 left-4 flex items-center gap-2">
+            {toggleBookmark && (
+              <button
+                onClick={() => toggleBookmark(right.id)}
+                className="text-primary-foreground/80 hover:text-primary-foreground transition-colors focus:ring-2 focus:ring-primary-foreground/50 rounded-full p-1"
+                aria-label={bookmarked ? 'הסר מהמועדפים' : 'הוסף למועדפים'}
+              >
+                <Bookmark className={cn('w-5 h-5', bookmarked && 'fill-current')} />
+              </button>
+            )}
+            <button
+              onClick={onClose}
+              className="text-primary-foreground/80 hover:text-primary-foreground transition-colors focus:ring-2 focus:ring-primary-foreground/50 rounded-full p-1"
+              aria-label="סגור"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
           <div className="flex items-start gap-4">
             <div
@@ -129,7 +145,6 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
         <div className="p-6 -mt-6 bg-card rounded-t-2xl relative">
           {/* Badges Row */}
           <div className="flex flex-wrap items-center gap-2 mb-6">
-            {/* Automatic/Manual Badge */}
             <Badge
               variant={right.is_automatic ? 'default' : 'outline'}
               className={cn(

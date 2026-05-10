@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, CircleHelp, MessageCircle } from 'lucide-react';
+import { Shield, CircleHelp, MessageCircle, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -9,7 +9,11 @@ import {
 } from '@/components/ui/tooltip';
 import { FeedbackModal } from '@/components/FeedbackModal';
 
-export function Header() {
+interface HeaderProps {
+  onSearchOpen?: () => void;
+}
+
+export function Header({ onSearchOpen }: HeaderProps) {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   return (
@@ -27,12 +31,23 @@ export function Header() {
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold">ארנק זכויות</h1>
+                <p className="text-xl font-bold">ארנק זכויות</p>
                 <p className="text-xs opacity-80">גלה את כל הזכויות שמגיעות לך</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
+              {onSearchOpen && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={onSearchOpen}
+                  aria-label="חיפוש זכויות (Ctrl+K)"
+                  className="text-white hover:bg-white/10"
+                >
+                  <Search className="w-5 h-5" />
+                </Button>
+              )}
               <Button
                 variant="outline"
                 size="sm"

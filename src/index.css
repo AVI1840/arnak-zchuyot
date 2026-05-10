@@ -265,3 +265,13 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
+/* === Print Styles === */
+@media print {
+  header, .hero-section, .benefit-selector, .quick-filter-bar,
+  .refinement-wizard, footer, button, .feedback-modal { display: none !important; }
+  .results-section { margin: 0; padding: 0; }
+  .right-card { break-inside: avoid; page-break-inside: avoid; border: 1px solid #ccc; margin-bottom: 8px; }
+  body { font-size: 12pt; color: #000; background: #fff; }
+  * { box-shadow: none !important; }
+}
+

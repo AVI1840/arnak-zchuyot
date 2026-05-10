@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from 'react';
+import { useMemo, useCallback, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Header } from '@/components/Header';
 import { CinematicHero } from '@/components/CinematicHero';
@@ -17,8 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { RotateCcw, Info, Shield, ChevronDown, ChevronUp, Filter, Sparkles, ArrowUpDown, AlertCircle } from 'lucide-react';
+import { RotateCcw, Info, Shield, ChevronDown, ChevronUp, Filter, Sparkles, ArrowUpDown } from 'lucide-react';
 import { RecommendationReport } from '@/components/RecommendationReport';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useBookmarks } from '@/hooks/useBookmarks';
+import { SearchCommand } from '@/components/SearchCommand';
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'score', label: 'רלוונטיות' },
@@ -28,16 +31,20 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 ];
 
 const Index = () => {
-  const [selectedBenefits, setSelectedBenefits] = useState<BenefitType[]>([]);
-  const [userMetrics, setUserMetrics] = useState<UserMetrics>(DEFAULT_METRICS);
-  const [isRefined, setIsRefined] = useState(false);
+  const [selectedBenefits, setSelectedBenefits] = useLocalStorage<BenefitType[]>('arnak-benefits', []);
+  const [userMetrics, setUserMetrics] = useLocalStorage<UserMetrics>('arnak-metrics', DEFAULT_METRICS);
+  const [isRefined, setIsRefined] = useLocalStorage<boolean>('arnak-refined', false);
   const [showWizard, setShowWizard] = useState(false);
   const [isSelectorExpanded, setIsSelectorExpanded] = useState(true);
   const [selectedRight, setSelectedRight] = useState<RightWithScore | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<Domain | 'all'>('all');
   const [sortBy, setSortBy] = useState<SortOption>('score');
+  const [searchOpen, setSearchOpen] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Bookmarks
+  const { toggleBookmark, isBookmarked } = useBookmarks();
 
   // Check if any selected benefit needs refinement
   const needsRefinement = useMemo(() => {
@@ -58,7 +65,7 @@ const Index = () => {
       setIsRefined(false);
       return newBenefits;
     });
-  }, []);
+  }, [setSelectedBenefits, setIsRefined]);
 
   const handleReset = useCallback(() => {
     setSelectedBenefits([]);
@@ -66,7 +73,11 @@ const Index = () => {
     setIsRefined(false);
     setIsSelectorExpanded(true);
     setActiveFilter('all');
-  }, []);
+    // Clear localStorage
+    localStorage.removeItem('arnak-benefits');
+    localStorage.removeItem('arnak-metrics');
+    localStorage.removeItem('arnak-refined');
+  }, [setSelectedBenefits, setUserMetrics, setIsRefined]);
 
   const handleWizardComplete = useCallback((metrics: UserMetrics) => {
     setUserMetrics(metrics);
@@ -77,7 +88,7 @@ const Index = () => {
     setTimeout(() => {
       resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
-  }, []);
+  }, [setUserMetrics, setIsRefined]);
 
   const eligibleRights = useMemo(
     () => getEligibleRights(selectedBenefits, isRefined ? userMetrics : undefined),
@@ -93,7 +104,7 @@ const Index = () => {
 
   // Filter and sort rights based on active filter and sort option
   const filteredRights = useMemo(() => {
-    let rights = activeFilter === 'all' 
+    const rights = activeFilter === 'all' 
       ? eligibleRights 
       : eligibleRights.filter((right) => right.domain === activeFilter);
     
@@ -121,13 +132,7 @@ const Index = () => {
     return grouped;
   }, [filteredRights]);
 
-  // Get top sorted results (first 6 items based on current sort)
-  const topRecommendations = useMemo(() => {
-    return filteredRights.slice(0, 6);
-  }, [filteredRights]);
-
   // Removed: totalSavings calculation - no unreliable savings display per requirements
-  // topRight kept for internal use but not displayed as savings
   const topRight = useMemo(() => {
     if (eligibleRights.length === 0) return null;
     return {
@@ -138,7 +143,6 @@ const Index = () => {
 
   const handleStartClaiming = () => {
     if (selectedBenefits.length > 0) {
-      // If benefits need refinement, show wizard first
       if (needsRefinement && questionCount > 0) {
         setShowWizard(true);
       } else {
@@ -159,21 +163,31 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* Skip-to-content link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:right-2 focus:z-50 focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
+      >
+        דילוג לתוכן
+      </a>
 
-      <main className="container mx-auto px-4 py-6 space-y-8">
-        {/* Cinematic Hero Section - no savings display */}
-        <CinematicHero
-          totalSavings=""
-          topRight={topRight}
-          hasResults={hasResults}
-          onStartClaiming={handleStartClaiming}
-        />
+      <Header onSearchOpen={() => setSearchOpen(true)} />
+
+      <main id="main-content" className="container mx-auto px-4 py-6 space-y-8">
+        {/* Cinematic Hero Section */}
+        <div className="hero-section">
+          <CinematicHero
+            totalSavings=""
+            topRight={topRight}
+            hasResults={hasResults}
+            onStartClaiming={handleStartClaiming}
+          />
+        </div>
 
         {/* Benefit Selector Section */}
         <motion.section
           layout
-          className="bg-card rounded-2xl border border-border shadow-lg overflow-hidden"
+          className="benefit-selector bg-card rounded-2xl border border-border shadow-lg overflow-hidden"
         >
           <button
             onClick={() => setIsSelectorExpanded(!isSelectorExpanded)}
@@ -307,7 +321,7 @@ const Index = () => {
           <motion.section
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="py-4 space-y-4"
+            className="quick-filter-bar py-4 space-y-4"
           >
             {/* Filter and Sort Row */}
             <div className="flex flex-wrap items-center justify-between gap-4">
@@ -340,24 +354,27 @@ const Index = () => {
               onFilterChange={setActiveFilter}
               availableDomains={availableDomains}
             />
-
-            {/* Profile warning removed — questions now inline */}
           </motion.section>
         )}
 
-        {/* Results Section - Horizontal Carousels */}
-        <div ref={resultsRef} className="space-y-10 pt-4">
-          {/* Results Summary — show user selections before results */}
+        {/* Aria-live region for screen readers */}
+        <div aria-live="polite" className="sr-only">
+          {`נמצאו ${filteredRights.length} זכויות`}
+        </div>
+
+        {/* Results Section */}
+        <div ref={resultsRef} className="results-section space-y-10 pt-4">
+          {/* Results Summary */}
           {hasResults && isRefined && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="bg-[#e8f3ff] rounded-xl p-4 border border-[#0368b0]/20"
             >
-              <h4 className="font-bold text-[#1B3A5C] mb-2 flex items-center gap-2">
+              <h3 className="font-bold text-[#1B3A5C] mb-2 flex items-center gap-2">
                 <Info className="w-4 h-4" />
                 סיכום הבחירות שלך
-              </h4>
+              </h3>
               <div className="flex flex-wrap gap-2 mb-2">
                 {selectedBenefits.map((b) => (
                   <span key={b} className="inline-flex items-center px-3 py-1 rounded-full bg-white text-[#1B3A5C] text-sm font-medium border border-[#0368b0]/20">
@@ -385,6 +402,7 @@ const Index = () => {
               </p>
             </motion.div>
           )}
+
           {/* Empty State */}
           {!hasResults && (
             <motion.div
@@ -395,9 +413,9 @@ const Index = () => {
               <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
                 <Shield className="w-12 h-12 text-muted-foreground" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">
+              <h2 className="text-xl font-bold text-foreground mb-2">
                 סמן את הקצבאות שאתה מקבל
-              </h3>
+              </h2>
               <p className="text-muted-foreground max-w-md mx-auto">
                 בחר לפחות קצבה אחת מהרשימה למעלה כדי לגלות את הזכויות הנוספות שמגיעות לך
               </p>
@@ -426,9 +444,6 @@ const Index = () => {
             </motion.div>
           )}
 
-          {/* Top Sorted Results Row (only show when viewing all) */}
-          {/* Removed "ממוינים עבורך" per requirements */}
-
           {/* Domain-based Carousels */}
           {Object.entries(rightsByDomain).map(([domain, rights]) => {
             if (rights.length === 0) return null;
@@ -438,6 +453,8 @@ const Index = () => {
                 title={`${DOMAIN_LABELS[domain as Domain]}`}
                 rights={rights}
                 onRightClick={handleRightClick}
+                toggleBookmark={toggleBookmark}
+                isBookmarked={isBookmarked}
               />
             );
           })}
@@ -476,11 +493,21 @@ const Index = () => {
         right={selectedRight}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        toggleBookmark={toggleBookmark}
+        isBookmarked={isBookmarked}
       />
 
-      {/* Refinement Wizard — now inline, modal removed */}
+      {/* Search Command Palette */}
+      <SearchCommand
+        open={searchOpen}
+        onOpenChange={setSearchOpen}
+        onSelectRight={(right) => {
+          setSelectedRight(right);
+          setIsModalOpen(true);
+        }}
+      />
 
-      {/* Footer with Reset Button */}
+      {/* Footer */}
       <footer className="border-t border-border bg-card mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -489,7 +516,6 @@ const Index = () => {
               <span className="font-semibold text-foreground">ארנק זכויות</span>
             </div>
 
-            {/* Reset Button - per requirements, placed at footer */}
             {selectedBenefits.length > 0 && (
               <Button
                 variant="outline"
@@ -518,4 +544,3 @@ const Index = () => {
 };
 
 export default Index;
-

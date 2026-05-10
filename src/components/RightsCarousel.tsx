@@ -6,9 +6,11 @@ interface RightsCarouselProps {
   title: string;
   rights: RightWithScore[];
   onRightClick: (right: RightWithScore) => void;
+  toggleBookmark?: (id: string) => void;
+  isBookmarked?: (id: string) => boolean;
 }
 
-export function RightsCarousel({ title, rights, onRightClick }: RightsCarouselProps) {
+export function RightsCarousel({ title, rights, onRightClick, toggleBookmark, isBookmarked }: RightsCarouselProps) {
   if (rights.length === 0) return null;
 
   return (
@@ -30,7 +32,12 @@ export function RightsCarousel({ title, rights, onRightClick }: RightsCarouselPr
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.03, duration: 0.25 }}
           >
-            <RightThumbnail right={right} onClick={() => onRightClick(right)} />
+            <RightThumbnail
+              right={right}
+              onClick={() => onRightClick(right)}
+              toggleBookmark={toggleBookmark}
+              isBookmarked={isBookmarked}
+            />
           </motion.div>
         ))}
       </div>
