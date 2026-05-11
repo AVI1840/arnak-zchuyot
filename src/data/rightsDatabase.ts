@@ -215,7 +215,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/public_transportation_fare_discount_for_special_populations',
+    action_link: 'https://ravkavonline.co.il/he/ravkav-free-rides',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -767,7 +767,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/public_transportation_fare_discount_for_special_populations',
+    action_link: 'https://ravkavonline.co.il/he/ravkav-free-rides',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
@@ -1209,7 +1209,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/public_transportation_fare_discount_for_special_populations',
+    action_link: 'https://ravkavonline.co.il/he/ravkav-free-rides',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {
