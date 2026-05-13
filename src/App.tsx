@@ -7,6 +7,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import AiOpsDemo from "./pages/AiOpsDemo";
 import NotFound from "./pages/NotFound";
+import Accessibility from "./pages/Accessibility";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/ai-ops-demo" element={<AiOpsDemo />} />
+            <Route path="/accessibility" element={<Accessibility />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

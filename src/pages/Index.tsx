@@ -421,16 +421,24 @@ const Index = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-16"
+              className="text-center py-12 sm:py-16"
             >
-              <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-                <Shield className="w-12 h-12 text-muted-foreground" />
-              </div>
-              <h2 className="text-xl font-bold text-foreground mb-2">
+              <motion.div
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', damping: 15 }}
+                className="w-20 h-20 sm:w-24 sm:h-24 bg-muted rounded-full flex items-center justify-center mx-auto mb-6"
+              >
+                <Shield className="w-10 h-10 sm:w-12 sm:h-12 text-muted-foreground" />
+              </motion.div>
+              <h2 className="text-lg sm:text-xl font-bold text-foreground mb-2">
                 סמן את הקצבאות שאתה מקבל
               </h2>
-              <p className="text-muted-foreground max-w-md mx-auto">
+              <p className="text-muted-foreground max-w-md mx-auto mb-6">
                 בחר לפחות קצבה אחת מהרשימה למעלה כדי לגלות את הזכויות הנוספות שמגיעות לך
+              </p>
+              <p className="text-xs text-muted-foreground">
+                💡 הקצבאות הנפוצות: נכות כללית, אזרח ותיק, סיעוד
               </p>
             </motion.div>
           )}
@@ -548,6 +556,7 @@ const Index = () => {
             <p className="text-sm text-muted-foreground text-center">
               אביעד יצחקי, מינהל גמלאות | ביטוח לאומי | v1.1 | אפריל 2026
             </p>
+            <a href="/arnak-zchuyot/accessibility" className="text-xs text-secondary hover:underline">הצהרת נגישות</a>
             <p className="text-xs text-muted-foreground text-center mt-1 opacity-60">עדכון אחרון: 15.04.2026</p>
           </div>
         </div>

@@ -71,6 +71,24 @@ const ALL_BENEFITS: BenefitType[] = [
   'righteous_nations',
 ];
 
+const BENEFIT_TOOLTIPS: Record<BenefitType, string> = {
+  old_age: 'קצבה חודשית לגברים מגיל 67 ולנשים מגיל 62-65',
+  old_age_income_support: 'קצבת אזרח ותיק עם תוספת השלמת הכנסה למי שהכנסתו נמוכה',
+  nursing: 'גמלה למי שזקוק לעזרה בפעולות יום-יום בגלל מצב בריאותי',
+  general_disability: 'קצבה למי שכושר ההשתכרות שלו נפגע בגלל מצב רפואי',
+  special_services: 'גמלה למי שזקוק לעזרת הזולת בפעולות יום-יום',
+  mobility: 'קצבה למי שמוגבל בניידות ונזקק לרכב',
+  child_disability: 'גמלה להורים לילד עם מוגבלות הזקוק לטיפול מיוחד',
+  work_injury: 'קצבה למי שנפגע בתאונת עבודה או מחלת מקצוע',
+  survivors: 'קצבה לבני משפחה של מבוטח שנפטר',
+  survivors_income_support: 'קצבת שארים עם תוספת השלמת הכנסה',
+  terror_victim: 'קצבה למי שנפגע בפעולת איבה',
+  income_support: 'קצבה למי שאין לו הכנסה מספקת להתקיים',
+  alimony: 'תשלום מזונות מהביטוח הלאומי כשהחייב לא משלם',
+  prisoners_of_zion: 'תגמול לאסירי ציון ובני משפחותיהם',
+  righteous_nations: 'תגמול לחסידי אומות העולם',
+};
+
 export function BenefitSelector({ selectedBenefits, onToggleBenefit, onContinue }: BenefitSelectorProps) {
   const isSelected = (benefit: BenefitType) => selectedBenefits.includes(benefit);
   const selectedCount = selectedBenefits.length;
@@ -85,59 +103,65 @@ export function BenefitSelector({ selectedBenefits, onToggleBenefit, onContinue 
         >
           <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2 sm:gap-3">
             {ALL_BENEFITS.map((benefit, index) => (
-              <motion.button
-                key={benefit}
-                type="button"
-                onClick={() => onToggleBenefit(benefit)}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.02 }}
-                whileTap={{ scale: 0.95 }}
-                className={cn(
-                  'relative flex flex-col items-center justify-center gap-1.5 sm:gap-2',
-                  'aspect-square p-2 sm:p-3 rounded-xl',
-                  'transition-all duration-200 cursor-pointer',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-                  'focus:ring-2 focus:ring-primary focus:ring-offset-2',
-                  isSelected(benefit)
-                    ? 'bg-[#005792] text-primary-foreground shadow-lg border-2 border-amber-400'
-                    : 'bg-card/90 backdrop-blur-sm text-muted-foreground border border-border/50 hover:border-primary/30 hover:bg-card hover:shadow-md'
-                )}
-                aria-pressed={isSelected(benefit)}
-                aria-label={`${BENEFIT_LABELS[benefit]} - ${isSelected(benefit) ? 'נבחר' : 'לא נבחר'}`}
-              >
-                {/* Checkmark Badge - smaller */}
-                <AnimatePresence>
-                  {isSelected(benefit) && (
-                    <motion.div
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      className="absolute top-1 left-1 sm:top-1.5 sm:left-1.5 w-4 h-4 sm:w-5 sm:h-5 bg-amber-400 rounded-full flex items-center justify-center shadow-sm"
-                    >
-                      <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-900" strokeWidth={3} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              <Tooltip key={benefit}>
+                <TooltipTrigger asChild>
+                  <motion.button
+                    type="button"
+                    onClick={() => onToggleBenefit(benefit)}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.02 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      'relative flex flex-col items-center justify-center gap-1.5 sm:gap-2',
+                      'aspect-square p-2 sm:p-3 rounded-xl',
+                      'transition-all duration-200 cursor-pointer',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                      'focus:ring-2 focus:ring-primary focus:ring-offset-2',
+                      isSelected(benefit)
+                        ? 'bg-[#005792] text-primary-foreground shadow-lg border-2 border-amber-400'
+                        : 'bg-card/90 backdrop-blur-sm text-muted-foreground border border-border/50 hover:border-primary/30 hover:bg-card hover:shadow-md'
+                    )}
+                    aria-pressed={isSelected(benefit)}
+                    aria-label={`${BENEFIT_LABELS[benefit]} - ${isSelected(benefit) ? 'נבחר' : 'לא נבחר'}`}
+                  >
+                    {/* Checkmark Badge */}
+                    <AnimatePresence>
+                      {isSelected(benefit) && (
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0, opacity: 0 }}
+                          className="absolute top-1 left-1 sm:top-1.5 sm:left-1.5 w-4 h-4 sm:w-5 sm:h-5 bg-amber-400 rounded-full flex items-center justify-center shadow-sm"
+                        >
+                          <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-900" strokeWidth={3} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                {/* Icon - smaller */}
-                <div className={cn(
-                  'transition-colors duration-200',
-                  isSelected(benefit) ? 'text-primary-foreground' : 'text-muted-foreground'
-                )}>
-                  {React.cloneElement(BENEFIT_LUCIDE_ICONS[benefit] as React.ReactElement, {
-                    className: 'w-5 h-5 sm:w-6 sm:h-6'
-                  })}
-                </div>
+                    {/* Icon */}
+                    <div className={cn(
+                      'transition-colors duration-200',
+                      isSelected(benefit) ? 'text-primary-foreground' : 'text-muted-foreground'
+                    )}>
+                      {React.cloneElement(BENEFIT_LUCIDE_ICONS[benefit] as React.ReactElement, {
+                        className: 'w-5 h-5 sm:w-6 sm:h-6'
+                      })}
+                    </div>
 
-                {/* Label - smaller */}
-                <span className={cn(
-                  'font-medium text-[10px] sm:text-xs text-center leading-tight px-0.5 line-clamp-2',
-                  isSelected(benefit) ? 'text-primary-foreground' : 'text-foreground'
-                )}>
-                  {BENEFIT_LABELS[benefit]}
-                </span>
-              </motion.button>
+                    {/* Label */}
+                    <span className={cn(
+                      'font-medium text-[10px] sm:text-xs text-center leading-tight px-0.5 line-clamp-2',
+                      isSelected(benefit) ? 'text-primary-foreground' : 'text-foreground'
+                    )}>
+                      {BENEFIT_LABELS[benefit]}
+                    </span>
+                  </motion.button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-[200px] text-center text-xs">
+                  {BENEFIT_TOOLTIPS[benefit]}
+                </TooltipContent>
+              </Tooltip>
             ))}
           </div>
         </motion.div>

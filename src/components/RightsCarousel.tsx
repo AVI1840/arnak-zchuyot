@@ -28,9 +28,9 @@ export function RightsCarousel({ title, rights, onRightClick, toggleBookmark, is
         {rights.map((right, index) => (
           <motion.div
             key={right.id}
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.03, duration: 0.25 }}
+            transition={{ delay: index * 0.04, duration: 0.3, ease: 'easeOut' }}
           >
             <RightThumbnail
               right={right}
