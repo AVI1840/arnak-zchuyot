@@ -192,7 +192,7 @@ export const RIGHTS_DATABASE: Right[] = [
     value_display: 'תג חניה לנכה ופטור מאגרת רישוי רכב',
     eligibility_details: 'מי שזקוק לרכב כאמצעי תנועה עקב מגבלות רפואיות ותנועתו ללא רכב בדרכים עלולה לערער את מצב בריאותו',
     how_to_apply: 'ניתן להגיש בקשה לתג חניה לנכה ללא עלות באתר משרד התחבורה. יש לצרף מסמכים רפואיים עדכניים מ-3 החודשים האחרונים המעידים על המצב הבריאות או על המוגבלות בניידות.',
-    action_link: 'https://www.gov.il/he/service/request-for-disabled-parking-card',
+    action_link: 'https://www.kolzchut.org.il/he/%D7%AA%D7%92_%D7%97%D7%A0%D7%99%D7%94_%D7%9C%D7%A0%D7%9B%D7%94',
     applicable_benefits: ['general_disability', 'work_injury', 'special_services', 'terror_victim', 'mobility', 'prisoners_of_zion'] as BenefitType[],
     is_automatic: false,
     primary_display_priority: 2,
@@ -367,7 +367,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 3000,
     popularity_score: 75,
     source_verified: true,
-    action_link: 'https://www.gov.il/he/service/request-for-disabled-parking-card',
+    action_link: 'https://www.kolzchut.org.il/he/%D7%AA%D7%92_%D7%97%D7%A0%D7%99%D7%94_%D7%9C%D7%A0%D7%9B%D7%94',
     transport_providers: ['רב-קו', 'רכבת ישראל', 'דן', 'אגד'],
   },
   {

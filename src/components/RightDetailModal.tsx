@@ -202,13 +202,13 @@ ${right.action_link ? `\n🔗 קישור: ${right.action_link}` : ''}
                   אחוזי ההנחה משתנים בין רשויות מקומיות. יש לפנות לרשות המקומית שלך לבירור הזכאות המדויקת.
                 </p>
                 <a
-                  href="https://www.gov.il/he/departments/ministry_of_interior"
+                  href="https://www.kolzchut.org.il/he/%D7%94%D7%A0%D7%97%D7%94_%D7%91%D7%90%D7%A8%D7%A0%D7%95%D7%A0%D7%94_%D7%9C%D7%A0%D7%9B%D7%99%D7%9D"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-sm text-amber-600 hover:text-amber-700 mt-2 font-medium"
                 >
                   <MapPin className="w-3 h-3" />
-                  מצא את הרשות המקומית שלך
+                  מידע על הנחות ארנונה לנכים
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
