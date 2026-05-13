@@ -24,7 +24,7 @@ export function RightsCarousel({ title, rights, onRightClick, toggleBookmark, is
       </div>
 
       {/* Vertical grid — all cards visible, no horizontal scroll */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {rights.map((right, index) => (
           <motion.div
             key={right.id}

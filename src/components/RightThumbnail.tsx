@@ -64,8 +64,8 @@ export function RightThumbnail({ right, onClick, toggleBookmark, isBookmarked }:
         )}
 
         {/* Compact header with icon + badges */}
-        <div className="p-3 flex items-start gap-2.5">
-          <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center text-white shrink-0', DOMAIN_COLORS[right.domain])}>
+        <div className="p-2.5 sm:p-3 flex items-start gap-2">
+          <div className={cn('w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-white shrink-0', DOMAIN_COLORS[right.domain])}>
             {DOMAIN_ICONS[right.domain]}
           </div>
           <div className="flex-1 min-w-0">

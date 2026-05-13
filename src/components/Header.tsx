@@ -24,15 +24,15 @@ export function Header({ onSearchOpen }: HeaderProps) {
         style={{ background: '#1B3A5C' }}
         className="text-white sticky top-0 z-50 shadow-md"
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shadow-lg">
-                <Shield className="w-6 h-6 text-white" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 rounded-xl flex items-center justify-center shadow-lg">
+                <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               <div>
-                <p className="text-xl font-bold">ארנק זכויות</p>
-                <p className="text-xs opacity-80">גלה את כל הזכויות שמגיעות לך</p>
+                <p className="text-lg sm:text-xl font-bold">ארנק זכויות</p>
+                <p className="text-[11px] sm:text-xs opacity-80">גלה את כל הזכויות שמגיעות לך</p>
               </div>
             </div>
 

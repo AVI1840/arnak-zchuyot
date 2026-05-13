@@ -173,7 +173,7 @@ const Index = () => {
 
       <Header onSearchOpen={() => setSearchOpen(true)} />
 
-      <main id="main-content" className="container mx-auto px-4 py-6 space-y-8">
+      <main id="main-content" className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 sm:space-y-8">
         {/* Cinematic Hero Section */}
         <div className="hero-section">
           <CinematicHero
@@ -191,7 +191,7 @@ const Index = () => {
         >
           <button
             onClick={() => setIsSelectorExpanded(!isSelectorExpanded)}
-            className="w-full flex items-center justify-between p-5 text-right focus-ring rounded-t-2xl hover:bg-accent/50 transition-colors"
+            className="w-full flex items-center justify-between p-3 sm:p-5 text-right focus-ring rounded-t-2xl hover:bg-accent/50 transition-colors"
             aria-expanded={isSelectorExpanded}
           >
             <div className="flex items-center gap-3">
@@ -241,7 +241,7 @@ const Index = () => {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="px-5 pb-5 border-t border-border">
+                <div className="px-3 sm:px-5 pb-5 border-t border-border">
                   <div className="pt-5">
                     <BenefitSelector
                       selectedBenefits={selectedBenefits}
@@ -508,9 +508,9 @@ const Index = () => {
       />
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card mt-16">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-border bg-card mt-8 sm:mt-16">
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
+          <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-primary" />
               <span className="font-semibold text-foreground">ארנק זכויות</span>

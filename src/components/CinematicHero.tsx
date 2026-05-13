@@ -77,7 +77,7 @@ export function CinematicHero({
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center h-full min-h-[45vh] p-8 sm:p-12 lg:p-16">
+      <div className="relative z-10 flex flex-col justify-center h-full min-h-[35vh] sm:min-h-[45vh] p-5 sm:p-12 lg:p-16">
         {hasResults ? (
           <div className="max-w-2xl space-y-6">
             {/* Greeting */}
@@ -96,10 +96,10 @@ export function CinematicHero({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground leading-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground leading-tight">
                 מיצוי זכויות
               </h1>
-              <p className="mt-2 text-xl sm:text-2xl font-semibold text-primary-foreground/90">
+              <p className="mt-2 text-lg sm:text-2xl font-semibold text-primary-foreground/90">
                 סיוע בהכוונה ובמיצוי הזכויות הרלוונטיות
               </p>
             </motion.div>
@@ -109,7 +109,7 @@ export function CinematicHero({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-lg text-primary-foreground/80 max-w-lg"
+              className="text-base sm:text-lg text-primary-foreground/80 max-w-lg"
             >
               נלווה אותך בתהליך זיהוי הזכויות וקבלת המידע למיצוי הזכויות.
               <span className="block text-sm mt-1 text-primary-foreground/60">
@@ -153,7 +153,7 @@ export function CinematicHero({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground leading-tight"
+              className="text-2xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground leading-tight"
             >
               מיצוי זכויות
               <br />
