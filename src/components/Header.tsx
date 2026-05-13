@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/tooltip';
 import { FeedbackModal } from '@/components/FeedbackModal';
 import { FontSizeControl } from '@/components/FontSizeControl';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   onSearchOpen?: () => void;
@@ -16,6 +17,7 @@ interface HeaderProps {
 
 export function Header({ onSearchOpen }: HeaderProps) {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -27,7 +29,7 @@ export function Header({ onSearchOpen }: HeaderProps) {
       >
         <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')} role="link" aria-label="חזרה לדף הבית">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 rounded-xl flex items-center justify-center shadow-lg">
                 <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>

@@ -7,7 +7,7 @@ import {
   BenefitType, BENEFIT_LABELS,
 } from '@/data/rightsDatabase';
 import { UserMetrics } from '@/types/userProfile';
-import { Download, Share2, Copy, Check, FileText, Sparkles } from 'lucide-react';
+import { Download, Share2, Copy, Check, FileText, Sparkles, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface RecommendationReportProps {
@@ -141,11 +141,36 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
   };
 
   const handleDownload = () => {
-    const blob = new Blob(['\uFEFF' + reportText], { type: 'text/plain;charset=utf-8' });
+    // Create Word-compatible HTML document with RTL
+    const htmlContent = `
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="utf-8"><style>
+body { direction: rtl; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.8; padding: 40px; }
+h1 { color: #1B3A5C; font-size: 18pt; border-bottom: 2px solid #0368b0; padding-bottom: 8px; }
+h2 { color: #0368b0; font-size: 14pt; margin-top: 20px; }
+.disclaimer { background: #FEF3C7; border: 1px solid #F59E0B; padding: 12px; border-radius: 8px; margin: 16px 0; }
+.right-item { border-bottom: 1px solid #eee; padding: 8px 0; }
+.auto { color: #10B981; font-weight: bold; }
+.manual { color: #F59E0B; font-weight: bold; }
+.footer { margin-top: 30px; border-top: 2px solid #1B3A5C; padding-top: 12px; font-size: 10pt; color: #666; }
+</style></head><body>
+<h1>דוח המלצות זכויות אישי — ארנק זכויות</h1>
+<p>תאריך הפקה: ${new Date().toLocaleDateString('he-IL')}</p>
+<div class="disclaimer"><strong>⚠️ הבהרה:</strong> כלי זה נועד לסייע באיתור זכויות פוטנציאליות בלבד. מימוש ההטבות כפוף לתנאים של כל גורם מוסמך.</div>
+<h2>קצבאות שנבחרו</h2>
+<ul>${selectedBenefits.map(b => `<li>${BENEFIT_LABELS[b]}</li>`).join('')}</ul>
+<h2>סיכום: ${rights.length} זכויות נמצאו</h2>
+<p><span class="auto">✅ ${rights.filter(r => r.is_automatic).length} אוטומטיות</span> | <span class="manual">📝 ${rights.filter(r => !r.is_automatic).length} דורשות פנייה</span></p>
+${rights.filter(r => r.is_automatic).length > 0 ? `<h2>✅ הטבות אוטומטיות</h2>${rights.filter(r => r.is_automatic).map(r => `<div class="right-item"><strong>${r.title}</strong><br/>ספק: ${r.provider}<br/>שווי: ${r.value_display}<br/>תנאי זכאות: ${r.eligibility_details.replace(/\n/g, '<br/>')}</div>`).join('')}` : ''}
+${rights.filter(r => !r.is_automatic).length > 0 ? `<h2>📝 הטבות שמצריכות הגשה</h2>${rights.filter(r => !r.is_automatic).map(r => `<div class="right-item"><strong>${r.title}</strong><br/>ספק: ${r.provider}<br/>שווי: ${r.value_display}<br/>תנאי זכאות: ${r.eligibility_details.replace(/\n/g, '<br/>')}<br/>אופן מימוש: ${r.how_to_apply.replace(/\n/g, '<br/>')}</div>`).join('')}` : ''}
+<div class="footer">הופק על ידי ארנק זכויות — ביטוח לאומי<br/>אביעד יצחקי, מינהל גמלאות</div>
+</body></html>`;
+
+    const blob = new Blob(['\uFEFF' + htmlContent], { type: 'application/msword;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `דוח-זכויות-${new Date().toLocaleDateString('he-IL').replace(/\./g, '-')}.txt`;
+    a.download = `דוח-זכויות-${new Date().toLocaleDateString('he-IL').replace(/\./g, '-')}.doc`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -161,11 +186,22 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
           text: reportText,
         });
       } catch {
-        handleCopy();
+        // User cancelled — do nothing
       }
     } else {
       handleCopy();
     }
+  };
+
+  const handleWhatsApp = () => {
+    const summary = `*דוח זכויות אישי — ארנק זכויות*\n\nנמצאו ${rights.length} זכויות:\n✅ ${autoCount} אוטומטיות\n📝 ${manualCount} דורשות פנייה\n\nלצפייה בכלי: https://avi1840.github.io/arnak-zchuyot/`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(summary)}`, '_blank');
+  };
+
+  const handleEmail = () => {
+    const subject = encodeURIComponent('דוח זכויות אישי — ארנק זכויות');
+    const body = encodeURIComponent(reportText);
+    window.open(`mailto:?subject=${subject}&body=${body}`, '_self');
   };
 
   const autoCount = rights.filter(r => r.is_automatic).length;
@@ -180,7 +216,7 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
           className="gap-2 text-[#0368b0] border-[#0368b0]/30 hover:bg-[#e8f3ff]"
         >
           <FileText className="w-4 h-4" />
-          צפה בדוח המלצה
+          צפה בדוח
         </Button>
         <Button
           onClick={handleDownload}
@@ -188,15 +224,23 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
           className="gap-2 text-[#0368b0] border-[#0368b0]/30 hover:bg-[#e8f3ff]"
         >
           <Download className="w-4 h-4" />
-          הורד דוח
+          הורד Word
         </Button>
         <Button
-          onClick={handleShare}
+          onClick={handleWhatsApp}
+          variant="outline"
+          className="gap-2 text-emerald-700 border-emerald-300 hover:bg-emerald-50"
+        >
+          <Share2 className="w-4 h-4" />
+          וואטסאפ
+        </Button>
+        <Button
+          onClick={handleEmail}
           variant="outline"
           className="gap-2 text-[#0368b0] border-[#0368b0]/30 hover:bg-[#e8f3ff]"
         >
-          <Share2 className="w-4 h-4" />
-          שתף
+          <Mail className="w-4 h-4" />
+          מייל
         </Button>
       </div>
 
@@ -238,18 +282,22 @@ export function RecommendationReport({ rights, selectedBenefits, userMetrics, is
             </pre>
           </div>
 
-          <div className="flex gap-2 pt-2 border-t">
+          <div className="flex flex-wrap gap-2 pt-2 border-t">
             <Button onClick={handleDownload} className="flex-1 bg-[#0368b0] hover:bg-[#025a8f] text-white gap-2">
               <Download className="w-4 h-4" />
-              הורד קובץ
+              הורד Word
             </Button>
             <Button onClick={handleCopy} variant="outline" className="gap-2">
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               {copied ? 'הועתק' : 'העתק'}
             </Button>
-            <Button onClick={handleShare} variant="outline" className="gap-2">
+            <Button onClick={handleWhatsApp} variant="outline" className="gap-2 text-emerald-700 border-emerald-300">
               <Share2 className="w-4 h-4" />
-              שתף
+              וואטסאפ
+            </Button>
+            <Button onClick={handleEmail} variant="outline" className="gap-2">
+              <Mail className="w-4 h-4" />
+              מייל
             </Button>
           </div>
         </DialogContent>
