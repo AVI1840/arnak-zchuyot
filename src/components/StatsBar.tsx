@@ -1,72 +1,47 @@
 import { motion } from 'framer-motion';
-import { RightWithScore, countRightsByDomain, Domain, DOMAIN_LABELS } from '@/data/rightsDatabase';
-import { useMemo } from 'react';
-import { TrendingUp, Home, Heart, Car, Zap, Wallet, Users, Briefcase, Scale } from 'lucide-react';
+import { RightWithScore } from '@/data/rightsDatabase';
+import { Target, Zap, FileText, TrendingUp } from 'lucide-react';
 
 interface StatsBarProps {
   rights: RightWithScore[];
 }
 
-const DOMAIN_ICON_COMPONENTS: Record<Domain, React.ComponentType<{ className?: string }>> = {
-  housing: Home,
-  health: Heart,
-  transport: Car,
-  utilities: Zap,
-  financial: Wallet,
-  welfare: Users,
-  employment: Briefcase,
-  legal: Scale,
-};
-
 export function StatsBar({ rights }: StatsBarProps) {
-  const counts = useMemo(() => countRightsByDomain(rights), [rights]);
-  const activeDomains = (Object.entries(counts) as [Domain, number][])
-    .filter(([, count]) => count > 0)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 4);
+  const total = rights.length;
+  const automatic = rights.filter(r => r.is_automatic).length;
+  const manual = total - automatic;
+  const estimatedSavings = rights.reduce((sum, r) => sum + (r.estimated_value || 0), 0);
 
-  if (rights.length === 0) return null;
+  if (total === 0) return null;
+
+  const stats = [
+    { icon: <Target className="w-5 h-5" />, value: total, label: 'זכויות נמצאו', color: 'text-secondary' },
+    { icon: <Zap className="w-5 h-5" />, value: automatic, label: 'אוטומטיות', color: 'text-emerald-600' },
+    { icon: <FileText className="w-5 h-5" />, value: manual, label: 'דורשות פנייה', color: 'text-amber-600' },
+    { icon: <TrendingUp className="w-5 h-5" />, value: `~₪${(estimatedSavings / 1000).toFixed(0)}K`, label: 'חיסכון שנתי מוערך', color: 'text-primary' },
+  ];
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-l from-primary/5 via-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-6"
+      className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4"
     >
-      <div className="flex flex-col sm:flex-row items-center gap-6">
-        {/* Total Count */}
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
-            <TrendingUp className="w-8 h-8 text-primary-foreground" />
+      {stats.map((stat, i) => (
+        <motion.div
+          key={stat.label}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: i * 0.1 }}
+          className="bg-card rounded-xl border border-border p-3 sm:p-4 text-center shadow-sm"
+        >
+          <div className={`flex justify-center mb-1.5 ${stat.color}`}>
+            {stat.icon}
           </div>
-          <div className="text-center sm:text-right">
-            <p className="text-4xl font-bold text-primary">{rights.length}</p>
-            <p className="text-sm text-muted-foreground">זכויות זמינות</p>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="hidden sm:block w-px h-16 bg-border" />
-
-        {/* Domain Breakdown */}
-        <div className="flex flex-wrap justify-center sm:justify-start gap-4 flex-1">
-          {activeDomains.map(([domain, count]) => {
-            const Icon = DOMAIN_ICON_COMPONENTS[domain];
-            return (
-              <motion.div
-                key={domain}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border border-border"
-              >
-                <Icon className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">{DOMAIN_LABELS[domain]}</span>
-                <span className="text-sm font-bold text-primary">{count}</span>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
+          <p className={`text-xl sm:text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{stat.label}</p>
+        </motion.div>
+      ))}
     </motion.div>
   );
 }

@@ -1,0 +1,53 @@
+/**
+ * BTL AI-Ops — Minimal Operational Tokens
+ * =========================================
+ * Only tokens that the MVP components actually use.
+ * No premature abstractions. No unused spacing/radius systems.
+ *
+ * Import only where needed:
+ *   import "@/ai-ops/tokens/ai-ops-tokens.css";
+ */
+
+:root {
+  /* AI Confidence — used by ConfidenceIndicator, AiCaseSummary, EligibilityInsight */
+  --ai-confidence-high: 160 84% 39%;
+  --ai-confidence-medium: 38 92% 50%;
+  --ai-confidence-low: 0 72% 50%;
+
+  /* AI Content Markers — used by AiCaseSummary, EligibilityInsight */
+  --ai-generated-bg: 210 40% 97%;
+  --ai-generated-border: 210 30% 82%;
+  --ai-generated-accent: 204 96% 35%;
+  --ai-human-reviewed: 160 84% 39%;
+  --ai-citation-bg: 210 30% 95%;
+
+  /* Workflow Actions — used by HumanReviewActions, WorkflowStatusBadge */
+  --wf-pending: 38 92% 50%;
+  --wf-approved: 160 84% 39%;
+  --wf-rejected: 0 72% 50%;
+  --wf-escalated: 25 95% 53%;
+
+  /* Document Priority — used by MissingDocuments */
+  --priority-critical: 0 72% 50%;
+  --priority-high: 25 95% 53%;
+}
+
+.dark {
+  --ai-confidence-high: 160 84% 45%;
+  --ai-confidence-medium: 38 92% 55%;
+  --ai-confidence-low: 0 72% 55%;
+
+  --ai-generated-bg: 207 60% 12%;
+  --ai-generated-border: 207 50% 25%;
+  --ai-generated-accent: 196 100% 47%;
+  --ai-human-reviewed: 160 84% 45%;
+  --ai-citation-bg: 207 50% 14%;
+
+  --wf-pending: 38 92% 55%;
+  --wf-approved: 160 84% 45%;
+  --wf-rejected: 0 72% 55%;
+  --wf-escalated: 25 95% 58%;
+
+  --priority-critical: 0 72% 55%;
+  --priority-high: 25 95% 58%;
+}

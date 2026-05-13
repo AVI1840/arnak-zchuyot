@@ -22,6 +22,8 @@ import { RecommendationReport } from '@/components/RecommendationReport';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { SearchCommand } from '@/components/SearchCommand';
+import { StatsBar } from '@/components/StatsBar';
+import { ProgressSteps } from '@/components/ProgressSteps';
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'score', label: 'רלוונטיות' },
@@ -161,6 +163,9 @@ const Index = () => {
 
   const hasResults = eligibleRights.length > 0;
 
+  // Progress step calculation
+  const currentStep = hasResults ? 3 : (selectedBenefits.length > 0 && needsRefinement ? 2 : 1);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Skip-to-content link */}
@@ -183,6 +188,9 @@ const Index = () => {
             onStartClaiming={handleStartClaiming}
           />
         </div>
+
+        {/* Progress Steps */}
+        <ProgressSteps currentStep={currentStep} />
 
         {/* Benefit Selector Section */}
         <motion.section
@@ -364,6 +372,11 @@ const Index = () => {
 
         {/* Results Section */}
         <div ref={resultsRef} className="results-section space-y-10 pt-4">
+          {/* Stats Bar */}
+          {hasResults && (
+            <StatsBar rights={eligibleRights} />
+          )}
+
           {/* Results Summary */}
           {hasResults && isRefined && (
             <motion.div

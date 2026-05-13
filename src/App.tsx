@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
+import AiOpsDemo from "./pages/AiOpsDemo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ const App = () => (
         <BrowserRouter basename="/arnak-zchuyot">
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/ai-ops-demo" element={<AiOpsDemo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

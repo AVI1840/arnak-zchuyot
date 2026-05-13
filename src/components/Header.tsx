@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { FeedbackModal } from '@/components/FeedbackModal';
+import { FontSizeControl } from '@/components/FontSizeControl';
 
 interface HeaderProps {
   onSearchOpen?: () => void;
@@ -36,7 +37,8 @@ export function Header({ onSearchOpen }: HeaderProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <FontSizeControl />
               {onSearchOpen && (
                 <Button
                   variant="ghost"
