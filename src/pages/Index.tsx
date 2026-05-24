@@ -98,6 +98,12 @@ const Index = () => {
     }, 100);
   }, []);
 
+  // Show scan animation and then results (used when no wizard needed)
+  const handleShowResults = useCallback(() => {
+    setIsSelectorExpanded(false);
+    setShowScanAnimation(true);
+  }, []);
+
   const eligibleRights = useMemo(
     () => getEligibleRights(selectedBenefits, isRefined ? userMetrics : undefined),
     [selectedBenefits, userMetrics, isRefined]
@@ -154,8 +160,7 @@ const Index = () => {
       if (needsRefinement && questionCount > 0) {
         setShowWizard(true);
       } else {
-        setIsSelectorExpanded(false);
-        resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+        handleShowResults();
       }
     } else {
       setIsSelectorExpanded(true);
@@ -264,8 +269,7 @@ const Index = () => {
                         if (needsRefinement && questionCount > 0) {
                           setShowWizard(true);
                         } else {
-                          setIsSelectorExpanded(false);
-                          resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+                          handleShowResults();
                         }
                       }}
                     />
@@ -284,7 +288,7 @@ const Index = () => {
                         onComplete={handleWizardComplete}
                         onClose={() => {
                           setIsSelectorExpanded(false);
-                          resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+                          setShowScanAnimation(true);
                         }}
                         inline
                       />
