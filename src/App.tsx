@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import AiOpsDemo from "./pages/AiOpsDemo";
 import NotFound from "./pages/NotFound";
 import Accessibility from "./pages/Accessibility";
+import AgentDemo from "./pages/AgentDemo";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
         <BrowserRouter basename="/arnak-zchuyot">
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/agent" element={<AgentDemo />} />
             <Route path="/ai-ops-demo" element={<AiOpsDemo />} />
             <Route path="/accessibility" element={<Accessibility />} />
             <Route path="*" element={<NotFound />} />
