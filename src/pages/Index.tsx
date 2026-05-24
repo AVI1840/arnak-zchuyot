@@ -24,6 +24,7 @@ import { useBookmarks } from '@/hooks/useBookmarks';
 import { SearchCommand } from '@/components/SearchCommand';
 import { StatsBar } from '@/components/StatsBar';
 import { ProgressSteps } from '@/components/ProgressSteps';
+import { CrossMinistrySearch } from '@/components/CrossMinistrySearch';
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'score', label: 'רלוונטיות' },
@@ -43,6 +44,7 @@ const Index = () => {
   const [activeFilter, setActiveFilter] = useState<Domain | 'all'>('all');
   const [sortBy, setSortBy] = useState<SortOption>('score');
   const [searchOpen, setSearchOpen] = useState(false);
+  const [showScanAnimation, setShowScanAnimation] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   // Bookmarks
@@ -86,11 +88,15 @@ const Index = () => {
     setIsRefined(true);
     setShowWizard(false);
     setIsSelectorExpanded(false);
-    // Scroll to results
+    setShowScanAnimation(true);
+  }, [setUserMetrics, setIsRefined]);
+
+  const handleScanComplete = useCallback(() => {
+    setShowScanAnimation(false);
     setTimeout(() => {
       resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
-  }, [setUserMetrics, setIsRefined]);
+  }, []);
 
   const eligibleRights = useMemo(
     () => getEligibleRights(selectedBenefits, isRefined ? userMetrics : undefined),
@@ -324,8 +330,13 @@ const Index = () => {
           </AnimatePresence>
         </motion.section>
 
+        {/* Scan Animation */}
+        {showScanAnimation && (
+          <CrossMinistrySearch onComplete={handleScanComplete} />
+        )}
+
         {/* Quick Filter Bar */}
-        {hasResults && (
+        {hasResults && !showScanAnimation && (
           <motion.section
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -371,6 +382,7 @@ const Index = () => {
         </div>
 
         {/* Results Section */}
+        {!showScanAnimation && (
         <div ref={resultsRef} className="results-section space-y-10 pt-4">
           {/* Stats Bar */}
           {hasResults && (
@@ -507,6 +519,7 @@ const Index = () => {
             </motion.div>
           )}
         </div>
+        )}
       </main>
 
       {/* Right Detail Modal */}
