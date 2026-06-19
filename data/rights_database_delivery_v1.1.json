@@ -1,0 +1,1755 @@
+{
+  "_meta": {
+    "name": "ארנק זכויות — מאגר זכויות והטבות",
+    "version": "1.1.0",
+    "last_updated": "2026-06-17",
+    "record_count": 102,
+    "owner": "אביעד יצחקי, מינהל גמלאות — ביטוח לאומי",
+    "update_process": "מינהל גמלאות שולח JSON מעודכן → צוות דיגיטל מחליף → build → deploy",
+    "changes_from_v1": "4 זכויות נוספו, 3 benefit types תוקנו (holocaust_families→prisoners_of_zion, righteous_gentiles→righteous_nations, blood_transfusion→general_disability), ID אחד תוקן (prisoner_zion_holocaust→prisoner_zion_certificate)"
+  },
+  "rights": [
+    {
+      "id": "water_disability",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות כללית שנקבעה להם נכות רפואית בשיעור של 70% ומעלה.\nמי שקיבל קצבת נכות כללית והזכאות הופסקה עקב הכנסותיו מעבודה – ימשיך לקבל את ההטבות הנלוות להן היה זכאי כמקבל קצבת נכות, למשך 36 חודשים",
+      "eligibility_logic": {
+        "min_medical_disability": 70
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבה. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_disability",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות כללית בעלי דרגת אי כושר בשיעור של 75% ומעלה וכן מי שנקבעה להם נכות רפואית בשיעור של 90% ומעלה",
+      "eligibility_logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "min_incapacity": 75
+          },
+          {
+            "min_medical_disability": 90
+          }
+        ]
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "tax_exemption_disability",
+      "title": "פטור מתשלום מס הכנסה",
+      "provider": "רשות המיסים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "general_disability",
+        "terror_victim"
+      ],
+      "eligibility_text": "עיוור או בעל ליקוי ראייה חמור\nנכה שנקבעה לו נכות רפואית בשיעור של 100% \nנכה שנקבעה לו נכות רפואית בשיעור של 90% מפגיעות באיברים לפי חישוב מיוחד \nנכה שנקבעה לו נכות רפואית בשיעור של 89% לצמיתות לפי חיש",
+      "eligibility_logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "min_medical_disability": 90
+          },
+          {
+            "is_blind": true
+          }
+        ]
+      },
+      "how_to_apply": "את הבקשה לפטור יש להגיש לפקיד השומה במקום המגורים. לפרטים יש לפנות  לרשות המסים 4954* או02-5656400",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "tax_purchase_disability",
+      "title": "הנחה במס רכישה על דירת מגורים או על קרקע לבניית דירת מגורים, לפי תקנות מס שבח מק",
+      "provider": "רשות המיסים - מיסוי מקרקעין",
+      "domain": "financial",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות כללית בעלי דרגת אי כושר לצמיתות בשיעור של 75% לפחות.\nאו מי שנקבעה להם נכות רפואית משוקללת לצמיתות בשיעור של 90% ומעלה.\nאו מי שנקבעה להם נכות רפואית לצמיתות בשיעור של 100%.\nאו מי שנקבעה",
+      "eligibility_logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "min_incapacity": 75
+          },
+          {
+            "min_medical_disability": 90
+          }
+        ]
+      },
+      "how_to_apply": "כדי לבדוק זכאות להנחה, יש לפנות ללשכת מיסוי מקרקעין במשרד האוצר ולצרף אישור מהביטוח הלאומי על הזכאות לקצבת נכות.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "parking_tag_disability",
+      "title": "תג חניה לנכה ופטור מאגרת רישוי רכב",
+      "provider": "משרד התחבורה והבטיחות בדרכים",
+      "domain": "transport",
+      "applicable_benefits": [
+        "general_disability",
+        "prisoners_of_zion",
+        "work_injury",
+        "special_services",
+        "terror_victim",
+        "mobility"
+      ],
+      "eligibility_text": "מי שזקוק לרכב כאמצעי תנועה עקב מגבלות רפואיות ותנועתו ללא רכב בדרכים עלולה לערער את מצב בריאותו",
+      "eligibility_logic": null,
+      "how_to_apply": "ניתן להגיש בקשה לתג חניה לנכה ללא עלות באתר משרד התחבורה. יש לצרף מסמכים רפואיים עדכניים מ-3 החודשים האחרונים המעידים על המצב הבריאות או על המוגבלות בניידות.\nלחילופין ניתן להגיש בקשה בדואר לכתובת: היח",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "transport_disability",
+      "title": "50% הנחה בתעריפי נסיעה בתחבורה ציבורית",
+      "provider": "משרד התחבורה והבטיחות בדרכים",
+      "domain": "transport",
+      "applicable_benefits": [
+        "general_disability",
+        "terror_victim",
+        "work_injury",
+        "old_age",
+        "nursing",
+        "survivors",
+        "old_age_income_support",
+        "survivors_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות כללית או נכות מעבודה או נכי פעולות איבה - ובעלי תעודת נכה מביטוח לאומי.\nשימו לב: מי שקיבל קצבת נכות כללית והזכאות הופסקה עקב הכנסותיו מעבודה – הוא ימשיך לקבל את ההטבות הנלוות להן היה ז",
+      "eligibility_logic": {
+        "min_age": 62
+      },
+      "how_to_apply": "לקבלת ההנחה יש לעדכן את פרופיל ההנחה בכרטיס הרב-קו או ביישומון (אפילקציה) לתשלום בתחבורה ציבורית טלפון החכם.",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "health_services_disability",
+      "title": "פטור מתשלום השתתפות עצמית  עבור שירותים שונים בקופות החולים (רופא מקצועי, התחייב",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות כללית, בן/בת זוג וילדיהם עד גיל 18.\nוכןמי שקיבל קצבת נכות כללית והזכאות הופסקה עקב הכנסותיו מעבודה – ימשיך לקבל את ההטבות הנלוות להן היה זכאי כמקבל קצבת נכות, למשך 36 חודשים נוספים.",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לקופות החולים רשימות של מי שעשויים להיות זכאים להטבות. ההטבות אמורות להינתן באופן אוטומטי.\nלבירורים יש לפנות לקופת החולים שבה רשום מקבל קצבת הנכות.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "land_fees_disability",
+      "title": "פטור או הנחה מתשלום דמי הסכמה להעברת מקרקעין שבבעלות מינהל מקרקעי ישראל המוחזקים",
+      "provider": "מינהל מקרקעי ישראל",
+      "domain": "housing",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות כללית שנקבעה להם נכות רפואית לצמיתות בשיעור של 80% לפחות.",
+      "eligibility_logic": {
+        "min_medical_disability": 80
+      },
+      "how_to_apply": "את הבקשה לפטור או להנחה יש להפנות למינהל מקרקעי ישראל במקום המגורים. לפרטים יש להתקשר 5575*.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_special",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "special_services"
+      ],
+      "eligibility_text": "מקבלי קצבת שירותים מיוחדים",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות על שם הזכאי, ובתעריף ביתי בלבד. אם לזכאי יש יותר מחשבון חשמל א",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "water_special",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "special_services"
+      ],
+      "eligibility_text": "מקבלי קצבה לשירותים מיוחדים בשיעור 112% ומעלה",
+      "eligibility_logic": {
+        "min_special_services_rate": 112
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "housing_special",
+      "title": "סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "special_services"
+      ],
+      "eligibility_text": "מקבלי קצבת שירותים מיוחדים בשיעור של 112%, הנמצאים בארץ פחות משנתיים.\n\nלעיתים קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": {
+        "min_special_services_rate": 112
+      },
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\n\n\n\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף. \n\n לידיעתכם, לאחר הגשת בקשה לאחת החבר",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_child",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילדים המקבלים קצבה לילד נכה בשל תלותו בעזרת הזולת או בשל טיפול רפואי מיוחד שהוא זקוק לו.\nשים לב, לא כל מקבלי גמלת ילד נכה זכאים להנחה. הביטוח הלאומי שולח הודעה למי שזכאים להנחה.",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות בתעריף ביתי בלבד ועל שם ההורה המקבל את הקצבה. אם להורה יש יותר",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "tax_credit_child",
+      "title": "קבלת שתי נקודות זיכוי במס הכנסה",
+      "provider": "רשות המיסים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילדים המקבלים קצבה לילד נכה",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המיסים רשימות של מי שעשויים להיות זכאים להטבה.\nלבירורים יש לפנות לרשות המיסים.",
+      "is_automatic": true,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "pension_tax_child",
+      "title": "פטור ממס על משיכה מוקדמת של קופות גמל",
+      "provider": "רשות המיסים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילד הזכאי לקצבת ילד נכה יציבה (לצמיתות), יכולים לפנות לביטוח הלאומי לצורך קביעת אחוזים רפואיים לילדם.\n אם תקבע לילד נכות בשיעור של 75% לפחות לצמיתות, עשויים ההורים להיות זכאים לפטור, בתנאי שהנכ",
+      "eligibility_logic": {
+        "is_permanent_disability": true
+      },
+      "how_to_apply": "את הבקשה יש להגיש באמצעות טופס בל/3533.\nהשירות אינו כרוך בתשלום ואין צורך לצרף מסמכים.\nהביטוח הלאומי מעביר לרשות המסים רשימות של מי שעשויים להיות זכאים להטבות. לבירורים יש לפנות לרשות המסים.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "housing_renovation_child",
+      "title": "הלוואה לרכישת דירה לחסרי דירה.\nסיוע במימון שיפוצים בדירה.",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילדים המקבלים קצבה לילד נכה.  קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": null,
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון.\n\nלידיעתכם, לאחר הגשת בקשה, משרד השיכון פונה לביטוח הלאומי לקבלת מידע על זכאותכם לקצבאות.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "welfare_services_child",
+      "title": "מגוון תוכניות, שירותים ומענים לילדים, כגון: שילוב במעונות יום שיקומיים, נופשונים",
+      "provider": "משרד הרווחה",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "ילד עם מוגבלות והוריו, בהתאם לצרכים ומאפיינים שייבדקו, כמו גיל וסוג המוגבלות.",
+      "eligibility_logic": null,
+      "how_to_apply": "פרטים ומידע לגבי אופן קבלת ההטבות – באתר האינטרנט \"קליק לרווחה\".\n לבירורים יש לפנות למשרד הרווחה - המחלקה לשירותים חברתיים.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "school_aide_child",
+      "title": "מימון סייעת לגן ולבית הספר",
+      "provider": "משרד החינוך",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "מקבלי קצבה לילד נכה מגיל שלוש ומעלה",
+      "eligibility_logic": null,
+      "how_to_apply": "לבירורים יש לפנות למשרד החינוך",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "parking_tag_child",
+      "title": "תו חניה לנכה ופטור מאגרת רישוי לרכב",
+      "provider": "משרד התחבורה והבטיחות בדרכים",
+      "domain": "transport",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילדים המקבלים קצבה לילד נכה הזקוק לרכב כאמצעי תנועה עקב מגבלות רפואיות ותנועתו ללא רכב בדרכים עלולה לערער את מצב בריאותו.",
+      "eligibility_logic": null,
+      "how_to_apply": "כדי לבחון זכאות לתג חניה לנכה יש להגיש בקשה באופן מקוון באתר משרד התחבורה (באמצעות מערכת ההזדהות הלאומית), ולצרף מסמכים רפואיים עדכניים (מ-3 חודשים אחרונים).\n לחילופין ניתן להגיש בקשה בדואר לכתובת: הי",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "health_services_mobility",
+      "title": "פטור מאגרות בעד שירותים רפואיים",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "mobility"
+      ],
+      "eligibility_text": "ילדים עד גיל 18 ו-3 חודשים הזכאים לקצבת ניידות",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לקופות החולים רשימות של מי שעשויים להיות זכאים להטבות. ההטבה אמורה להינתן באופן אוטומטי.\nלבירורים יש לפנות לקופת החולים שבה רשום מקבל הקצבה.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_child",
+      "title": "הנחה במסי ארנונה. את שיעור ההנחה קובעת הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילדים המקבלים קצבה לילד נכה",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להטבות.לצורך קבלת ההטבה, יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "water_child",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילדים המקבלים קצבה לילד נכה",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של ההורה מקבל הקצבה צריכה להיות מעודכנת במשרד הפנים.\nההנחה אמורה להינתן באופן אוטומטי.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "senior_card_old_age",
+      "title": "תעודת אזרח ותיק, המזכה בהנחות ובהטבות במוסדות השונים.",
+      "provider": "המשרד לשוויון חברתי",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "old_age",
+        "old_age_income_support"
+      ],
+      "eligibility_text": "אזרחי ישראל מגיל פרישה ומעלה (נשים מגיל 62 ומעלה, בהתאם לתאריך לידתן,  וגברים מגיל 67 ומעלה)",
+      "eligibility_logic": {
+        "min_age": 62
+      },
+      "how_to_apply": "המשרד לשוויון חברתי שולח את התעודה באופן אוטומטי לכתובתו של הזכאי. מתן התעודה אינו מותנה בקבלת קצבת אזרח ותיק. \nטלפון לבקשת התעודה 02-6547025 או 8840*\nניתן להנפיק בטלפון הנייד תעודת אזרח ותיק דיגיטלית",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "health_services_old_age_is",
+      "title": "הנחות ברכישת תרופות הכלולות בסל הבריאות ופטור מתשלום השתתפות עצמית בעבור שירותים",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "old_age_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת אזרח ותיק עם תוספת השלמת הכנסה, ומקבלי קצבת זקנה עם השלמה לקצבת נכות",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לקופות החולים רשימות של מי שעשויים להיות זכאים להטבות. ההטבות אמורות להינתן באופן אוטומטי.\nלבירורים יש לפנות לקופת החולים שבה רשום מקבל הקצבה.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "phone_old_age_is",
+      "title": "50% הנחה בדמי שימוש קבועים בתשלום חשבון הטלפון",
+      "provider": "חברת \"בזק\"",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "old_age_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת אזרח ותיק עם תוספת השלמת הכנסה וכן מקבלי קצבת אזרח ותיק עם השלמה לקצבת נכות",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "החוק אינו חל על מי שמחובר לחברות טלפון אחרות כמו \"הוט\" ו\"נטוויזן\". הביטוח הלאומי מעביר לחברת בזק רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nקו \"בזק\" צריך להיות בדירה למ",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_old_age_is",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "old_age_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת אזרח ותיק עם תוספת השלמת הכנסה וכן מקבלי קצבת אזרח ותיק עם השלמה לקצבת נכות.",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות על שם הזכאי, ובתעריף ביתי בלבד. אם לזכאי יש יותר מחשבון חשמל א",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "housing_old_age_is",
+      "title": "סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "old_age_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת אזרח ותיק בתוספת השלמת הכנסה\nמקבלי קצבת אזרח ותיק לנכה (השלמה לקצבת נכות)\n\nלידיעתכם, קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_old_age",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "old_age",
+        "old_age_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת אזרח ותיק עם תוספת השלמת הכנסה, וכן מקבלי קצבת אזרח ותיק עם השלמה לקצבת נכות\n\nמקבלי קצבת אזרח ותיק מגיל פרישה ומעלה (נשים מגיל 62 וגברים מגיל 67),\n\n\nמקבלי הבטחת הכנסה שהם מעל גיל פרישה, גם ",
+      "eligibility_logic": {
+        "min_age": 62,
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_survivors_is",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "survivors_income_support"
+      ],
+      "eligibility_text": "מקבלי השלמת הכנסה מתחת לגיל פרישה שיש עימהם שלושה ילדים (ילד משמעו על פי הגדרת ילד)\nאו  מקבלי קצבת שארים עם תוספת השלמת הכנסה שמעל לגיל הפרישה",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להטבות.\nשים לב שחשבון החשמל חייב להיות על שם הזכאי, ובתעריף ביתי בלבד. אם לזכאי יש יותר מחשבון חשמל אחד על שמו, עליו להסדיר את קבלת ההנ",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "housing_survivors_is",
+      "title": "סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "survivors_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת שאירים עם תוספת השלמת הכנסה.\n\n קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "health_services_survivors_is",
+      "title": "הנחה ברכישת תרופות ופטור מאגרות בעד שירותים רפואיים",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "survivors_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת שאירים מעל גיל פרישה המקבלים תוספת השלמת הכנסה",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לקופות החולים רשימות של מי שעשויים להיות זכאים להטבות. \n\nלבירורים יש לפנות לקופת החולים שבה רשום הזכאי.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_survivors_is",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "survivors_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת שאירים מעל גיל פרישה בתוספת השלמת הכנסה,\n וכן מי שמקבל קצבת שאירים מתחת גיל פרישה בתוספת להשלמת הכנסה אשר היו זכאים להשלמת הכנסה בחודש דצמבר 2002 ולא היתה הפסקה של שישה חודשים רצופים בזכאות",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "phone_survivors_is",
+      "title": "50% הנחה עבור דמי שימוש קבועים בתשלום חשבון הטלפון",
+      "provider": "חברת \"בזק\"",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "survivors_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת שאירים עם תוספת השלמת הכנסה",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "החוק אינו חל על מי שמחובר לחברות טלפון אחרות כמו \"הוט\" ו\"נטוויזן\". הביטוח הלאומי מעביר לחברת בזק רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nקו \"בזק\" צריך להיות בדירה למ",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "legal_aid_work_injury",
+      "title": "ייעוץ משפטי חינם, הנחות בחנויות, מפעלים ועוד",
+      "provider": "ארגון הנכים",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות מעבודה בעלי דרגת נכות קבועה של 20% ומעלה, וכן אלמן/ה של נכה מעבודה המקבל קצבה מביטוח לאומי.",
+      "eligibility_logic": {
+        "min_work_injury_disability": 20
+      },
+      "how_to_apply": "דמי החברות לארגון מנוכים מדי חודש מקצבתו של הנכה . אם ברצונך  לבטל את הניכוי לארגון הנכים, עליך לפנות בכתב  לביטוח הלאומי ולבקש לבטלו.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "life_insurance_work_injury",
+      "title": "ביטוח חיים",
+      "provider": "ביטוח חיים הדדי",
+      "domain": "financial",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות מעבודה בעלי דרגת נכות קבועה בלבד של 20% ומעלה",
+      "eligibility_logic": {
+        "min_work_injury_disability": 20
+      },
+      "how_to_apply": "דמי הביטוח מנוכים בכל חודש מקצבתו של הנכה. במקרה של פטירה, יש לברר את הזכויות לתשלום עם חברת הביטוח. אם בדעתך לבטל את הניכוי , עליך לפנות בבקשה בכתב אל הביטוח הלאומי.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_work_injury",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מי שהוכר כנפגע עבודה על ידי הביטוח הלאומי ואשר נקבעה לו דרגת נכות זמנית או קבועה  של 90% לפחות.מקבלי קצבת נכות מעבודה מעל גיל פרישה",
+      "eligibility_logic": {
+        "min_work_injury_disability": 90
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "tax_exemption_work_injury",
+      "title": "הנחה או פטור מתשלום מס הכנסה",
+      "provider": "רשות המיסים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מי שנקבעה לו נכות רפואית בשיעור של 90% לפחות .\nלתשומת לב - אם נקבעה לו נכות רפואית בשיעור 90% כתוצאה מחישוב משוקלל של כמה ליקויים, אחד מהליקויים צריך להיות בשיעור 40% לפחות.",
+      "eligibility_logic": {
+        "min_medical_disability": 90
+      },
+      "how_to_apply": "את הבקשה ניתן לעשות באמצעות עריכת תיאום מס מקוון לשנה הנוכחית באתר רשות המיסים.\nאו להגיש בקשה בכתב בצירוף אישורים רלוונטיים לפקיד השומה הקרוב למקום מגוריך. לפרטים יש לפנות  לרשות המסים בטלפון 4954* או",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "tax_purchase_work_injury",
+      "title": "הנחה במס רכישה",
+      "provider": "רשות המיסים - מיסוי מקרקעין",
+      "domain": "financial",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מי שנקבעה לו דרגת נכות רפואית לצמיתות בשיעור של ‎ 100%או נכות של ‎90%  על-פי חישוב משוקלל, בשל צבירת נכויות באיברים שונים\nמי שהוא קטוע יד או רגל, או משותק, ובשל הפגיעה נקבעה לו דרגת נכות לצמיתות של ‎5",
+      "eligibility_logic": {
+        "min_medical_disability": 100
+      },
+      "how_to_apply": "יש להגיש בקשה לפטור חלקי ממס רכישה ללשכת מיסוי מקרקעין ולצרף אליה מסמכים רלוונטיים. מידע נוסף ניתן למצוא באתר רשות המיסים.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "health_services_work_injury",
+      "title": "פטור מתשלום אגרות שונות בעת רישום פעולות ועסקאות במקרקעין.",
+      "provider": "משרד המשפטים - אגף רשם מקרקעין",
+      "domain": "legal",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות מעבודה",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות לאגף רשם מקרקעין במשרד המשפטים עם אישור מהביטוח הלאומי על הזכאות לקצבת נכות מעבודה.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "towing_mobility",
+      "title": "שגריר שרותי דרך וגרירה",
+      "provider": "שרותי גרירה",
+      "domain": "transport",
+      "applicable_benefits": [
+        "mobility"
+      ],
+      "eligibility_text": "מוגבל בניידות שרכש רכב באמצעות הלוואה עומדת ומקבל קצבת ניידות, זכאי לשירותי גרירה, ללא רכב חלופי.",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת הגרירה, בהתחלת כל רבעון, רשימות של מי שעשויים להיות זכאים לשירותי גרירה.\n\n מספר הטלפון של מוקד הגרירה:\n8888*",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "water_mobility",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "mobility"
+      ],
+      "eligibility_text": "מקבלי קצבת ניידות",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבה. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_alimony",
+      "title": "הנחה במיסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "alimony"
+      ],
+      "eligibility_text": "מקבלות דמי מזונות מהביטוח הלאומי",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "alimony_enforce_alimony",
+      "title": "אפשר לפנות להוצאה לפועל, כדי לגבות את ההפרשים שלא שולמו על ידי החייב.",
+      "provider": "הוצאה לפועל",
+      "domain": "legal",
+      "applicable_benefits": [
+        "alimony"
+      ],
+      "eligibility_text": "מקבלות דמי מזונות מהביטוח הלאומי",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות להוצאה לפועל ולהציג אישור מהביטוח הלאומי כדי לגבות את ההפרשים.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_alimony",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "alimony"
+      ],
+      "eligibility_text": "מקבלות דמי מזונות מהביטוח הלאומי,  שהן הורה יחיד -  ולהן 3 ילדים או יותר\nאו שאינן הורה יחיד ולהן 4 ילדים  או יותר.",
+      "eligibility_logic": {
+        "min_children": 3,
+        "is_single_parent": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להנחה. ההנחה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות על שם הזכאי, ובתעריף ביתי בלבד. אם לזכאי יש יותר מחשבון חשמל אח",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "housing_income_support",
+      "title": "סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "חסרי דירה המקבלים קצבת הבטחת הכנסה. קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": null,
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "employment_income_support",
+      "title": "סיוע במימון מסגרות לילדים, סל שעות גמיש והכשרה מקצועית.",
+      "provider": "משרד העבודה, הרווחה והשירותים החברתיים",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי גמלת הבטחת הכנסה שהם הורים עצמאיים (משפחות חד הוריות), המעוניינים להשתלב בשוק העבודה.",
+      "eligibility_logic": null,
+      "how_to_apply": "פרטים על התכנית לעידוד תעסוקה להורים יחידים, אפשר למצוא באתר משרד הרווחה או בטלפון: 03-6562310",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "phone_income_support",
+      "title": "50% הנחה בעבור דמי שימוש קבועים בתשלום חשבון הטלפון",
+      "provider": "חברת \"בזק\"",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי גמלה  להבטחת הכנסה",
+      "eligibility_logic": null,
+      "how_to_apply": "החוק אינו חל על מי שמחובר לחברות טלפון אחרות כמו \"הוט\" ו\"נטוויזן\". הביטוח הלאומי מעביר לחברת בזק רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nקו \"בזק\" צריך להיות בדירה למ",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_income_support",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי גמלה להבטחת הכנסה או השלמת הכנסה שהם הורה יחיד ל- 3 ילדים ומעלה או משפחה בת 4 ילדים ומעלה\nנשים מעל גיל 62 המקבלות גמלה להבטחת הכנסה",
+      "eligibility_logic": {
+        "requires_income_support": true,
+        "min_children": 3,
+        "is_single_parent": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להטבות. ההטבה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות על שם הזכאי, ובתעריף ביתי בלבד. אם לזכאי יש יותר מחשבון חשמל א",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "child_development_income_support",
+      "title": "פטור מתשלום בעבור ביקור במכונים להתפתחות הילד בקופות החולים.",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי גמלה להבטחת הכנסה שהם הורים לילד עד גיל 9.",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לקופות החולים רשימות של מי שעשויים להיות זכאים להטבות. \n\nלבירורים יש לפנות לקופת החולים בה חבר הזכאי.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "benefit_income_support",
+      "title": "הנחה בתשלום עבור מעונות יום ומשפחתונים מוכרים",
+      "provider": "מעונות יום ובתי ספר",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "ילדים שהוריהם מקבלים גמלת הבטחת הכנסה",
+      "eligibility_logic": null,
+      "how_to_apply": "לבירורים יש לפנות למשרד הרווחה",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "housing_alimony",
+      "title": "סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "alimony"
+      ],
+      "eligibility_text": "מקבלות דמי מזונות מהביטוח הלאומי. קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": null,
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "transport_income_support",
+      "title": "50% הנחה בתעריפי נסיעהבתחבורה הציבורית",
+      "provider": "משרד התחבורה והבטיחות בדרכים",
+      "domain": "transport",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי גמלת הבטחת הכנסה",
+      "eligibility_logic": null,
+      "how_to_apply": "ההנחה ניתנת למימוש באמצעות \"רב-קו\" או ישומונים בסמארטפון לתשלום בתחבורה ציבורית שטעון בו הפרופיל המזכה בהנחה. \nיש להטעין \"רב-קו\" עם הזכאות להנחה לאחר שעודכן בפרופיל המתאים באחד ממרכזי השירות להנפקת \"ר",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "foreign_worker_nursing",
+      "title": "העסקת עובד זר",
+      "provider": "משרד הפנים - רשות האוכלוסין וההגירה",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "nursing"
+      ],
+      "eligibility_text": "מקבל גמלת סיעוד ברמה 3 ומעלה וכן מי שנקבעה לו גמלה בשיעור זה והגמלה הופחתה עקב הכנסות.\nמקבל גמלת סיעוד שצבר בהערכת התלות 4.5 נקודות\nמקבל גמלת סיעוד \"בודד\" שצבר 4 נקודות בהערכת התלות\nמקבל גמלת סיעוד בן",
+      "eligibility_logic": {
+        "min_nursing_level": 3
+      },
+      "how_to_apply": "תוצאות בדיקת התלות של המבוטח נמסרות ישירות מהביטוח הלאומי לרשות ההגירה. שים לב, רשות ההגירה מסתמכת על נקודות התלות שנקבעו על ידי הביטוח הלאומי.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_nursing",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "nursing"
+      ],
+      "eligibility_text": "מקבלי גמלת סיעוד ברמה 5 או ברמה 6, וכן מקבלי גמלת סיעוד ברמה 4 שמלאו להם 90 שנים, וכן מי שנקבעה להם גמלה בשיעור זה, אבל הגמלה הופחתה עקב הכנסות.",
+      "eligibility_logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "min_nursing_level": 5
+          },
+          {
+            "min_nursing_level": 4,
+            "min_age": 90
+          }
+        ]
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להנחה. ההנחה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות על שם הזכאי, ובתעריף ביתי בלבד. אם לזכאי יש יותר מחשבון חשמל אח",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "hospitalization_nursing",
+      "title": "עזרה במימון מטפל/ת ל-50 שעות טיפול בלבד למשך חודשיים מיום השחרור מאשפוז. המטפל/ת",
+      "provider": "קרן לרווחת ניצולי השואה",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "nursing"
+      ],
+      "eligibility_text": "ניצול שואה שהשתחרר מאשפוז בבית חולים ואינו מקבל גמלת סיעוד או גמלת שירותים מיוחדים מביטוח לאומי, ובתנאי שההכנסה החודשית של הניצול אינה עולה על סכום ההכנסה המקסימאלי שנקבע על ידי הרשות לזכויות ניצולי ש",
+      "eligibility_logic": null,
+      "how_to_apply": "בזמן האשפוז יש להגיש בקשה באמצעות העובד הסוציאלי בבית החולים בו הניצול מאושפז.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "water_nursing",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "nursing"
+      ],
+      "eligibility_text": "מקבלי גמלת סיעוד ברמה 3 ומעלה, וכן מי שנקבעה לו גמלה בשיעור הזה, אבל הגמלה הופחתה עקב הכנסות",
+      "eligibility_logic": {
+        "min_nursing_level": 3
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים את הרשימות של מי שעשויים להיות זכאים להטבה. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "tax_purchase_terror",
+      "title": "הנחה במס רכישה על דירת מגורים או על קרקע לבניית דירת מגורים, לפי תקנות מס שבח מק",
+      "provider": "רשות המיסים - מיסוי מקרקעין",
+      "domain": "financial",
+      "applicable_benefits": [
+        "terror_victim"
+      ],
+      "eligibility_text": "אלמנים, הורים שכולים, יתומים עד גיל 40 ונכים בעלי דרגות נכות בשיעור 19% ומעלה לצמיתות.",
+      "eligibility_logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "min_terror_disability": 19
+          },
+          {
+            "is_family_of_fallen": true
+          }
+        ]
+      },
+      "how_to_apply": "כדי לקבל את ההטבה יש לפנות למחלקת נפגעי איבה בסניף הביטוח הלאומי ולקבל מהם אישור על קבלת תגמולים מהביטוח הלאומי. את האישור יש להגיש ללשכת מיסוי מקרקעין בנציבות מס הכנסה.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "mortgage_terror",
+      "title": "פטור מאגרת רישום משכנתא",
+      "provider": "משרד המשפטים - אגף רשם מקרקעין",
+      "domain": "legal",
+      "applicable_benefits": [
+        "terror_victim"
+      ],
+      "eligibility_text": "נכים מפעולת איבה בעלי דרגת נכות בשיעור של 20% ויותר לצמיתות \n נכים מפעולת איבה בעלי דרגת נכות בשיעור של 10% ויותר שהוכרו כנפגעי איבה לפני 01.01.1996.\nבני/בנות זוג של הנפגעים",
+      "eligibility_logic": {
+        "min_terror_disability": 20
+      },
+      "how_to_apply": "כדי לקבל את ההטבה יש לפנות למחלקת נפגעי איבה בסניף הביטוח הלאומי ולקבל מהם אישור על קבלת תגמולים מהביטוח הלאומי. את האישור יש להגיש ללשכת רישום מקרקעין.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "land_fees_terror",
+      "title": "פטור או הנחה בתשלום דמי הסכמה להעברת מקרקעין שבבעלות מינהל מקרקעי ישראל המוחזקים",
+      "provider": "מינהל מקרקעי ישראל",
+      "domain": "housing",
+      "applicable_benefits": [
+        "terror_victim"
+      ],
+      "eligibility_text": "נכים מפעולת איבה בעלי דרגת נכות של 50% או יותר, אלמנים, יתומים עד גיל 21, יתומים ששכלו את שני ההורים בפעולות איבה\n(ללא הגבלת גיל) והורים שכולים",
+      "eligibility_logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "min_terror_disability": 50
+          },
+          {
+            "is_family_of_fallen": true
+          }
+        ]
+      },
+      "how_to_apply": "כדי לקבל את ההטבה יש לפנות למחלקת נפגעי איבה בסניף הביטוח הלאומי ולקבל מהם אישור על קבלת תגמולים מהביטוח הלואמי. את האישור יש להגיש למינהל מקרקעי ישראל.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_holocaust",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "prisoners_of_zion"
+      ],
+      "eligibility_text": "מי שהוכר כאסיר ציון ומקבל לפחות את אחד התגמולים הבאים:\nתגמול לאסיר ציון נכה.\nתגמול לאסיר ציון על פי הכנסה.",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "benefit_terror",
+      "title": "פטור מחובת תשלום אגרה בעד פעולות הרשם לענייני ירושה",
+      "provider": "רשם לענייני ירושה",
+      "domain": "legal",
+      "applicable_benefits": [
+        "terror_victim"
+      ],
+      "eligibility_text": "אלמנים/ות, יתומים, אחים והורים שכולים של מי שנפטרו מפיגוע איבה",
+      "eligibility_logic": null,
+      "how_to_apply": "כדי לקבל את ההטבה הזו, יש לפנות למחלקת נפגעי איבה בסניף הביטוח הלאומי הקרוב למקום המגורים ולקבל אישור על קבלת תגמולים מהביטוח הלאומי. את האישור יש לשלוח לרשם לענייני ירושה.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "tax_income_income_support",
+      "title": "מענק הכנסה (\"מס הכנסה שלילי\").",
+      "provider": "רשות המיסים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "income_support",
+        "general_disability",
+        "alimony",
+        "survivors",
+        "old_age",
+        "old_age_income_support",
+        "survivors_income_support"
+      ],
+      "eligibility_text": "עובדים המשתכרים עד רמת שכר מסויימת.",
+      "eligibility_logic": null,
+      "how_to_apply": "לפרטים נוספים ניתן לפנות למוקד הטלפוני של רשות המסים שמספרו 02-5656400, 4954* או באתר האינטרנט של רשות המסים בישראל.",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "water_old_age_is",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "old_age_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת אזרח ותיק לנכה (השלמה לקצבת נכות)\n\nמקבלי קצבת אזרח ותיק בתוספת השלמת הכנסה",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים את רשימות מי שעשויים להיות זכאים להטבה. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים.  ההנחה אמורה להינתן באופן אוטומטי.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_nursing",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "nursing"
+      ],
+      "eligibility_text": "מקבלי גמלת סיעוד",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_mobility",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "mobility"
+      ],
+      "eligibility_text": "מי שנקבעה לו דרגת מוגבלות בניידות של 90% לפחות",
+      "eligibility_logic": {
+        "min_mobility": 90
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_income_support",
+      "title": "הנחה במיסי ארנונה. \nאת שיעור ההנחה  קובעת הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי גמלה להבטחת הכנסה אשר היו זכאים לקצבה בחודש דצמבר 2002 ולא היתה להם הפסקה של 6 חודשים רצופים בקבלת הקצבה.",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להטבה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית. לצורך קבלת ההטבה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "tax_purchase_child",
+      "title": "הנחה במס רכישה על קניית דירה.",
+      "provider": "רשות המיסים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "הורים לילד הזכאי לקצבת ילד נכה יציבה (לצמיתות), יכולים לפנות לביטוח הלאומי לצורך קביעת אחוזים רפואיים לילדם.\n אם תקבע לילד נכות רפואית בשיעור של 100% (או 90% נכות רפואית משוקללת מכמה ליקויים). \nזכאי ל",
+      "eligibility_logic": {
+        "min_medical_disability": 100
+      },
+      "how_to_apply": "את הבקשה יש להגיש באמצעות טופס בל/3533.\nהשירות אינו כרוך בתשלום ואין צורך לצרף מסמכים.\nהביטוח הלאומי מעביר לרשות המסים רשימות של מי שעשויים להיות זכאים להטבות. לבירורים יש לפנות ללשכת מיסוי מקרקעין.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "tuition_alimony",
+      "title": "השתתפות בשכר לימוד, במעונות יום, במשפחתונים ובצהרונים",
+      "provider": "משרד העבודה",
+      "domain": "employment",
+      "applicable_benefits": [
+        "alimony"
+      ],
+      "eligibility_text": "מקבלות דמי מזונות מהביטוח הלאומי",
+      "eligibility_logic": null,
+      "how_to_apply": "לבדיקת הזכאות יש למלא באתר האישי הממשלתי \"בקשה מקוונת לקבלת דרגה והשתתפות במימון\". לבירורים וסיוע במילוי הבקשה ניתן להתקשר למוקד מעונות יום, משפחתונים וצהרונים בטלפון 12222969 או*2969",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_righteous",
+      "title": "הנחה במסי ארנונה. את שיעור ההנחה קובעת הרשות המקומית.",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "righteous_nations"
+      ],
+      "eligibility_text": "מי שהוכר כחסיד אומות העולם ומתגורר בישראל",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_terror",
+      "title": "הנחה במסי ארנונה. גובה ההנחה נקבע על ידי הרשות המקומית",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "terror_victim"
+      ],
+      "eligibility_text": "נכי איבה בעלי דרגת נכות בשיעור של 10% או יותראלמנים/ות, יתומים משני הורים והורים שכולים של נפגעי פעולות איבה",
+      "eligibility_logic": {
+        "min_terror_disability": 10
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "housing_mobility",
+      "title": "סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "mobility"
+      ],
+      "eligibility_text": "מוגבלים בניידות הזקוקים/רתוקים לכיסא גלגלים. קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": null,
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "tax_purchase_mobility",
+      "title": "הנחה במס רכישה על דירת מגורים או על קרקע לבניית דירת מגורים, לפי תקנות מס שבח מק",
+      "provider": "רשות המיסים - מיסוי מקרקעין",
+      "domain": "financial",
+      "applicable_benefits": [
+        "mobility"
+      ],
+      "eligibility_text": "נכה משיתוק או קטוע יד או קטוע רגל המוגבל בניידות בשיעור 50% לפחות",
+      "eligibility_logic": {
+        "min_mobility": 50
+      },
+      "how_to_apply": "כדי לקבל את ההטבה יש לפנות ללשכת מיסוי מקרקעין בנציבות מס הכנסה.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "foreign_worker_special",
+      "title": "העסקת עובד זר",
+      "provider": "משרד הפנים - רשות האוכלוסין וההגירה",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "special_services"
+      ],
+      "eligibility_text": "מקבלי קצבת שירותים מיוחדים",
+      "eligibility_logic": null,
+      "how_to_apply": "תוצאות בדיקת התלות של המבוטח נמסרות ישירות מהביטוח הלאומי לרשות ההגירה. שים לב, רשות ההגירה מסתמכת על נקודות התלות שנקבעו על ידי הביטוח הלאומי.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "rehabilitation_mobility",
+      "title": "סיוע במימון מכשירי שיקום וניידות (תותבות שונות, כסאות גלגלים, הליכונים מיוחדים, ",
+      "provider": "משרד הבריאות",
+      "domain": "health",
+      "applicable_benefits": [
+        "mobility",
+        "child_disability",
+        "general_disability",
+        "nursing",
+        "special_services"
+      ],
+      "eligibility_text": "תושבים בעלי נכות קבועה וזקוקים למכשירי שיקום וניידות עשויים להיות זכאים לסיוע במימון המכשירים.",
+      "eligibility_logic": null,
+      "how_to_apply": "את הבקשה לסיוע יש להגיש לפני ביצוע רכישת המכשיר. \nיש לפנות לרופא המשפחה בקופת החולים בה חבר המבקש. \nלפרטים נוספים ניתן לפנות גם ללשכת הבריאות המחוזית הקרובה לאזור מגוריו של המבקש.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "health_services_child",
+      "title": "פטור מאגרות בעד שירותים רפואיים",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "ילדים הזכאים לקצבת ילד נכה",
+      "eligibility_logic": null,
+      "how_to_apply": "הביטוח הלאומי מעביר לקופות החולים רשימות של מי שעשויים להיות זכאים להטבות. ההטבה אמורה להינתן באופן אוטומטי.\nלבירורים יש לפנות לקופת החולים שבה חבר הילד הזכאי לקצבה.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "water_income_support",
+      "title": "הכרה כחייל בודד בעת הגיוס לצה\"ל, המזכה בתשלומים מוגדלים וזכויות אחרות.",
+      "provider": "צה\"ל",
+      "domain": "employment",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי קצבה מיוחדת בהבטחת הכנסה",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות למוקד \"בודדים\" בטלפון 03-7375200",
+      "is_automatic": false,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "driving_income_support",
+      "title": "מימון ליווי של מורה מוסמך בתקופה שלאחר קבלת הרישיון.​",
+      "provider": "משרד התחבורה והבטיחות בדרכים",
+      "domain": "transport",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "נהג חדש צעיר, הזכאי לקצבה מיוחדת בהבטחת הכנסה,  שאין לו מי שילווה אותו​.",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות למשרד התחבורה. פרטים באתר משרד התחבורהwww.mot.gov.il /נהג חדש ומלווה",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "water_survivors_is",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך​",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "survivors_income_support"
+      ],
+      "eligibility_text": "מקבלי קצבת שאירים מעל גיל פרישה המקבלים תוספת השלמת הכנסה​",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.\n​",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "water_terror",
+      "title": "כמות מים נוספת של עד 3.5 מ\"ק לחודש בתעריף הנמוך​",
+      "provider": "רשות המים",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "terror_victim"
+      ],
+      "eligibility_text": "נכים מפעולת איבה בעלי דרגת נכות בשיעור של 50% ומעלה או המקבלים מהביטוח הלאומי תשלומי מחייה קבועים (תשלומי מחייה קבועים הינם לשלוש שנים לפחות).",
+      "eligibility_logic": {
+        "min_terror_disability": 50
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לרשות המים רשימות של מי שעשויים להיות זכאים להטבות. כתובת המגורים של הזכאי צריכה להיות מעודכנת במשרד הפנים. ההטבה אמורה להינתן באופן אוטומטי.\n​",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "welfare_services_child_78",
+      "title": "מגוון תוכניות שירותים ומענים לילדים כגון: שילוב במעונות יום שיקומיים, נופשונים ו",
+      "provider": "משרד הרווחה",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "child_disability"
+      ],
+      "eligibility_text": "ילדים עם מוגבלות והוריהם, בהתאם לצרכים ומאפיינים שייבדקו, כמו גיל וסוג המוגבלות.​",
+      "eligibility_logic": null,
+      "how_to_apply": "פרטים ומידע לגבי אופן קבלת ההטבות – באתר האינטרנט \"קליק לרווחה\".\n לבירורים יש לפנות למשרד הרווחה - המחלקה לשירותים חברתיים.​",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "electricity_terror",
+      "title": "50% הנחה עבור 400 קוט\"ש ראשונים בתשלום חשבון החשמל​ החודשי",
+      "provider": "חברת החשמל",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "terror_victim"
+      ],
+      "eligibility_text": "נכים מפעולת איבה בעלי דרגת נכות בשיעור של 50% ומעלה או המקבלים מהביטוח הלאומי תשלומי מחיה קבועים (תשלומי מחיה קבועים הינם לשלוש שנים לפחות).",
+      "eligibility_logic": {
+        "min_terror_disability": 50
+      },
+      "how_to_apply": "הביטוח הלאומי מעביר לחברת החשמל רשימות של מי שעשויים להיות זכאים להטבות. ההנחה אמורה להינתן באופן אוטומטי.\nשים לב שחשבון החשמל חייב להיות בתעריף ביתי בלבד ועל שם ההורה המקבל את הקצבה. אם להורה יש יותר",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "water_child_80",
+      "title": "הורה רשאי להיעדר מעבודתו עד 18 ימים בשנה על חשבון ימי מחלה לצורך סיוע אישי לילד ",
+      "provider": "כללי",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "child_disability",
+        "mobility",
+        "general_disability",
+        "work_injury",
+        "general_disability",
+        "terror_victim"
+      ],
+      "eligibility_text": "מי שעובד לפחות שנה אצל אותו מעסיק והוא הורה או אפוטרופוס או הורה אומנה לילד או לבוגר עם מוגבלות קבועה שנמצא בחזקתו, והזכות להיעדרות מהעבודה באותו יום לא נוצלה על ידי ההורה השני.​",
+      "eligibility_logic": null,
+      "how_to_apply": "על העובד לפנות ישירות למעסיק לצורך מימוש הזכאות.\nהמעסיק רשאי לבקש מהעובד הצהרות ואישורים רלוונטיים.\n​",
+      "is_automatic": false,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "housing_disability",
+      "title": "סל שיקום\n(סל שירותים מקיף, הכולל  שירותי ייעוץ, ליווי ותמיכה בתחומי חיים שונים: ",
+      "provider": "משרד הבריאות",
+      "domain": "health",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות כללית שנקבע להם ליקוי רפואי נפשי בשיעור 40% ומעלה.​",
+      "eligibility_logic": {
+        "min_mental_disability": 40
+      },
+      "how_to_apply": "לצורך קבלת סיוע ניתן להיעזר, בין היתר, באחד מהגורמים הבאים:\nמרפאת בריאות הנפש\nמחלקה לשירותים חברתיים\nגורם מטפל (רופא, פסיכיאטר, עובד סוציאלי, פסיכולוג)",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "housing_renovation_work_injury",
+      "title": "סיוע במימון שיפוצים ושינויים בדירה, החיוניים לניידות בדירה ולדרכי הגישה אליה​",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות מעבודה המוגבלים בתנועה​ ולא מקבלים מימון להתאמת הדירה מביטוח לאומי או ממשרד הבטחון. קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": null,
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\n\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "nii_exempt_disability",
+      "title": "פטור מתשלום דמי ביטוח לאומי​",
+      "provider": "ביטוח לאומי",
+      "domain": "financial",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבל קצבת נכות כללית שאין לו הכנסה\nמקבל קצבת נכות כללית בשיעור של 75% ומעלה לצמיתות או לתקופה רצופה של שנה לפחות שיש לו הכנסות - פטור מתשלום דמי ביטוח לאומי בתקופת קבלת  הקצבה. שימו לב:\nעובד שכיר - המ",
+      "eligibility_logic": {
+        "operator": "OR",
+        "conditions": [
+          {
+            "no_income": true
+          },
+          {
+            "min_incapacity": 75
+          }
+        ]
+      },
+      "how_to_apply": "עובד שכיר צריך להציג למעסיק אישור מהביטוח הלאומי על פטור מתשלום דמי ביטוח. לכל השאר הפטור ניתן באופן אוטומטי.",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "nii_exempt_work_injury",
+      "title": "פטור מתשלום דמי ביטוח לאומי​",
+      "provider": "ביטוח לאומי",
+      "domain": "financial",
+      "applicable_benefits": [
+        "work_injury"
+      ],
+      "eligibility_text": "מקבל קצבת נכות מעבודה בשיעור של 100% לצמיתות פטור מתשלום דמי ביטוח לאומי בתקופה שבה הוא מקבל את הקצבה, גם אם יש לו הכנסה שלא מעבודה.\nאולם אם הוא עובד שכיר - המעסיק חייב לשלם עבורו דמי ביטוח לאומי לענפ",
+      "eligibility_logic": {
+        "min_work_injury_disability": 100
+      },
+      "how_to_apply": "עובד שכיר צריך להציג למעסיק אישור מהביטוח הלאומי על פטור מתשלום דמי ביטוח. לכל השאר הפטור ניתן באופן אוטומטי.​",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "tax_credit_disability",
+      "title": "​קבלת שתי נקודות זיכוי במס הכנסה",
+      "provider": "רשות המיסים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "​הורים לילדים בגירים שנקבעה להם דרגת אי כושר של 74% ומעלה לצמיתות, והילדים תלויים בהורים.",
+      "eligibility_logic": {
+        "min_incapacity": 74
+      },
+      "how_to_apply": "​לקבלת ההטבה יש לפנות למשרד מס הכנסה בבקשה לתיאום מס לשנה הנוכחית או בקשה להחזר מס עבור שנים קודמות.",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "benefit_nursing",
+      "title": "הגדלת גמלת סיעוד בשווי 9 שעות סיעוד​",
+      "provider": "קרן לרווחת ניצולי השואה",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "nursing"
+      ],
+      "eligibility_text": "ניצולי שואה שזכאים לגמלת סיעוד ברמה 4 ומעלה וכן ניצולי שואה נקבעו להם 6 נקודות בהערכת התלות.​",
+      "eligibility_logic": {
+        "min_nursing_level": 4
+      },
+      "how_to_apply": "יש לפנות ישירות לקרן לרווחת ניצולי שואה עם אישור מהביטוח הלאומי על הזכאות לגמלת סיעוד​",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "bank_fees_disability",
+      "title": "הנחה בגביית עמלות עבור 4 פעולות בחודש שבוצעו על-ידי פקיד הבנק, ויחושבו כמו 4 פעו",
+      "provider": "בנקים",
+      "domain": "financial",
+      "applicable_benefits": [
+        "general_disability",
+        "work_injury",
+        "terror_victim",
+        "special_services",
+        "prisoners_of_zion"
+      ],
+      "eligibility_text": "מי שנקבעה לו דרגת נכות בשיעור 40% ומעלה על ידי הביטוח הלאומי או על ידי משרד הביטחון​",
+      "eligibility_logic": {
+        "min_work_injury_disability": 40
+      },
+      "how_to_apply": "לצורך קבלת ההטבה יש לפנות לבנק בו מתנהל חשבונך ולהציג אישור מביטוח לאומי או משרד הביטחון על אחוזי הנכות שנקבעו.\nלבירורים ותלונות, ניתן לפנות אל המחלקה לפניות הציבור של הבנק.\nלתשומת לב - ההטבה לא תקפה ",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "transport_old_age",
+      "title": "פטור מתשלום בתחבורה ציבורית",
+      "provider": "משרד התחבורה והבטיחות בדרכים",
+      "domain": "transport",
+      "applicable_benefits": [
+        "old_age",
+        "nursing",
+        "old_age_income_support"
+      ],
+      "eligibility_text": "אזרחים ותיקים מגיל 67 ומעלה (לפי חודש הלידה)",
+      "eligibility_logic": {
+        "min_age": 67
+      },
+      "how_to_apply": "לקבלת הפטור יש לעדכן פרופיל \"זהב- קו\" בכרטיס הרב-קו או ביישומון (אפליקציה) לתשלום בתחבורה הציבורית בטלפון החכם.",
+      "is_automatic": false,
+      "primary_display_priority": 2,
+      "source_verified": true
+    },
+    {
+      "id": "water_old_age",
+      "title": "טיפולי שיניים משמרים, מונעים ומשקמים במסגרת סל הבריאות. חלק מהטיפולים ניתנים בחי",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "old_age",
+        "nursing",
+        "old_age_income_support"
+      ],
+      "eligibility_text": "אזרחים ותיקים שמלאו להם 72 ומעלה​",
+      "eligibility_logic": null,
+      "how_to_apply": "השירות ניתן במרפאות השיניים של קופות החולים ובמרפאות שבהסדר עם קופות החולים.על פי הצורך מטופלים יופנו גם לטיפולים מסוימים בבתי חולים. לשם כך צריך לקבל מקופת החולים הפניה וטופס התחייבות (טופס 17).\n​",
+      "is_automatic": false,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "health_tax_exempt_righteous",
+      "title": "פטור מתשלום דמי ביטוח בריאות\n​",
+      "provider": "ביטוח לאומי",
+      "domain": "financial",
+      "applicable_benefits": [
+        "righteous_nations"
+      ],
+      "eligibility_text": "מי שהוכר כחסיד אומות העולם ומתגורר בישראל​",
+      "eligibility_logic": null,
+      "how_to_apply": "הפטור ניתן באופן אוטומטי על ידי הביטוח הלאומי\n​",
+      "is_automatic": true,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "health_services_righteous",
+      "title": "פטור מהשתתפות עצמית במימון אשפוז סיעודי​",
+      "provider": "משרד הבריאות",
+      "domain": "health",
+      "applicable_benefits": [
+        "righteous_nations"
+      ],
+      "eligibility_text": "מי שהוכר כחסיד אומות העולם ומתגורר בישראל.​",
+      "eligibility_logic": null,
+      "how_to_apply": "ההטבה ניתנת באמצעות משרד הבריאות. למימוש הזכאות יש לפנות לקופת החולים בה חבר הזכאי.​",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "housing_righteous",
+      "title": "זכאות לסיוע בפתרון דיור ובשכר דירה​",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "righteous_nations"
+      ],
+      "eligibility_text": "מי שהוכר כחסיד אומות העולם ומתגורר בישראל.​ קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": null,
+      "how_to_apply": "למימוש הזכאות יש לפנות אל המחלקה לשירותים חברתיים שבאזור מגוריו כדי לקבל סיוע במימוש זכויות הדיור ממשרד הבינוי והשיכון וחברות השיכון. לאחר מימוש זכויות אלו, ניתן לבדוק השלמת סיוע בשכר דירה.​",
+      "is_automatic": false,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "medical_care_holocaust",
+      "title": "טיפול רפואי ואביזרים רפואיים​",
+      "provider": "קופת חולים",
+      "domain": "health",
+      "applicable_benefits": [
+        "prisoners_of_zion"
+      ],
+      "eligibility_text": "אסיר ציון נכה, זכאי לטיפול רפואי שיינתן באמצעות קופות החולים ובתי החולים שהוסמכו לתת שירות רפואי עבור הליקויים שהוכרו בוועדה הרפואית.",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות לביטוח לאומי לקבלת התחייבות​",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "prisoner_zion_certificate",
+      "title": "תעודת אסיר ציון​",
+      "provider": "משרד העלייה והקליטה",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "prisoners_of_zion"
+      ],
+      "eligibility_text": "מי שהוכר כאסיר ציון על ידי הרשות לאסירי ציון והרוגי מלכות.​",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות למשרד העלייה והקליטה לצורך אישור הזכאות והנפקת התעודה​",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "employment_alimony",
+      "title": "​הכשרה מקצועית",
+      "provider": "משרד העבודה",
+      "domain": "employment",
+      "applicable_benefits": [
+        "alimony"
+      ],
+      "eligibility_text": "​מקבלות דמי מזונות מהביטוח הלאומי",
+      "eligibility_logic": null,
+      "how_to_apply": "​לבירורים לגבי תוכניות רלוונטיות יש לפנות ללשכת שירותי התעסוקה.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true
+    },
+    {
+      "id": "housing_disability_96",
+      "title": "סיוע בתשלום שכר דירה לשכירת דירה בשוק החופשי (שלא מבני משפחה) או סיוע בדיור ציבו",
+      "provider": "משרד הבינוי והשיכון",
+      "domain": "housing",
+      "applicable_benefits": [
+        "general_disability"
+      ],
+      "eligibility_text": "מקבלי קצבת נכות בעלי דרגת אי כושר בשיעור של 75% ומעלה. לידיעתכם, קבלת ההטבה מותנית בתנאים נוספים.",
+      "eligibility_logic": {
+        "min_incapacity": 75
+      },
+      "how_to_apply": "ההטבה אינה ניתנת באופן אוטומטי.\nלבירור תנאי הזכאות ולהגשת בקשה לסיוע יש לפנות למשרד הבינוי והשיכון או לאחת החברות הבאות: אלונים (מקבוצת MGROUP), מילגם או מעוף.\nלידיעתכם, לאחר הגשת בקשה לאחת החברות, מש",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "arnona_survivors",
+      "title": "הנחה במסי ארנונה, גובה ההנחה נקבע על ידי הרשות המקומית",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "survivors"
+      ],
+      "eligibility_text": "​מקבלי קצבת שארים מעל גיל פרישה בתוספת השלמת הכנסה",
+      "eligibility_logic": {
+        "requires_income_support": true
+      },
+      "how_to_apply": "​הביטוח הלאומי מעביר לרשויות המקומיות רשימות של מי שעשויים להיות זכאים להנחה.\n\nההנחה ניתנת על פי הכללים הקיימים של כל רשות מקומית, לפיכך לקבלת ההנחה יש לפנות לרשות המקומית.",
+      "is_automatic": true,
+      "primary_display_priority": 1,
+      "source_verified": true
+    },
+    {
+      "id": "lone_soldier_income_support",
+      "title": "הכרה כחייל בודד בעת הגיוס לצה\"ל, המזכה בתשלומים מוגדלים וזכויות אחרות",
+      "provider": "צה\"ל",
+      "domain": "employment",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "מקבלי קצבה מיוחדת בהבטחת הכנסה",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות למוקד \"בודדים\" בטלפון 03-7375200",
+      "is_automatic": false,
+      "primary_display_priority": 1,
+      "source_verified": true,
+      "estimated_value": 5000,
+      "popularity_score": 70
+    },
+    {
+      "id": "work_absence_child_disability",
+      "title": "היעדרות מעבודה עד 18 ימים בשנה על חשבון ימי מחלה לסיוע לילד/בוגר עם מוגבלות",
+      "provider": "כללי",
+      "domain": "welfare",
+      "applicable_benefits": [
+        "child_disability",
+        "mobility",
+        "general_disability",
+        "work_injury",
+        "terror_victim"
+      ],
+      "eligibility_text": "מי שעובד לפחות שנה אצל אותו מעסיק והוא הורה או אפוטרופוס או הורה אומנה לילד או לבוגר עם מוגבלות קבועה שנמצא בחזקתו, והזכות להיעדרות מהעבודה באותו יום לא נוצלה על ידי ההורה השני.",
+      "eligibility_logic": null,
+      "how_to_apply": "על העובד לפנות ישירות למעסיק לצורך מימוש הזכאות. המעסיק רשאי לבקש מהעובד הצהרות ואישורים רלוונטיים.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true,
+      "estimated_value": 500,
+      "popularity_score": 60
+    },
+    {
+      "id": "arnona_adult_disability_with_parents",
+      "title": "הנחה בארנונה להורים שגר עמם בוגר עם נכות כללית",
+      "provider": "רשות מקומית",
+      "domain": "utilities",
+      "applicable_benefits": [
+        "general_disability",
+        "child_disability"
+      ],
+      "eligibility_text": "החל מינואר 2026, כל בוגר המקבל קצבת נכות כללית והגר בבית הוריו מזכה אותם בהנחה בארנונה של עד 33%, גם אם מעולם לא הוכר כילד נכה.",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות לרשות המקומית עם אישור מהביטוח הלאומי על קבלת קצבת נכות כללית. ההנחה ניתנת על פי הכללים של כל רשות מקומית.",
+      "is_automatic": false,
+      "primary_display_priority": 1,
+      "source_verified": true,
+      "estimated_value": 5000,
+      "popularity_score": 75
+    },
+    {
+      "id": "driving_new_driver_income_support",
+      "title": "מימון ליווי של מורה מוסמך בתקופה שלאחר קבלת הרישיון",
+      "provider": "משרד התחבורה והבטיחות בדרכים",
+      "domain": "transport",
+      "applicable_benefits": [
+        "income_support"
+      ],
+      "eligibility_text": "נהג חדש צעיר, הזכאי לקצבה מיוחדת בהבטחת הכנסה, שאין לו מי שילווה אותו.",
+      "eligibility_logic": null,
+      "how_to_apply": "יש לפנות למשרד התחבורה. פרטים באתר משרד התחבורה www.mot.gov.il — נהג חדש ומלווה.",
+      "is_automatic": false,
+      "primary_display_priority": 3,
+      "source_verified": true,
+      "estimated_value": 2000,
+      "popularity_score": 50
+    }
+  ]
+}

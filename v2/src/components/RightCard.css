@@ -1,0 +1,82 @@
+.right-card {
+  padding: var(--spacing-3);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  height: 100%;
+}
+
+.right-card:focus-visible {
+  outline: 2px solid var(--color-border-accent);
+  outline-offset: 2px;
+}
+
+.right-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+}
+
+.right-card__domain-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.right-card__domain-icon--housing { background: var(--color-domain-housing); }
+.right-card__domain-icon--health { background: var(--color-domain-health); }
+.right-card__domain-icon--transport { background: var(--color-domain-transport); }
+.right-card__domain-icon--utilities { background: var(--color-domain-utilities); }
+.right-card__domain-icon--financial { background: var(--color-domain-financial); }
+.right-card__domain-icon--welfare { background: var(--color-domain-welfare); }
+.right-card__domain-icon--employment { background: var(--color-domain-employment); }
+.right-card__domain-icon--legal { background: var(--color-domain-legal); }
+
+.right-card__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.right-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  margin-bottom: var(--spacing-1);
+}
+
+.right-card__provider {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.right-card__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.right-card__footer {
+  padding-top: var(--spacing-2);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.right-card__cta {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-500);
+}

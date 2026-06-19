@@ -1,8 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy V2 to GitHub Pages
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
@@ -21,29 +22,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      # Build V1 (original — keeps its existing base /arnak-zchuyot/)
-      - run: npm install
-      - run: npm run build
-
-      # Build V2 (BTL Design System — base /arnak-zchuyot/v2/)
-      - run: npm install
+          cache: npm
+          cache-dependency-path: v2/package-lock.json
+      - run: npm ci
         working-directory: v2
       - run: npm run build
         working-directory: v2
-
-      # Assemble: V1 at root, V2 at /v2/, landing at /compare.html
-      - name: Assemble deployment
-        run: |
-          mkdir -p _site
-          cp -r dist/* _site/
-          mkdir -p _site/v2
-          cp -r v2/dist/* _site/v2/
-          cp landing.html _site/compare.html
-
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: v2/dist
 
   deploy:
     environment:
