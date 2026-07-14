@@ -183,6 +183,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 40000,
     popularity_score: 60,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/service/itc1516',
   },
   {
     id: 'parking_tag_disability',
@@ -1367,6 +1368,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 12000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/departments/topics/housing-assistance',
   },
   {
     id: 'housing_renovation_child',
@@ -1457,6 +1459,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 12000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/departments/topics/housing-assistance',
   },
   {
     id: 'housing_old_age_is',
@@ -1472,6 +1475,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 12000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/departments/topics/housing-assistance',
   },
   {
     id: 'housing_survivors_is',
@@ -1487,6 +1491,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 12000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/departments/topics/housing-assistance',
   },
   {
     id: 'housing_income_support',
@@ -1502,6 +1507,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 12000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/departments/topics/housing-assistance',
   },
   {
     id: 'housing_alimony',
@@ -1517,6 +1523,7 @@ export const RIGHTS_DATABASE: Right[] = [
     estimated_value: 12000,
     popularity_score: 75,
     source_verified: true,
+    action_link: 'https://www.gov.il/he/departments/topics/housing-assistance',
   },
   {
     id: 'housing_renovation_work_injury',
@@ -1849,6 +1856,46 @@ export interface RightWithScore extends Right {
   matchScore: number;
   eligibilityLevel: EligibilityLevel;
   totalScore: number;
+  /** When dedup merges multiple records, this shows which benefit grants this right */
+  grantingBenefit?: string;
+}
+
+/**
+ * Deduplication group mapping — groups rights by their semantic type.
+ * Rights with the same dedup_group are considered the same benefit
+ * and only the highest-scoring one is displayed.
+ */
+const DEDUP_GROUP_PREFIXES: [string, string][] = [
+  ['arnona_', 'הנחה בארנונה'],
+  ['water_', 'הנחת מים'],
+  ['electricity_', 'הנחת חשמל'],
+  ['housing_disability_96', 'סיוע בדיור — נכות כללית'],
+  ['housing_old_age_is', 'סיוע בדיור — אזרח ותיק'],
+  ['housing_survivors_is', 'סיוע בדיור — שארים'],
+  ['housing_income_support', 'סיוע בדיור — הבטחת הכנסה'],
+  ['housing_alimony', 'סיוע בדיור — מזונות'],
+  ['housing_mobility', 'סיוע בדיור — ניידות'],
+  ['housing_special', 'סיוע בדיור — שירותים מיוחדים'],
+  ['phone_', 'הנחת טלפון'],
+  ['tax_purchase_', 'הנחה במס רכישה'],
+  ['health_services_', 'פטור השתתפות עצמית בקופ"ח'],
+  ['transport_disability', 'הנחה בתחבורה ציבורית'],
+  ['transport_income_support', 'הנחה בתחבורה ציבורית'],
+  ['transport_old_age', 'פטור מתחבורה ציבורית'],
+  ['tax_exemption_', 'פטור ממס הכנסה'],
+  ['nii_exempt_', 'פטור מדמי ביטוח לאומי'],
+  ['foreign_worker_', 'העסקת עובד זר'],
+  ['work_absence_child_disability', 'היעדרות מעבודה לסיוע לילד'],
+  ['water_child_80', 'היעדרות מעבודה לסיוע לילד'],
+];
+
+function getDedupGroup(rightId: string): string | null {
+  for (const [prefix, group] of DEDUP_GROUP_PREFIXES) {
+    if (rightId.startsWith(prefix) || rightId === prefix) {
+      return group;
+    }
+  }
+  return null;
 }
 
 export function getEligibleRights(
@@ -1896,23 +1943,50 @@ export function getEligibleRights(
 
   eligibleRights.sort((a, b) => b.totalScore - a.totalScore);
 
-  // Deduplicate: first by id, then by title (keep highest score when same benefit appears from multiple sources)
+  // === DEDUP: Group by semantic type, keep highest score, annotate granting benefit ===
+  // Step 1: Remove exact ID duplicates
   const byId = new Map<string, RightWithScore>();
   for (const right of eligibleRights) {
     if (!byId.has(right.id)) {
       byId.set(right.id, right);
     }
   }
-  // Second pass: merge by title — when user selects multiple benefits that yield the same right
-  const byTitle = new Map<string, RightWithScore>();
+
+  // Step 2: Group by dedup group — same type of benefit shown once with best value
+  const byGroup = new Map<string, RightWithScore>();
+  const ungrouped: RightWithScore[] = [];
+
   for (const right of byId.values()) {
+    const group = getDedupGroup(right.id);
+    if (group) {
+      const existing = byGroup.get(group);
+      if (!existing || right.totalScore > existing.totalScore) {
+        // Annotate which benefit grants this right
+        const grantingBenefit = right.applicable_benefits
+          .filter(b => selectedBenefits.includes(b))
+          .map(b => BENEFIT_LABELS[b])
+          .join(', ');
+        byGroup.set(group, { ...right, grantingBenefit: grantingBenefit || undefined });
+      }
+    } else {
+      ungrouped.push(right);
+    }
+  }
+
+  // Step 3: Also dedup ungrouped by exact title (legacy fallback)
+  const byTitle = new Map<string, RightWithScore>();
+  for (const right of ungrouped) {
     const existing = byTitle.get(right.title);
     if (!existing || right.totalScore > existing.totalScore) {
       byTitle.set(right.title, right);
     }
   }
 
-  return Array.from(byTitle.values());
+  // Combine: grouped + ungrouped deduped
+  const result = [...byGroup.values(), ...byTitle.values()];
+  result.sort((a, b) => b.totalScore - a.totalScore);
+
+  return result;
 }
 
 export type SortOption = 'score' | 'value' | 'popularity' | 'automatic';

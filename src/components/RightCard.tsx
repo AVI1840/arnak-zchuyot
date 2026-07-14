@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Right, Domain, DOMAIN_LABELS } from '@/data/rightsDatabase';
+import { Right, Domain, DOMAIN_LABELS, RightWithScore } from '@/data/rightsDatabase';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 interface RightCardProps {
-  right: Right;
+  right: Right & { grantingBenefit?: string };
   index: number;
 }
 
@@ -72,6 +72,11 @@ export function RightCard({ right, index }: RightCardProps) {
                 <Building2 className="w-3 h-3" />
                 {right.provider}
               </CardDescription>
+              {right.grantingBenefit && (
+                <p className="text-xs text-muted-foreground mt-1 font-medium">
+                  מכוח: {right.grantingBenefit}
+                </p>
+              )}
             </div>
             <div className="text-left">
               <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
